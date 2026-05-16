@@ -313,8 +313,8 @@
 /* Large Phones (576px - 767px) */
 @media (max-width: 767px) {
     .hero {
-        padding: 2.5rem 0 1.5rem;
-        min-height: auto;
+        padding: 5rem 0 3rem;
+        min-height: 100dvh;
         text-align: center;
     }
 
@@ -402,7 +402,8 @@
 /* Small Phones (up to 575px) */
 @media (max-width: 575px) {
     .hero {
-        padding: 4.5rem 0 1.5rem;
+        padding: 4.5rem 0 2rem;
+        min-height: 100dvh;
     }
 
     .hero-eyebrow {
