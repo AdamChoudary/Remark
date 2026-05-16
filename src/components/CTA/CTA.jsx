@@ -37,24 +37,28 @@ function CTA() {
 
                 <div className="cta-form reveal reveal-delay-1">
                     <div className="form-actions">
-                        <Button href="mailto:contact@devtechsolutions.com" variant="primary">
+                        <Button href="mailto:hello@remarkstudio.agency" variant="primary">
                             Start Conversation <i className="ri-arrow-right-line"></i>
                         </Button>
                         <span className="form-note mono">
-                            or email directly: <a href="mailto:contact@devtechsolutions.com">contact@devtechsolutions.com</a>
+                            or email directly: <a href="mailto:hello@remarkstudio.agency">hello@remarkstudio.agency</a>
                         </span>
                     </div>
                 </div>
 
                 {/* Quick links */}
                 <div className="cta-links reveal reveal-delay-2">
-                    <a href="https://www.instagram.com/dev.tech.solutions?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="cta-link">
+                    <a href="https://www.instagram.com/remark_studios" target="_blank" rel="noopener noreferrer" className="cta-link">
                         <i className="ri-instagram-line"></i>
                         <span>Instagram</span>
                     </a>
-                    <a href="https://github.com/AdamChoudary/" target="_blank" rel="noopener noreferrer" className="cta-link">
-                        <i className="ri-github-line"></i>
-                        <span>GitHub</span>
+                    <a href="https://www.tiktok.com/@remark.studio" target="_blank" rel="noopener noreferrer" className="cta-link">
+                        <i className="ri-tiktok-line"></i>
+                        <span>TikTok</span>
+                    </a>
+                    <a href="https://wa.me/923355970322" target="_blank" rel="noopener noreferrer" className="cta-link">
+                        <i className="ri-whatsapp-line"></i>
+                        <span>WhatsApp</span>
                     </a>
                 </div>
             </div>

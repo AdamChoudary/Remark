@@ -43,9 +43,11 @@ function Footer() {
                         </div>
                         <div className="footer-col">
                             <span className="footer-col-title mono">Connect</span>
-                            <a href="https://www.instagram.com/dev.tech.solutions?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">Instagram</a>
-                            <a href="mailto:contact@devtechsolutions.com">Email</a>
-                            <a href="https://github.com/AdamChoudary/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://www.instagram.com/remark_studios" target="_blank" rel="noopener noreferrer">Instagram</a>
+                            <a href="https://www.tiktok.com/@remark.studio" target="_blank" rel="noopener noreferrer">TikTok</a>
+                            <a href="https://www.facebook.com/remarkstudio1" target="_blank" rel="noopener noreferrer">Facebook</a>
+                            <a href="https://wa.me/923355970322" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                            <a href="mailto:hello@remarkstudio.agency">Email</a>
                         </div>
                     </div>
                 </div>
