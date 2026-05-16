@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+/* =========================================
+   Remark Studio - Cinematic Editorial Design
+   -----------------------------------------
+   Aesthetic: Creative Authority + Modern Precision
+   Theme: Studio Crimson & Warm Surface
+   Accent: #9E0000 (Studio Crimson)
+   Primary: #271815 (Ink Black / Dark Earth)
+   Light: #fff8f6 (Warm Surface)
+   Headlines: Montserrat
+   Body: Inter
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap');
+
+:root {
+    /* Primary Palette */
+    --void: #fff8f6;
+    --surface: #fff8f6;
+    --surface-alt: #f1d3cf;
+    --elevated: #ffe9e6;
+    --elevated-hover: #ffe2dd;
+    
+    /* Text */
+    --text: #271815;
+    --text-secondary: #5b403c;
+    --text-muted: #906f6a;
+    
+    /* Brand */
+    --accent: #9E0000;
+    --accent-dim: rgba(158, 0, 0, 0.08);
+    --accent-glow: rgba(158, 0, 0, 0.15);
+    --primary: #9E0000;
+    --primary-dim: rgba(158, 0, 0, 0.1);
+    
+    /* Dark Surface (for dark sections) */
+    --void-dark: #1a0f0d;
+    --text-on-dark: #fff8f6;
+    --text-secondary-on-dark: #e4beb8;
+    --text-muted-on-dark: #906f6a;
+    
+    /* Borders */
+    --border: #e4beb8;
+    --border-strong: #906f6a;
+    --stroke-subtle: #E2E2E2;
+    
+    /* Effects */
+    --gradient-spotlight: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(158, 0, 0, 0.06), transparent 40%);
+    --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    scroll-padding-top: 100px;
+}
+
+body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+}
+
+/* Film grain overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* TYPOGRAPHY */
+h1,
+h2,
+h3,
+h4,
+.heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.mono {
+    font-family: 'Inter', sans-serif;
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+/* LAYOUT */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+
+.container-wide {
+    max-width: 1600px;
+}
+
+section {
+    position: relative;
+}
+
+/* LINKS */
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s var(--ease-out);
+}
+
+/* REVEAL ANIMATIONS - smoother timing */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+    will-change: opacity, transform;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 {
+    transition-delay: 0.12s;
+}
+
+.reveal-delay-2 {
+    transition-delay: 0.24s;
+}
+
+.reveal-delay-3 {
+    transition-delay: 0.36s;
+}
+
+.reveal-delay-4 {
+    transition-delay: 0.48s;
+}
+
+.reveal-delay-5 {
+    transition-delay: 0.6s;
+}
+
+/* STAGGER ANIMATIONS */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes filmCounter {
+    0% {
+        content: '00';
+    }
+
+    25% {
+        content: '08';
+    }
+
+    50% {
+        content: '16';
+    }
+
+    75% {
+        content: '24';
+    }
+
+    100% {
+        content: '30';
+    }
+}
+
+@keyframes subtleGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(255, 91, 4, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 91, 4, 0.1);
+    }
+}
+
+/* SELECTION */
+::selection {
+    background: var(--accent);
+    color: var(--void);
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* RESPONSIVE UTILITIES */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+/* DARK SECTION UTILITY */
+.dark-section {
+    background-color: var(--void-dark) !important;
+    color: var(--text-on-dark) !important;
+}
+
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section h4,
+.dark-section .heading {
+    color: var(--text-on-dark) !important;
+}
+
+.dark-section p,
+.dark-section .text-secondary {
+    color: var(--text-secondary-on-dark) !important;
+}
+
+.dark-section .text-muted {
+    color: var(--text-muted-on-dark) !important;
+}
+
+/* Smooth focus states for accessibility */
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
