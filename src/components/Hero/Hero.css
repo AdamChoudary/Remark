@@ -313,7 +313,7 @@
 /* Large Phones (576px - 767px) */
 @media (max-width: 767px) {
     .hero {
-        padding: 140px 0 60px;
+        padding: 180px 0 60px;
         min-height: 100dvh;
         display: flex;
         flex-direction: column;
@@ -453,7 +453,7 @@
 /* Small Phones (up to 575px) */
 @media (max-width: 575px) {
     .hero {
-        padding: 120px 0 40px;
+        padding: 150px 0 40px;
     }
 
     .hero-title {
