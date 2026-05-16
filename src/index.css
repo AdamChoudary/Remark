@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 /* =========================================
-   Remark Studio - Cinematic Editorial Design
+   Remark Studio - Cinematic Dark Editorial
    -----------------------------------------
    Aesthetic: Creative Authority + Modern Precision
-   Theme: Studio Crimson & Warm Surface
+   Theme: Deep Dark & Studio Crimson
    Accent: #9E0000 (Studio Crimson)
-   Primary: #271815 (Ink Black / Dark Earth)
-   Light: #fff8f6 (Warm Surface)
+   Primary: #FFFFFF (Pure White)
+   Backgrounds: Deep (#0A0A0A), Med (#141414), Light (#1C1C1C)
    Headlines: Montserrat
    Body: Inter
    ========================================= */
@@ -15,38 +15,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap');
 
 :root {
-    /* Primary Palette */
-    --void: #fff8f6;
-    --surface: #fff8f6;
-    --surface-alt: #f1d3cf;
-    --elevated: #ffe9e6;
-    --elevated-hover: #ffe2dd;
+    /* Primary Dark Palette */
+    --void: #0A0A0A;
+    --surface: #141414;
+    --surface-alt: #1C1C1C;
+    --elevated: #262626;
+    --elevated-hover: #333333;
     
-    /* Text */
-    --text: #271815;
-    --text-secondary: #5b403c;
-    --text-muted: #906f6a;
+    /* Text (High Contrast on Dark) */
+    --text: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.85);
+    --text-muted: rgba(255, 255, 255, 0.65);
     
     /* Brand */
     --accent: #9E0000;
-    --accent-dim: rgba(158, 0, 0, 0.08);
-    --accent-glow: rgba(158, 0, 0, 0.15);
+    --accent-dim: rgba(158, 0, 0, 0.15);
+    --accent-glow: rgba(158, 0, 0, 0.3);
     --primary: #9E0000;
-    --primary-dim: rgba(158, 0, 0, 0.1);
-    
-    /* Dark Surface (for dark sections) */
-    --void-dark: #1a0f0d;
-    --text-on-dark: #fff8f6;
-    --text-secondary-on-dark: #e4beb8;
-    --text-muted-on-dark: #906f6a;
+    --primary-dim: rgba(158, 0, 0, 0.2);
     
     /* Borders */
-    --border: #e4beb8;
-    --border-strong: #906f6a;
-    --stroke-subtle: #E2E2E2;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    --stroke-subtle: rgba(255, 255, 255, 0.05);
     
     /* Effects */
-    --gradient-spotlight: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(158, 0, 0, 0.06), transparent 40%);
+    --gradient-spotlight: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(158, 0, 0, 0.08), transparent 40%);
     --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -63,6 +57,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     scroll-padding-top: 100px;
+    background: var(--void);
 }
 
 body {
@@ -137,8 +132,8 @@ a {
 /* REVEAL ANIMATIONS - smoother timing */
 .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
 }
 
@@ -258,7 +253,7 @@ a {
 /* SELECTION */
 ::selection {
     background: var(--accent);
-    color: var(--void);
+    color: #FFFFFF;
 }
 
 /* SCROLLBAR */
@@ -271,9 +266,8 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 3px;
-    transition: background 0.3s;
+    background: var(--border-strong);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -285,29 +279,6 @@ a {
     html {
         font-size: 14px;
     }
-}
-
-/* DARK SECTION UTILITY */
-.dark-section {
-    background-color: var(--void-dark) !important;
-    color: var(--text-on-dark) !important;
-}
-
-.dark-section h1,
-.dark-section h2,
-.dark-section h3,
-.dark-section h4,
-.dark-section .heading {
-    color: var(--text-on-dark) !important;
-}
-
-.dark-section p,
-.dark-section .text-secondary {
-    color: var(--text-secondary-on-dark) !important;
-}
-
-.dark-section .text-muted {
-    color: var(--text-muted-on-dark) !important;
 }
 
 /* Smooth focus states for accessibility */

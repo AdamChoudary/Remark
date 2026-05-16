@@ -1,7 +1,7 @@
 .work {
     padding: 6rem 0;
-    background: var(--void-dark);
-    color: var(--text-on-dark);
+    background: var(--surface-alt);
+    color: var(--text);
 }
 
 .work-header {
@@ -23,7 +23,7 @@
 }
 
 .work-title .text-muted {
-    color: var(--text-muted-on-dark);
+    color: var(--text-muted);
 }
 
 /* Work grid */
@@ -36,13 +36,14 @@
 .work-item {
     position: relative;
     padding: 2.5rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all var(--transition-smooth);
     display: flex;
     flex-direction: column;
     min-height: 280px;
-    border-radius: 4px;
+    border-radius: 8px;
+    color: #1a1a1a;
 }
 
 .work-item::before {
@@ -55,10 +56,10 @@
 }
 
 .work-item:hover {
+    transform: translateY(-5px);
     border-color: var(--accent);
-    transform: translateY(-3px);
-    background: var(--elevated);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 1);
 }
 
 .work-item:hover::before {
@@ -87,17 +88,17 @@
 
 .work-category {
     font-size: 0.75rem;
-    color: var(--text-muted-on-dark);
+    color: #666;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .work-metric {
     font-size: 0.7rem;
-    color: var(--text-secondary-on-dark);
+    color: #555;
     padding: 0.25rem 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
 }
 
 .work-item-title {
@@ -112,8 +113,8 @@
 }
 
 .work-item-desc {
-    font-size: 0.9rem;
-    color: var(--text-secondary); /* This is inside a light card, so keep it dark text */
+    font-size: 0.95rem;
+    color: #444;
     line-height: 1.6;
     margin-top: auto;
     position: relative;

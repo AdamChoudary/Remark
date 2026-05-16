@@ -1,6 +1,6 @@
 .testimonial {
     padding: 0 0 10rem;
-    background: var(--void);
+    background: var(--surface);
     position: relative;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .quote-mark {
-    font-family: 'Clash Display', serif;
+    font-family: 'Montserrat', serif;
     font-size: 8rem;
     font-weight: 700;
     color: var(--accent);
@@ -21,9 +21,9 @@
 }
 
 .testimonial-quote {
-    font-family: 'Clash Display', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: clamp(1.5rem, 3.5vw, 2.75rem);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.4;
     margin-bottom: 3rem;
     letter-spacing: -0.01em;
@@ -63,9 +63,9 @@
 }
 
 .author-name {
-    font-family: 'Clash Display', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .author-title {
@@ -82,9 +82,9 @@
     align-items: center;
     gap: 3rem;
     padding: 2.5rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
 }
 
 .metric-item {
@@ -95,17 +95,17 @@
 }
 
 .metric-value {
-    font-family: 'Clash Display', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
-    font-weight: 600;
-    color: var(--text);
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
 .metric-label {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
+    color: #666;
 }
 
 .metric-divider {
