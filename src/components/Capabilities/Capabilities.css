@@ -142,14 +142,28 @@
 
 @media (max-width: 768px) {
     .capabilities {
-        padding: 4rem 0;
+        padding: 5rem 0 0;
+    }
+
+    .capabilities-header {
+        margin-bottom: 3rem;
+        text-align: center;
     }
 
     .cap-grid {
         grid-template-columns: 1fr;
+        margin-bottom: 3rem;
     }
 
     .cap-card {
         padding: 2rem;
+    }
+
+    .capabilities-loop-text {
+        font-size: 2rem;
+    }
+
+    .curved-loop-jacket {
+        margin-top: 2rem;
     }
 }

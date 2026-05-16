@@ -139,12 +139,30 @@
 
 @media (max-width: 768px) {
     .narrative {
-        padding: 6rem 0;
+        padding: 5rem 0;
+    }
+
+    .narrative-header {
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .problem-grid {
+        margin-bottom: 4rem;
+    }
+
+    .problem-card {
+        padding: 2rem;
     }
 
     .solution {
         grid-template-columns: 1fr;
         gap: 2rem;
+        text-align: center;
+    }
+
+    .solution-content {
+        margin: 0 auto;
     }
 
     .solution-line {

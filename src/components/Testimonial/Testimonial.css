@@ -117,20 +117,33 @@
 /* Responsive */
 @media (max-width: 768px) {
     .testimonial {
-        padding: 6rem 0;
+        padding: 0 0 5rem;
     }
 
     .quote-mark {
-        font-size: 5rem;
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .testimonial-quote {
+        margin-bottom: 2rem;
+    }
+
+    .testimonial-author {
+        margin-bottom: 3rem;
     }
 
     .metrics-bar {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 2rem;
         padding: 2rem;
     }
 
     .metric-divider {
         display: none;
+    }
+
+    .metric-value {
+        font-size: 1.75rem;
     }
 }

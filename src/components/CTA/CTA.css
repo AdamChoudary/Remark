@@ -148,10 +148,28 @@
 /* Responsive */
 @media (max-width: 768px) {
     .cta {
-        padding: 6rem 0;
+        padding: 5rem 0;
+    }
+
+    .cta-content {
+        margin-bottom: 2.5rem;
+    }
+
+    .cta-title {
+        font-size: 2.5rem;
+    }
+
+    .cta-form {
+        margin-bottom: 2.5rem;
     }
 
     .form-row {
         grid-template-columns: 1fr;
+    }
+
+    .cta-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
 }
