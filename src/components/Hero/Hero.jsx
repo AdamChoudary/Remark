@@ -64,11 +64,13 @@ function Hero() {
                         <div className="trust-logos">
                             <span className="trust-logo">Web Development</span>
                             <span className="trust-divider">•</span>
-                            <span className="trust-logo">Voice Agents</span>
+                            <span className="trust-logo">Digital Marketing</span>
                             <span className="trust-divider">•</span>
-                            <span className="trust-logo">Chat Bots</span>
+                            <span className="trust-logo">Creative Production</span>
                             <span className="trust-divider">•</span>
-                            <span className="trust-logo">CRM & ERP</span>
+                            <span className="trust-logo">Brand Identity</span>
+                            <span className="trust-divider">•</span>
+                            <span className="trust-logo">Conversational AI</span>
                         </div>
                     </div>
                 </div>

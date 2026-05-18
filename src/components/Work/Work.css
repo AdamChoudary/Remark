@@ -29,7 +29,7 @@
 /* Work grid */
 .work-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
 
@@ -142,15 +142,19 @@
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .work-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 768px) {
     .work {
         padding: 5rem 0;
+    }
+
+    .work-grid {
+        grid-template-columns: 1fr;
     }
 
     .work-header {

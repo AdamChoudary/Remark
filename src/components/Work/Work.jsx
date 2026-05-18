@@ -9,26 +9,114 @@ const workItems = [
         category: 'Web Solutions',
         metric: 'Property • Portfolio • Business • SaaS',
         href: '#contact',
-        description: 'Custom-built websites for property listings, portfolios, businesses, and SaaS platforms that convert visitors into customers.'
+        description: 'Custom-built, high-conversion websites for property listings, portfolios, businesses, and SaaS platforms optimized for SEO and modern speed standards.'
     },
     {
         index: '02',
-        title: 'AI VOICE AGENTS',
-        category: 'Voice Intelligence',
-        metric: 'Support • Handling • HelpLine • Marketing',
+        title: 'DIGITAL MARKETING',
+        category: 'Growth Marketing',
+        metric: 'SEO • SEM • PPC • Scaling',
         href: '#contact',
-        description: 'Intelligent voice agents for customer support, call handling, helpline automation, and marketing outreach campaigns.'
+        description: 'Data-driven performance marketing campaigns designed to scale brand awareness, maximize conversion rates, and deliver high ROI.'
     },
     {
         index: '03',
+        title: 'SOCIAL MEDIA MANAGEMENT',
+        category: 'Social & Brand',
+        metric: 'Strategy • Curation • Engagement',
+        href: '#contact',
+        description: 'End-to-end management of your social footprint, crafting custom aesthetics, strategic schedules, and active community engagement.'
+    },
+    {
+        index: '04',
+        title: 'GRAPHIC DESIGNING',
+        category: 'Visual Arts',
+        metric: 'Vector • UI Layout • Print Assets',
+        href: '#contact',
+        description: 'High-fidelity vector designs, bespoke visual elements, and stunning brand layouts engineered for modern digital and print media.'
+    },
+    {
+        index: '05',
+        title: 'VIDEO PRODUCTION',
+        category: 'Media Production',
+        metric: 'Shoots • Direction • Commercials',
+        href: '#contact',
+        description: 'Professional film production, scripting, and direction for luxury brand commercials, corporate profiles, and promotional media.'
+    },
+    {
+        index: '06',
+        title: 'VIDEO EDITING',
+        category: 'Post-Production',
+        metric: 'Cinematic • Color Grading • VFX',
+        href: '#contact',
+        description: 'Premium post-production involving cinematic pacing, precise sound design, professional color grading, and dynamic visual effects.'
+    },
+    {
+        index: '07',
+        title: 'BRANDING & IDENTITY DESIGN',
+        category: 'Brand Architecture',
+        metric: 'Logo • Style Guide • Assets',
+        href: '#contact',
+        description: 'Developing core visual assets, unified design systems, brand guidelines, and unique logo architectures that establish creative authority.'
+    },
+    {
+        index: '08',
+        title: 'EVENT MANAGEMENT',
+        category: 'Experiential Marketing',
+        metric: 'Planning • Execution • Branding',
+        href: '#contact',
+        description: 'Seamless coordination and design of corporate conferences, product launches, and luxury brand experiences from concept to execution.'
+    },
+    {
+        index: '09',
+        title: 'CONTENT CREATION',
+        category: 'Creative Content',
+        metric: 'Copy • Visuals • Storytelling',
+        href: '#contact',
+        description: 'Bespoke copywriting, captivating imagery, and multi-channel storytelling tailored to resonate with target audiences and drive action.'
+    },
+    {
+        index: '10',
+        title: 'PRINTING & MARKETING MATERIALS',
+        category: 'Print Architecture',
+        metric: 'Custom Print • Collaterals',
+        href: '#contact',
+        description: 'Premium-grade print architecture, including custom business cards, brochures, posters, and tangible marketing collateral with exquisite finishes.'
+    },
+    {
+        index: '11',
+        title: 'PHOTOGRAPHY & PRODUCT SHOOTS',
+        category: 'Studio Photography',
+        metric: 'High-Res • Commercial • Studio',
+        href: '#contact',
+        description: 'Ultra-high-definition product and lifestyle photography using studio lighting and editorial staging to present items in their best light.'
+    },
+    {
+        index: '12',
+        title: 'ADVERTISING & PROMOTIONAL CAMPAIGNS',
+        category: 'Campaign Strategy',
+        metric: 'Omnichannel • Leads • Analytics',
+        href: '#contact',
+        description: 'Targeted, multi-channel advertising strategy designed to secure premium leads, amplify campaign reach, and track user attribution.'
+    },
+    {
+        index: '13',
+        title: 'AI VOICE AGENTS',
+        category: 'Voice Intelligence',
+        metric: 'Support • Handling • HelpLine',
+        href: '#contact',
+        description: 'Intelligent voice agents for automated customer support, seamless call handling, helpline routing, and targeted marketing campaigns.'
+    },
+    {
+        index: '14',
         title: 'SMART CHAT BOTS',
         category: 'Conversational AI',
         metric: 'Support • Handling • Guidance',
         href: '#contact',
-        description: 'AI-powered chatbots for customer support, customer handling, and user guidance — available 24/7 across all channels.'
+        description: 'AI-powered conversational chatbots providing 24/7 client support, intelligent user guidance, and instant lead capture across platforms.'
     },
     {
-        index: '04',
+        index: '15',
         title: 'CRM & ERP MANAGEMENT',
         category: 'Business Systems',
         metric: 'End-to-End Solutions',

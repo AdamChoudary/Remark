@@ -36,7 +36,7 @@ const capabilities = [
     }
 ]
 
-const tools = ['REACT', 'NEXT.JS', 'NODE.JS', 'PYTHON', 'AI/ML', 'OPENAI', 'TWILIO', 'SALESFORCE']
+const tools = ['REACT', 'NEXT.JS', 'AI & MACHINE LEARNING', 'OPENAI', 'FIGMA', 'ADOBE CREATIVE SUITE', 'DAVINCI RESOLVE', 'META ADS', 'GOOGLE ANALYTICS', 'SALESFORCE', 'NODE.JS', 'PYTHON']
 
 function Capabilities() {
     const sectionRef = useRef(null)

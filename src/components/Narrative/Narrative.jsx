@@ -76,8 +76,7 @@ function Narrative() {
                             <span className="accent">Scalable digital solutions.</span>
                         </h3>
                         <p className="solution-desc">
-                            We build websites, deploy AI voice agents, create intelligent chatbots,
-                            and implement CRM & ERP systems — all tailored to your unique business needs.
+                            From custom web platforms and AI-driven conversational intelligence to performance growth marketing, premium brand identity, high-end video production, and custom print materials — we engineer every touchpoint of your brand's digital and physical presence.
                         </p>
                     </div>
                 </div>
