@@ -1,22 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remark Studio | Website Development, Voice Agents, Chat Bots & CRM</title>
-    <meta name="description"
-        content="Remark Studio — Your partner for Website Development, AI Voice Agents, Chat Bots, and CRM & ERP Management solutions.">
-    <link rel="icon" type="image/png" href="/src/assets/image.png">
-    <link
-        href="https://api.fontshare.com/v2/css?f[]=clash-display@200,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <!-- =====================================================
+       CORE META
+  ====================================================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://remarkstudio.agency/" />
+
+  <!-- =====================================================
+       PRIMARY SEO
+  ====================================================== -->
+  <title>Remark Studio | Web Development, AI Voice Agents, Chatbots & Digital Marketing Agency</title>
+  <meta name="description" content="Remark Studio is a full-service digital solutions agency offering custom web development, AI voice agents, intelligent chatbots, CRM & ERP systems, digital marketing, branding, video production, and creative content." />
+  <meta name="keywords" content="web development agency, AI voice agents, chatbot development, CRM solutions, ERP management, digital marketing, SEO agency, branding agency, video production, social media management, graphic design, content creation, Remark Studio" />
+  <meta name="author" content="Remark Studio" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="rating" content="general" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="language" content="English" />
+  <meta name="copyright" content="Remark Studio 2026" />
+
+  <!-- =====================================================
+       OPEN GRAPH (Facebook / LinkedIn / WhatsApp)
+  ====================================================== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Remark Studio" />
+  <meta property="og:title" content="Remark Studio | Web Development, AI Agents & Digital Solutions" />
+  <meta property="og:description" content="We craft intelligent digital solutions — from stunning websites and AI voice agents to performance marketing and brand identity — that scale your business." />
+  <meta property="og:url" content="https://remarkstudio.agency/" />
+  <meta property="og:image" content="https://remarkstudio.agency/og-image.png" />
+  <meta property="og:image:secure_url" content="https://remarkstudio.agency/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Remark Studio — Digital Solutions Agency" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- =====================================================
+       TWITTER CARD
+  ====================================================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@remark_studios" />
+  <meta name="twitter:creator" content="@remark_studios" />
+  <meta name="twitter:title" content="Remark Studio | Web Development, AI Agents & Digital Solutions" />
+  <meta name="twitter:description" content="We craft intelligent digital solutions — websites, AI voice agents, chatbots, CRM, branding & marketing — that scale your business." />
+  <meta name="twitter:image" content="https://remarkstudio.agency/og-image.png" />
+  <meta name="twitter:image:alt" content="Remark Studio — Digital Solutions Agency" />
+
+  <!-- =====================================================
+       FAVICON & ICONS
+  ====================================================== -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" type="image/png" href="/src/assets/image.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- =====================================================
+       PERFORMANCE — PRECONNECT / DNS-PREFETCH
+  ====================================================== -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="dns-prefetch" href="https://api.fontshare.com" />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+
+  <!-- =====================================================
+       FONTS
+  ====================================================== -->
+  <link
+    href="https://api.fontshare.com/v2/css?f[]=clash-display@200,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <!-- =====================================================
+       STRUCTURED DATA — JSON-LD (AEO + SEO)
+  ====================================================== -->
+
+  <!-- 1. Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://remarkstudio.agency/#organization",
+    "name": "Remark Studio",
+    "alternateName": "Remark Studios",
+    "url": "https://remarkstudio.agency",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://remarkstudio.agency/src/assets/logo.png",
+      "width": 200,
+      "height": 60
+    },
+    "description": "Remark Studio is a full-service digital solutions agency specializing in web development, AI voice agents, intelligent chatbots, CRM & ERP systems, digital marketing, branding, and video production.",
+    "email": "hello@remarkstudio.agency",
+    "sameAs": [
+      "https://www.instagram.com/remark_studios",
+      "https://www.tiktok.com/@remark.studio",
+      "https://www.facebook.com/remarkstudio1"
+    ],
+    "foundingDate": "2024",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "minValue": 5,
+      "maxValue": 20
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Global"
+    },
+    "knowsAbout": [
+      "Web Development",
+      "AI Voice Agents",
+      "Chatbot Development",
+      "CRM Systems",
+      "ERP Management",
+      "Digital Marketing",
+      "Search Engine Optimization",
+      "Social Media Management",
+      "Graphic Design",
+      "Video Production",
+      "Brand Identity",
+      "Content Creation"
+    ]
+  }
+  </script>
+
+  <!-- 2. WebSite Schema (enables Sitelinks Search Box) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://remarkstudio.agency/#website",
+    "url": "https://remarkstudio.agency",
+    "name": "Remark Studio",
+    "description": "Full-service digital solutions agency — web development, AI agents, marketing & branding.",
+    "publisher": {
+      "@id": "https://remarkstudio.agency/#organization"
+    },
+    "inLanguage": "en-US",
+    "copyrightYear": "2026"
+  }
+  </script>
+
+  <!-- 3. LocalBusiness Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": "https://remarkstudio.agency/#localbusiness",
+    "name": "Remark Studio",
+    "image": "https://remarkstudio.agency/og-image.png",
+    "url": "https://remarkstudio.agency",
+    "email": "hello@remarkstudio.agency",
+    "telephone": "+923355970322",
+    "priceRange": "$$",
+    "currenciesAccepted": "USD, PKR",
+    "paymentAccepted": "Bank Transfer, Online Payment",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "PK",
+      "addressRegion": "Global Remote"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "30.3753",
+      "longitude": "69.3451"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "worstRating": "1",
+      "reviewCount": "30"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digital Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Web Development",
+            "description": "Custom-built, high-conversion websites for property listings, portfolios, businesses, and SaaS platforms."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Voice Agents",
+            "description": "Intelligent voice agents for automated customer support, call handling, and helpline routing."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Smart Chatbots",
+            "description": "AI-powered chatbots providing 24/7 client support and intelligent user guidance."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Digital Marketing",
+            "description": "Data-driven performance marketing campaigns for brand awareness and lead generation."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "CRM & ERP Management",
+            "description": "End-to-end CRM and ERP implementation to streamline business operations."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Branding & Identity Design",
+            "description": "Core visual assets, brand guidelines, and unique logo architecture."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Video Production & Editing",
+            "description": "Professional film production, scripting, color grading and post-production."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Social Media Management",
+            "description": "End-to-end social footprint management with custom aesthetics and engagement."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- 4. FAQPage Schema (AEO — Answer Engine Optimization for AI & featured snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What services does Remark Studio offer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remark Studio offers web development, AI voice agents, intelligent chatbots, CRM & ERP systems, digital marketing, SEO, social media management, graphic design, branding & identity, video production & editing, photography, content creation, event management, and print & marketing materials."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does a website cost at Remark Studio?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Website pricing at Remark Studio varies based on complexity and requirements. We offer custom quotes tailored to your project. Contact us at hello@remarkstudio.agency or via WhatsApp to get a personalized estimate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an AI voice agent and how can it help my business?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An AI voice agent is an intelligent, conversational system that handles incoming and outgoing calls automatically. It can manage customer support, route helpline calls, run marketing campaigns, and respond to queries 24/7 — reducing costs and improving customer satisfaction."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Remark Studio work with international clients?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Remark Studio is a fully remote, globally operating digital agency. We work with clients worldwide, across all time zones, with 24/7 support availability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it take to build a website with Remark Studio?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our average delivery time is 2 weeks for standard business websites. More complex SaaS platforms or custom web applications may take longer depending on scope. We provide a timeline estimate during the project discovery phase."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Remark Studio help with SEO and digital marketing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Remark Studio provides comprehensive digital marketing services including SEO, SEM, PPC advertising, and performance campaign management to boost your brand visibility and drive qualified leads."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What CRM and ERP systems does Remark Studio implement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Remark Studio implements and customizes a range of CRM and ERP solutions tailored to your business needs. We work with platforms like Salesforce and also build custom solutions to streamline operations, boost productivity, and support business growth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I start a project with Remark Studio?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Starting a project with Remark Studio is simple. Reach out via email at hello@remarkstudio.agency, through WhatsApp at +923355970322, or via our Instagram or TikTok. We will schedule a discovery call to understand your needs and provide a tailored proposal."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- 5. WebPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://remarkstudio.agency/#webpage",
+    "url": "https://remarkstudio.agency/",
+    "name": "Remark Studio | Web Development, AI Agents & Digital Solutions",
+    "description": "Remark Studio is a full-service digital solutions agency offering web development, AI voice agents, chatbots, CRM, digital marketing, branding, and video production.",
+    "isPartOf": { "@id": "https://remarkstudio.agency/#website" },
+    "about": { "@id": "https://remarkstudio.agency/#organization" },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://remarkstudio.agency/og-image.png"
+    },
+    "datePublished": "2024-01-01",
+    "dateModified": "2026-06-02",
+    "inLanguage": "en-US",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://remarkstudio.agency/"
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- 6. ItemList Schema — Services (helps AI engines enumerate offerings) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Remark Studio Services",
+    "description": "Complete list of digital services offered by Remark Studio",
+    "numberOfItems": 15,
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Website Development", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 2, "name": "Digital Marketing", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 3, "name": "Social Media Management", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 4, "name": "Graphic Designing", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 5, "name": "Video Production", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 6, "name": "Video Editing", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 7, "name": "Branding & Identity Design", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 8, "name": "Event Management", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 9, "name": "Content Creation", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 10, "name": "Printing & Marketing Materials", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 11, "name": "Photography & Product Shoots", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 12, "name": "Advertising & Promotional Campaigns", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 13, "name": "AI Voice Agents", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 14, "name": "Smart Chat Bots", "url": "https://remarkstudio.agency/#services" },
+      { "@type": "ListItem", "position": 15, "name": "CRM & ERP Management", "url": "https://remarkstudio.agency/#services" }
+    ]
+  }
+  </script>
+
 </head>
 
 <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 
 </html>

@@ -1,0 +1,11 @@
+# Remark Studio — robots.txt
+# https://remarkstudio.agency
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://remarkstudio.agency/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
