@@ -5,7 +5,7 @@
 >
   <!-- Homepage / Root -->
   <url>
-    <loc>https://remarkstudio.agency/</loc>
+    <loc>https://remarkstudio.tech/</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -13,7 +13,7 @@
 
   <!-- Services Section -->
   <url>
-    <loc>https://remarkstudio.agency/#services</loc>
+    <loc>https://remarkstudio.tech/#services</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -21,7 +21,7 @@
 
   <!-- Process / Narrative Section -->
   <url>
-    <loc>https://remarkstudio.agency/#process</loc>
+    <loc>https://remarkstudio.tech/#process</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -29,7 +29,7 @@
 
   <!-- Capabilities Section -->
   <url>
-    <loc>https://remarkstudio.agency/#capabilities</loc>
+    <loc>https://remarkstudio.tech/#capabilities</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -37,7 +37,7 @@
 
   <!-- Contact / CTA Section -->
   <url>
-    <loc>https://remarkstudio.agency/#contact</loc>
+    <loc>https://remarkstudio.tech/#contact</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
