@@ -46,7 +46,7 @@ function Footer() {
                             <a href="https://www.instagram.com/remark_studios" target="_blank" rel="noopener noreferrer">Instagram</a>
                             <a href="https://www.tiktok.com/@remark.studio" target="_blank" rel="noopener noreferrer">TikTok</a>
                             <a href="https://www.facebook.com/remarkstudio1" target="_blank" rel="noopener noreferrer">Facebook</a>
-                            <a href="https://wa.me/923355970322" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                            <a href="https://wa.me/923268450001" target="_blank" rel="noopener noreferrer">WhatsApp</a>
                             <a href="mailto:hello@remarkstudio.agency">Email</a>
                         </div>
                     </div>
@@ -59,7 +59,7 @@ function Footer() {
                     </div>
                     <div className="footer-location mono">
                         <i className="ri-map-pin-line"></i>
-                        Global Remote
+                        Office#104, Mezzanine Floor, Embassy Gardens, Sector C1, Bahria Enclave, Islamabad
                     </div>
                     <div className="footer-status">
                         <span className="status-dot"></span>

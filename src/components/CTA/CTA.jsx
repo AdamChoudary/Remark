@@ -44,6 +44,11 @@ function CTA() {
                             or email directly: <a href="mailto:hello@remarkstudio.agency">hello@remarkstudio.agency</a>
                         </span>
                     </div>
+                    <div className="cta-contact-info mono">
+                        <span><i className="ri-phone-line"></i> <a href="tel:+923268450001">+92-3268450001</a></span>
+                        <span><i className="ri-phone-line"></i> <a href="tel:+923268450002">+92-3268450002</a></span>
+                        <span><i className="ri-map-pin-line"></i> Office#104, Mezzanine Floor, Embassy Gardens, Sector C1, Bahria Enclave, Islamabad</span>
+                    </div>
                 </div>
 
                 {/* Quick links */}
@@ -56,7 +61,7 @@ function CTA() {
                         <i className="ri-tiktok-line"></i>
                         <span>TikTok</span>
                     </a>
-                    <a href="https://wa.me/923355970322" target="_blank" rel="noopener noreferrer" className="cta-link">
+                    <a href="https://wa.me/923268450001" target="_blank" rel="noopener noreferrer" className="cta-link">
                         <i className="ri-whatsapp-line"></i>
                         <span>WhatsApp</span>
                     </a>
