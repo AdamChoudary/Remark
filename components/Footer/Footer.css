@@ -50,11 +50,15 @@
 .footer-col a {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    transition: color 0.4s var(--ease-out);
+    transition: color var(--duration-fast) var(--ease-out);
 }
 
 .footer-col a:hover {
     color: var(--primary);
+}
+
+.footer-col a:active {
+    transform: scale(0.97);
 }
 
 /* Bottom bar */

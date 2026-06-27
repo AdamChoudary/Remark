@@ -4,6 +4,24 @@
     position: relative;
 }
 
+.narrative::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
+    z-index: 1;
+}
+
+.narrative.top-line-visible::before {
+    transform: scaleX(1);
+}
+
 /* Section label */
 .section-label {
     display: inline-block;
@@ -51,6 +69,14 @@
     border-left: 2px solid var(--primary);
     transition: all var(--transition-smooth);
     position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--duration-slow) var(--ease-out-expo), transform var(--duration-slow) var(--ease-out-expo), border-left-color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+
+.problem-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .problem-card::before {
@@ -109,6 +135,13 @@
     height: 100%;
     min-height: 200px;
     background: linear-gradient(to bottom, var(--primary), transparent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.solution-line.visible {
+    transform: scaleY(1);
 }
 
 .solution-content {

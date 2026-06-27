@@ -8,6 +8,7 @@ import Button from '../Button/Button';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Close menu on escape key
   useEffect(() => {
@@ -16,6 +17,14 @@ function Header() {
     };
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  // Track scroll for header opacity transition
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Prevent body scroll when menu is open
@@ -37,13 +46,13 @@ function Header() {
   return (
     <>
       <GlassSurface
-        className="header"
+        className={`header${scrolled ? ' scrolled' : ''}`}
         width="min(1200px, 90%)"
         height="auto"
         borderRadius={40}
         borderWidth={0}
-        opacity={0.8}
-        blur={12}
+        opacity={scrolled ? 0.95 : 0.7}
+        blur={scrolled ? 20 : 10}
         displace={0.3}
         distortionScale={-180}
         redOffset={0}

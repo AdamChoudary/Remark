@@ -10,12 +10,14 @@ import Capabilities from './Capabilities/Capabilities';
 import Testimonial from './Testimonial/Testimonial';
 import CTA from './CTA/CTA';
 import Footer from './Footer/Footer';
+import ScrollProgress from './ScrollProgress/ScrollProgress';
 
 const Dither = dynamic(() => import('./Dither'), { ssr: false });
 
 export default function HomePage() {
   return (
     <ScrollProvider>
+      <ScrollProgress />
       <div className="app-container">
         <div className="dither-background">
           <Dither

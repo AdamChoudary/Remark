@@ -292,44 +292,57 @@ Two horizontal sections would create:
 
 ## Components
 
-### Spacing System (Unchanged from v1)
+### Spacing System — 4px Base
 
 ```yaml
-base: 4px
-spacing: hair(1) xxs(4) xs(8) sm(12) md(16) lg(24) xl(32) xxl(48) huge(64) section(96) section-wide(120)
+--space-xxs: 4px
+--space-xs: 8px
+--space-sm: 12px
+--space-md: 16px
+--space-lg: 24px
+--space-xl: 32px
+--space-xxl: 48px
+--space-huge: 64px
+--space-section: 80px
+--space-section-wide: 120px
 container-max: 1400px
 container-wide: 1600px
 container-narrow: 720px
 gutter: clamp(1.5rem, 5vw, 4rem)
 ```
 
+Principle: Every spatial decision references these tokens. Card padding uses `--space-xxl` (48px), section gap uses `--space-section` (80px), button padding uses `--space-xs` (8px) vertical and `--space-md` (16px) horizontal. No raw pixel values outside these tokens.
+
 ### Elevation (Colorimetric — No Shadows)
 
 ```yaml
-elevation-0: canvas-dark           # Ground
-elevation-1: surface-1             # Cards, secondary buttons
-elevation-2: surface-2             # Featured cards
-elevation-3: surface-hover         # Hover states
+elevation-0: void                  # Ground (#080808)
+elevation-1: surface               # Cards, inputs (#121212)
+elevation-2: surface-alt           # Featured cards, metrics bar (#1A1818)
+elevation-3: elevated              # Hover states (#252222)
 ```
 
 On light (gallery only):
 ```yaml
-elevation-0-light: canvas-light
-elevation-1-light: surface-light-1
-elevation-2-light: surface-light-2
+elevation-0-light: canvas-light    # Ground (#F5F0EB)
+elevation-1-light: surface-light-1 # Cards (#E5DED3)
+elevation-2-light: surface-light-2 # Hover states (#DAD0C3)
 ```
 
-### Rounded Corners (Unchanged from v1)
+### Rounded Corners
 
 ```yaml
-none: 0    # Full-bleed tiles, photo containers
-sm: 6px    # Badges, inline tags
-md: 10px   # Form inputs
-lg: 16px   # Content cards
-xl: 24px   # Capability cards
-pill: 9999px # CTAs
-full: 9999px # Icon buttons
+--radius-none: 0    # Full-bleed tiles, photo containers
+--radius-xs: 4px    # Small chips, utility tags
+--radius-sm: 6px    # Badges, inline tags
+--radius-md: 10px   # Form inputs
+--radius-lg: 16px   # Content cards (default)
+--radius-xl: 24px   # Capability cards, featured panels
+--radius-xxl: 32px  # Oversized panels
+--radius-pill: 9999px # CTAs, search inputs
 ```
+
+Principle: Border-radius is binary — content surfaces use `--radius-lg` (16px) or `--radius-xl` (24px); actionable elements use `--radius-pill` (9999px). `--radius-none` signals full-bleed editorial surfaces. No 2px or 8px rounding in between.
 
 ### Navigation (Header)
 

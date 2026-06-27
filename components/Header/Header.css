@@ -2,11 +2,20 @@
     /* Position handled by style prop in JSX */
     /* Glass effect handled by GlassSurface component */
     padding: 1rem 0;
+    transition: box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.header.scrolled {
+    box-shadow: 0 1px 0 var(--border);
 }
 
 @media (max-width: 768px) {
     .header {
         padding: 0.75rem 0;
+    }
+
+    .header.scrolled {
+        box-shadow: 0 1px 0 var(--border);
     }
 }
 

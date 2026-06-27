@@ -64,6 +64,61 @@
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --transition-smooth: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Animation duration tokens */
+    --duration-instant: 0.1s;
+    --duration-fast: 0.2s;
+    --duration-normal: 0.4s;
+    --duration-slow: 0.6s;
+    --duration-xslow: 1.0s;
+    --duration-xxslow: 1.5s;
+
+    /* =========================================
+       Spacing System — 4px base
+       ========================================= */
+    --space-xxs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-xxl: 48px;
+    --space-huge: 64px;
+    --space-section: 80px;
+    --space-section-wide: 120px;
+
+    /* =========================================
+       Border Radius System
+       ========================================= */
+    --radius-none: 0;
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-xxl: 32px;
+    --radius-pill: 9999px;
+
+    /* =========================================
+       Typography Display Tier System
+       Uses Montserrat 700 for display, Inter for body.
+       Letter-spacing tightens at larger sizes.
+       ========================================= */
+    --display-xxl: clamp(3.5rem, 10vw, 7.5rem);
+    --display-xxl-ls: -0.04em;
+    --display-xl: clamp(2.5rem, 6vw, 5rem);
+    --display-xl-ls: -0.03em;
+    --display-lg: clamp(2rem, 4vw, 3.5rem);
+    --display-lg-ls: -0.02em;
+    --display-md: clamp(1.5rem, 3vw, 2.5rem);
+    --display-md-ls: -0.015em;
+
+    --body-size: 1rem;
+    --body-ls: -0.01em;
+    --body-sm-size: 0.9rem;
+    --body-sm-ls: 0;
+    --caption-size: 0.7rem;
+    --caption-ls: 0.15em;
 }
 
 * {
@@ -101,16 +156,69 @@ body::before {
     z-index: 1000;
 }
 
-/* TYPOGRAPHY */
+/* TYPOGRAPHY — Display Tier System */
 h1,
+.display-xxl {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: var(--display-xxl-ls);
+    font-size: var(--display-xxl);
+}
+
 h2,
+.display-xl {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: var(--display-xl-ls);
+    font-size: var(--display-xl);
+}
+
 h3,
-h4,
-.heading {
+.display-lg {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     line-height: 1.1;
-    letter-spacing: -0.02em;
+    letter-spacing: var(--display-lg-ls);
+    font-size: var(--display-lg);
+}
+
+h4,
+.display-md {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: var(--display-md-ls);
+    font-size: var(--display-md);
+}
+
+h5,
+h6,
+.heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.body {
+    font-size: var(--body-size);
+    letter-spacing: var(--body-ls);
+    line-height: 1.6;
+}
+
+.body-sm {
+    font-size: var(--body-sm-size);
+    letter-spacing: var(--body-sm-ls);
+    line-height: 1.6;
+}
+
+.caption {
+    font-size: var(--caption-size);
+    letter-spacing: var(--caption-ls);
+    text-transform: uppercase;
+    line-height: 1.4;
 }
 
 .mono {

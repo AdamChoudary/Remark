@@ -57,6 +57,10 @@
     transform: scaleX(1);
 }
 
+.cap-card:active {
+    transform: scale(0.98);
+}
+
 .cap-card.featured {
     grid-row: span 2;
     background: var(--surface);
@@ -72,6 +76,10 @@
     background: var(--surface-alt);
 }
 
+.cap-card.featured:active {
+    transform: scale(0.98);
+}
+
 .cap-icon {
     width: 48px;
     height: 48px;
@@ -80,7 +88,7 @@
     justify-content: center;
     background: var(--primary-dim);
     margin-bottom: 1.5rem;
-    transition: all var(--transition-smooth);
+    transition: all var(--duration-fast) var(--ease-out);
 }
 
 .cap-card:hover .cap-icon {
