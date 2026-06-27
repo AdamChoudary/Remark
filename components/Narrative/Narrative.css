@@ -1,6 +1,7 @@
 .narrative {
     padding: 10rem 0;
     background: var(--surface);
+    position: relative;
 }
 
 /* Section label */
@@ -15,7 +16,7 @@
 }
 
 .section-label.accent {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 /* Header */
@@ -26,11 +27,12 @@
 .narrative-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.1;
+    color: var(--text);
 }
 
 .narrative-title .strike {
     text-decoration: line-through;
-    text-decoration-color: var(--accent);
+    text-decoration-color: var(--primary);
     text-decoration-thickness: 2px;
     opacity: 0.4;
 }
@@ -45,27 +47,25 @@
 
 .problem-card {
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--surface-alt);
+    border-left: 2px solid var(--primary);
     transition: all var(--transition-smooth);
     position: relative;
-    border-radius: 8px;
-    color: #1a1a1a;
 }
 
 .problem-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, var(--accent-dim), transparent);
+    background: linear-gradient(135deg, var(--primary-dim), transparent);
     opacity: 0;
     transition: opacity 0.4s var(--ease-out);
 }
 
 .problem-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-left-color: var(--primary-hover);
+    background: var(--elevated);
+    transform: translateX(4px);
 }
 
 .problem-card:hover::before {
@@ -75,21 +75,23 @@
 .problem-number {
     display: block;
     font-size: 0.75rem;
-    color: var(--accent);
+    color: var(--primary);
     margin-bottom: 1.5rem;
     letter-spacing: 0.15em;
     font-weight: 700;
+    position: relative;
 }
 
 .problem-title {
     font-size: 1.35rem;
     margin-bottom: 0.75rem;
+    color: var(--text);
     position: relative;
 }
 
 .problem-desc {
     font-size: 0.95rem;
-    color: #444;
+    color: var(--text-secondary);
     line-height: 1.6;
     position: relative;
 }
@@ -106,7 +108,7 @@
     width: 1px;
     height: 100%;
     min-height: 200px;
-    background: linear-gradient(to bottom, var(--accent), transparent);
+    background: linear-gradient(to bottom, var(--primary), transparent);
 }
 
 .solution-content {
@@ -117,10 +119,11 @@
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     line-height: 1.2;
     margin-bottom: 1.5rem;
+    color: var(--text);
 }
 
 .solution-title .accent {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 .solution-desc {
@@ -129,11 +132,32 @@
     line-height: 1.7;
 }
 
+/* Dissolve transition - bridges Narrative → Gallery */
+/* Always visible at the bottom of Narrative. When Gallery (canvas-light)
+   scrolls up behind it, the gradient creates a seamless dissolve effect. */
+.narrative::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--canvas-light));
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 2;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .problem-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+
+    .narrative::after {
+        height: 60px;
+        opacity: 0.4;
     }
 }
 
@@ -169,5 +193,9 @@
         width: 60px;
         height: 1px;
         min-height: auto;
+    }
+
+    .narrative::after {
+        display: none;
     }
 }

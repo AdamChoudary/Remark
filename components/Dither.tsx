@@ -4,6 +4,7 @@
 import { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useScrollContext, getWaveColor } from './ScrollProvider';
 
 const waveVertexShader = `
 precision highp float;
@@ -28,7 +29,6 @@ uniform float mouseRadius;
 uniform float colorNum;
 uniform float pixelSize;
 
-// Simple hash noise for performance
 float hash(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
     p += dot(p, p + 45.32);
@@ -46,7 +46,6 @@ float noise(vec2 p) {
     return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
 }
 
-// 4x4 Bayer Matrix
 const float bayerMatrix4x4[16] = float[16](
   0.0/16.0,  8.0/16.0,  2.0/16.0, 10.0/16.0,
   12.0/16.0, 4.0/16.0, 14.0/16.0, 6.0/16.0,
@@ -55,16 +54,13 @@ const float bayerMatrix4x4[16] = float[16](
 );
 
 void main() {
-  // 1. Resolution-aware UVs
   vec2 uv = gl_FragCoord.xy / resolution.xy;
   vec2 aspectUv = uv - 0.5;
   aspectUv.x *= resolution.x / resolution.y;
 
-  // 2. Wave Pattern (Simplified)
   float n = noise(aspectUv * waveFrequency + time * waveSpeed);
   n = pow(n, 2.5);
 
-  // 3. Mouse Interaction
   if (enableMouseInteraction == 1) {
     vec2 mouseNDC = (mousePos / resolution - 0.5) * vec2(1.0, -1.0);
     mouseNDC.x *= resolution.x / resolution.y;
@@ -73,10 +69,8 @@ void main() {
     n -= 0.4 * effect;
   }
 
-  // 4. Base Color
   vec3 col = mix(vec3(0.0), waveColor, n);
 
-  // 5. Dither Pass (Integrated)
   vec2 scaledCoord = floor(gl_FragCoord.xy / pixelSize);
   int x = int(mod(scaledCoord.x, 4.0));
   int y = int(mod(scaledCoord.y, 4.0));
@@ -94,7 +88,6 @@ interface DitheredWavesProps {
   waveSpeed: number;
   waveFrequency: number;
   waveAmplitude: number;
-  waveColor: [number, number, number];
   colorNum: number;
   pixelSize: number;
   disableAnimation: boolean;
@@ -106,7 +99,6 @@ function DitheredWaves({
   waveSpeed,
   waveFrequency,
   waveAmplitude,
-  waveColor,
   colorNum,
   pixelSize,
   disableAnimation,
@@ -116,6 +108,7 @@ function DitheredWaves({
   const mesh = useRef<THREE.Mesh>(null);
   const mouseRef = useRef(new THREE.Vector2());
   const { viewport, size, gl } = useThree();
+  const { progressRef } = useScrollContext();
 
   const uniformsRef = useRef({
     time: { value: 0 },
@@ -123,7 +116,7 @@ function DitheredWaves({
     waveSpeed: { value: waveSpeed },
     waveFrequency: { value: waveFrequency },
     waveAmplitude: { value: waveAmplitude },
-    waveColor: { value: new THREE.Color(...waveColor) },
+    waveColor: { value: new THREE.Color(...getWaveColor(0)) },
     mousePos: { value: new THREE.Vector2() },
     enableMouseInteraction: { value: enableMouseInteraction ? 1 : 0 },
     mouseRadius: { value: mouseRadius },
@@ -144,12 +137,14 @@ function DitheredWaves({
     u.waveSpeed.value = waveSpeed;
     u.waveFrequency.value = waveFrequency;
     u.waveAmplitude.value = waveAmplitude;
-    u.waveColor.value.set(...waveColor);
     u.enableMouseInteraction.value = enableMouseInteraction ? 1 : 0;
     u.mouseRadius.value = mouseRadius;
     u.colorNum.value = colorNum;
     u.pixelSize.value = pixelSize;
     u.mousePos.value.copy(mouseRef.current);
+
+    const [r, g, b] = getWaveColor(progressRef.current);
+    u.waveColor.value.setRGB(r, g, b);
   });
 
   const handlePointerMove = (e: { clientX: number; clientY: number }) => {
@@ -173,7 +168,6 @@ function DitheredWaves({
 }
 
 export interface DitherProps {
-  waveColor?: [number, number, number];
   disableAnimation?: boolean;
   enableMouseInteraction?: boolean;
   mouseRadius?: number;
@@ -185,7 +179,6 @@ export interface DitherProps {
 }
 
 export default function Dither({
-  waveColor = [0.15, 0.02, 0.02],
   disableAnimation = false,
   enableMouseInteraction = true,
   mouseRadius = 0.3,
@@ -209,15 +202,14 @@ export default function Dither({
       }}
     >
       <DitheredWaves
-        waveColor={waveColor}
+        waveSpeed={waveSpeed}
+        waveFrequency={waveFrequency}
+        waveAmplitude={waveAmplitude}
+        colorNum={colorNum}
+        pixelSize={pixelSize}
         disableAnimation={disableAnimation}
         enableMouseInteraction={enableMouseInteraction}
         mouseRadius={mouseRadius}
-        colorNum={colorNum}
-        pixelSize={pixelSize}
-        waveAmplitude={waveAmplitude}
-        waveFrequency={waveFrequency}
-        waveSpeed={waveSpeed}
       />
     </Canvas>
   );

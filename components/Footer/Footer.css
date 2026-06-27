@@ -54,7 +54,7 @@
 }
 
 .footer-col a:hover {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 /* Bottom bar */
@@ -102,8 +102,7 @@
 .footer-status .status-dot {
     width: 6px;
     height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
+    background: var(--primary);
     animation: pulse 2s ease-in-out infinite;
 }
 

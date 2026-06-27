@@ -14,7 +14,7 @@
     font-family: 'Montserrat', serif;
     font-size: 8rem;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--primary);
     line-height: 0.5;
     margin-bottom: 2rem;
     opacity: 0.3;
@@ -27,11 +27,12 @@
     line-height: 1.4;
     margin-bottom: 3rem;
     letter-spacing: -0.01em;
+    color: var(--text);
 }
 
 .testimonial-quote em {
     font-style: normal;
-    color: var(--accent);
+    color: var(--primary);
 }
 
 .testimonial-author {
@@ -48,11 +49,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--surface);
+    background: var(--surface-alt);
     border: 1px solid var(--border);
     font-size: 1.25rem;
     color: var(--text-muted);
-    border-radius: 50%;
 }
 
 .author-info {
@@ -66,6 +66,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     font-weight: 600;
+    color: var(--text);
 }
 
 .author-title {
@@ -82,9 +83,8 @@
     align-items: center;
     gap: 3rem;
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
 }
 
 .metric-item {
@@ -98,14 +98,20 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+
+.metric-value.arrived {
+    text-shadow: 0 0 20px var(--primary-glow);
+    transition: text-shadow 0.3s var(--ease-out);
 }
 
 .metric-label {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #666;
+    color: var(--text-muted);
 }
 
 .metric-divider {

@@ -11,10 +11,11 @@
 .capabilities-title {
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.1;
+    color: var(--text);
 }
 
 .capabilities-title .accent {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 /* Bento grid */
@@ -28,11 +29,9 @@
 .cap-card {
     position: relative;
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--surface);
+    border: 1px solid var(--border);
     transition: all var(--transition-smooth);
-    border-radius: 8px;
-    color: #1a1a1a;
 }
 
 .cap-card::before {
@@ -42,22 +41,16 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: var(--accent);
+    background: var(--primary);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.5s var(--ease-out);
 }
 
 .cap-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 1);
-}
-
-.cap-card.featured:hover {
-    background: linear-gradient(135deg, var(--elevated), #333);
-    transform: translateY(-5px);
+    background: var(--surface-alt);
+    border-color: var(--primary);
+    transform: translateY(-2px);
 }
 
 .cap-card:hover::before {
@@ -66,13 +59,17 @@
 
 .cap-card.featured {
     grid-row: span 2;
-    background: linear-gradient(135deg, var(--elevated), var(--void));
-    color: var(--text);
+    background: var(--surface);
+    border-top: 2px solid var(--primary);
     border-color: var(--border-strong);
 }
 
-.cap-card.featured .cap-desc {
-    color: var(--text-secondary);
+.cap-card.featured::before {
+    display: none;
+}
+
+.cap-card.featured:hover {
+    background: var(--surface-alt);
 }
 
 .cap-icon {
@@ -81,44 +78,44 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    color: var(--accent);
-    background: var(--accent-dim);
+    background: var(--primary-dim);
     margin-bottom: 1.5rem;
     transition: all var(--transition-smooth);
-    border-radius: 8px;
 }
 
 .cap-card:hover .cap-icon {
-    background: var(--accent);
+    background: var(--primary);
     color: var(--void);
 }
 
 .cap-title {
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
+    color: var(--text);
 }
 
 .cap-desc {
     font-size: 0.95rem;
-    color: #444;
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
+.cap-card.featured .cap-desc {
+    color: var(--text-secondary);
+}
+
 /* Tool marquee */
-/* Tool curved loop customization */
 .capabilities-loop-text {
     fill: var(--text);
     font-family: 'Montserrat', sans-serif;
     font-size: 4rem;
     letter-spacing: -0.02em;
     font-weight: 800;
-    opacity: 0.8;
+    opacity: 0.15;
 }
 
 .curved-loop-jacket {
     margin: 4rem 0 0;
-    /* Fade edges */
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }

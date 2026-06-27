@@ -94,8 +94,8 @@
 }
 
 .title-word.accent {
-    color: var(--accent);
-    text-shadow: 0 0 40px var(--accent-glow);
+    color: var(--primary);
+    text-shadow: 0 0 40px var(--primary-glow);
 }
 
 .title-arrow {
@@ -103,6 +103,12 @@
     color: var(--text-muted);
     font-size: 0.5em;
     margin-left: 1rem;
+    animation: arrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
 }
 
 /* Subtitle */

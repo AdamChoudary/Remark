@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import './Work.css';
+import './ServicesGallery.css';
+import { useScrollContext } from '../ScrollProvider';
 import Button from '../Button/Button';
 
 const workItems = [
@@ -22,10 +23,66 @@ const workItems = [
   { index: '15', title: 'CRM & ERP MANAGEMENT', category: 'Business Systems', metric: 'End-to-End Solutions', href: '#contact', description: 'Complete CRM & ERP implementation and management to streamline operations, boost productivity, and drive growth.' },
 ];
 
-function Work() {
+const PANEL_SIZE = 3;
+type WorkItem = typeof workItems[number];
+const panels: WorkItem[][] = [];
+for (let i = 0; i < workItems.length; i += PANEL_SIZE) {
+  panels.push(workItems.slice(i, i + PANEL_SIZE));
+}
+
+function ServicesGallery() {
   const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { isDesktop } = useScrollContext();
 
   useEffect(() => {
+    if (!isDesktop || !sectionRef.current || !trackRef.current) return;
+    let ctx: { revert: () => void } | null = null;
+
+    async function setup() {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ]);
+      gsap.registerPlugin(ScrollTrigger);
+
+      const section = sectionRef.current!;
+      const track = trackRef.current!;
+      const totalPanels = panels.length;
+
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'none' } });
+
+        tl.to(track, {
+          xPercent: -(totalPanels - 1) * 100,
+          ease: 'none',
+        });
+
+        ScrollTrigger.create({
+          trigger: section,
+          pin: true,
+          pinSpacing: true,
+          start: 'top top',
+          end: `+=${totalPanels * 100}%`,
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+          animation: tl,
+        });
+      }, section);
+    }
+
+    setup();
+
+    return () => {
+      ctx?.revert();
+    };
+  }, [isDesktop]);
+
+  useEffect(() => {
+    if (isDesktop) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -37,53 +94,79 @@ function Work() {
       { threshold: 0.1, rootMargin: '-50px' }
     );
 
-    const elements = sectionRef.current?.querySelectorAll('.reveal');
-    elements?.forEach((el) => observer.observe(el));
+    const elements = section.querySelectorAll('.reveal');
+    elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [isDesktop]);
 
   return (
-    <section id="services" className="work" ref={sectionRef}>
-      <div className="container">
-        <div className="work-header reveal">
-          <div className="work-header-left">
-            <span className="section-label mono">Our Services</span>
-            <h2 className="work-title">
-              Solutions<br />
-              <span className="text-muted">that deliver</span>
-            </h2>
+    <section id="services" className="services-gallery" ref={sectionRef}>
+      <div className="services-track" ref={trackRef}>
+        {panels.map((panel, panelIdx) => (
+          <div className="services-panel" key={panelIdx}>
+            <div className="container">
+              <div className="panel-header">
+                <span className="panel-number mono">Panel {String(panelIdx + 1).padStart(2, '0')} / {String(panels.length).padStart(2, '0')}</span>
+              </div>
+              <div className="panel-cards">
+                {panel.map((item, cardIdx) => {
+                  const isLastCard = panelIdx === panels.length - 1 && cardIdx === panel.length - 1;
+                  if (isLastCard) {
+                    return (
+                      <div className="gallery-card transition-card reveal" key="transition">
+                        <div className="transition-content">
+                          <span className="transition-label mono">All 15 Services</span>
+                          <h3 className="transition-title">From websites to AI.</h3>
+                          <p className="transition-desc">From design to marketing. From strategy to execution — we deliver end-to-end.</p>
+                          <Button href="#capabilities" variant="primary">
+                            See how we deliver <i className="ri-arrow-down-line"></i>
+                          </Button>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return (
+                    <a
+                      href={item.href}
+                      className={`gallery-card reveal reveal-delay-${cardIdx + 1}`}
+                      key={item.index}
+                    >
+                      <div className="card-header">
+                        <span className="card-index mono">{item.index}</span>
+                        <span className="card-category mono">{item.category}</span>
+                      </div>
+                      <h3 className="card-title">{item.title}</h3>
+                      <p className="card-desc">{item.description}</p>
+                      <div className="card-footer">
+                        <span className="card-metric mono">{item.metric}</span>
+                        <span className="card-arrow">
+                          <i className="ri-arrow-right-up-line"></i>
+                        </span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-          <Button href="#contact">
-            Get a Quote <i className="ri-external-link-line"></i>
-          </Button>
-        </div>
+        ))}
+      </div>
 
-        <div className="work-grid">
-          {workItems.map((item, idx) => (
-            <a
-              href={item.href}
-              className={`work-item reveal reveal-delay-${idx + 1}`}
-              key={item.index}
-            >
-              <div className="work-item-header">
-                <span className="work-index mono">{item.index}</span>
-                <div className="work-meta">
-                  <span className="work-category">{item.category}</span>
-                  <span className="work-metric mono">{item.metric}</span>
-                </div>
-              </div>
-              <h3 className="work-item-title">{item.title}</h3>
-              <p className="work-item-desc">{item.description}</p>
-              <div className="work-item-arrow">
-                <i className="ri-arrow-right-up-line"></i>
-              </div>
-            </a>
+      <div className="gallery-progress" aria-hidden="true">
+        <div className="progress-dots">
+          {panels.map((_, i) => (
+            <div className="progress-dot" key={i} />
           ))}
         </div>
+        <span className="progress-label mono">Scroll to explore services</span>
+      </div>
+
+      <div className="gallery-scroll-hint" aria-hidden="true">
+        <span className="mono">↓ Continue</span>
       </div>
     </section>
   );
 }
 
-export default Work;
+export default ServicesGallery;

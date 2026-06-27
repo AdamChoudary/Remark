@@ -2,44 +2,64 @@
 @import "tailwindcss";
 
 /* =========================================
-   Remark Studio - Cinematic Dark Editorial
+   Remark Studio - Dusky Luxury
    -----------------------------------------
-   Aesthetic: Creative Authority + Modern Precision
-   Theme: Deep Dark & Studio Crimson
-   Accent: #9E0000 (Studio Crimson)
-   Primary: #FFFFFF (Pure White)
-   Backgrounds: Deep (#0A0A0A), Med (#141414), Light (#1C1C1C)
-   Headlines: Montserrat
-   Body: Inter
+   Theme: Red · Black · White (dusky)
+   Brand: #7A1A1A (Remark Red - deep mahogany)
+   Canvas: #080808 (warm near-black)
+   Text: #F0EBE3 (warm off-white)
+   No blue. No shadows. One horizontal scroll moment.
    ========================================= */
 
 :root {
-    /* Primary Dark Palette */
-    --void: #0A0A0A;
-    --surface: #141414;
-    --surface-alt: #1C1C1C;
-    --elevated: #262626;
-    --elevated-hover: #333333;
-    
-    /* Text (High Contrast on Dark) */
-    --text: #FFFFFF;
-    --text-secondary: rgba(255, 255, 255, 0.85);
-    --text-muted: rgba(255, 255, 255, 0.65);
-    
-    /* Brand */
-    --accent: #9E0000;
-    --accent-dim: rgba(158, 0, 0, 0.15);
-    --accent-glow: rgba(158, 0, 0, 0.3);
-    --primary: #9E0000;
-    --primary-dim: rgba(158, 0, 0, 0.2);
-    
+    /* Brand (Red - Dusky, Luxury) */
+    --primary: #7A1A1A;
+    --primary-dim: rgba(122, 26, 26, 0.12);
+    --primary-glow: rgba(122, 26, 26, 0.3);
+    --primary-hover: #8B2A2A;
+    --primary-dark: #4A0E0E;
+    --primary-warm: #6B1626;
+
+    /* Dark Surface (Warm Near-Black) */
+    --void: #080808;
+    --surface: #121212;
+    --surface-alt: #1A1818;
+    --elevated: #252222;
+    --elevated-hover: #302C2C;
+
+    /* Text on Dark (Warm Off-White) */
+    --text: #F0EBE3;
+    --text-secondary: rgba(240, 235, 227, 0.85);
+    --text-muted: rgba(240, 235, 227, 0.55);
+
+    /* Light Surface (Warm Off-White - Gallery only) */
+    --canvas-light: #F5F0EB;
+    --canvas-cream: #EDE6DC;
+    --surface-light-1: #E5DED3;
+    --surface-light-2: #DAD0C3;
+    --surface-light-hover: #CEC4B7;
+
+    /* Text on Light (Warm Near-Black) */
+    --text-light: #1A1515;
+    --text-light-secondary: #3A3530;
+    --text-light-muted: #6A6560;
+
     /* Borders */
-    --border: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.15);
-    --stroke-subtle: rgba(255, 255, 255, 0.05);
-    
+    --border-subtle: rgba(240, 235, 227, 0.03);
+    --border: rgba(240, 235, 227, 0.06);
+    --border-strong: rgba(240, 235, 227, 0.12);
+    --border-light: rgba(26, 21, 21, 0.08);
+    --border-light-strong: rgba(26, 21, 21, 0.15);
+
+    /* Legacy aliases (backward compat) */
+    --accent: var(--primary);
+    --accent-dim: var(--primary-dim);
+    --accent-glow: var(--primary-glow);
+    --accent-hover: var(--primary-hover);
+    --stroke-subtle: var(--border-subtle);
+
     /* Effects */
-    --gradient-spotlight: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(158, 0, 0, 0.08), transparent 40%);
+    --gradient-spotlight: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(122, 26, 26, 0.08), transparent 40%);
     --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -195,7 +215,6 @@ a {
 }
 
 @keyframes pulse {
-
     0%,
     100% {
         opacity: 1;
@@ -207,7 +226,6 @@ a {
 }
 
 @keyframes float {
-
     0%,
     100% {
         transform: translateY(0);
@@ -218,41 +236,10 @@ a {
     }
 }
 
-@keyframes filmCounter {
-    0% {
-        content: '00';
-    }
-
-    25% {
-        content: '08';
-    }
-
-    50% {
-        content: '16';
-    }
-
-    75% {
-        content: '24';
-    }
-
-    100% {
-        content: '30';
-    }
-}
-
-@keyframes subtleGlow {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(255, 91, 4, 0.05);
-    }
-    50% {
-        box-shadow: 0 0 40px rgba(255, 91, 4, 0.1);
-    }
-}
-
 /* SELECTION */
 ::selection {
-    background: var(--accent);
-    color: #FFFFFF;
+    background: var(--primary);
+    color: #F0EBE3;
 }
 
 /* SCROLLBAR */
@@ -270,7 +257,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent);
+    background: var(--primary);
 }
 
 /* RESPONSIVE UTILITIES */
@@ -282,13 +269,13 @@ a {
 
 /* Smooth focus states for accessibility */
 *:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
     border-radius: 2px;
 }
 
 /* =========================================
-   App Layout (previously App.css)
+   App Layout
    ========================================= */
 
 /* Dither Background Layout */
