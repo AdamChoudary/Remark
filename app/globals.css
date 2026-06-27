@@ -1,80 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap');
 @import "tailwindcss";
 
 /* =========================================
-   Remark Studio - Dusky Luxury
+   Remark Studio v3 — Framer-Inspired
    -----------------------------------------
-   Theme: Red · Black · White (dusky)
-   Brand: #7A1A1A (Remark Red - deep mahogany)
-   Canvas: #080808 (warm near-black)
-   Text: #F0EBE3 (warm off-white)
-   No blue. No shadows. One horizontal scroll moment.
+   Dark canvas agency site. Red accent on
+   near-black surfaces. Gradient spotlight
+   cards for atmosphere. Aggressive negative
+   tracking on display type. One horizontal
+   scroll gallery as signature.
    ========================================= */
 
 :root {
-    /* Brand (Red - Dusky, Luxury) */
+    /* Brand (Deep Mahogany Red) */
     --primary: #7A1A1A;
     --primary-dim: rgba(122, 26, 26, 0.12);
-    --primary-glow: rgba(122, 26, 26, 0.3);
+    --primary-glow: rgba(122, 26, 26, 0.35);
     --primary-hover: #8B2A2A;
-    --primary-dark: #4A0E0E;
-    --primary-warm: #6B1626;
+    --primary-press: #5A0E0E;
+    --primary-soft: rgba(122, 26, 26, 0.06);
 
-    /* Dark Surface (Warm Near-Black) */
-    --void: #080808;
-    --surface: #121212;
-    --surface-alt: #1A1818;
-    --elevated: #252222;
-    --elevated-hover: #302C2C;
+    /* Dark Canvas & Surfaces (Framer hierarchy) */
+    --canvas: #080808;
+    --surface-1: #141414;
+    --surface-2: #1c1c1c;
+    --surface-3: #242424;
+    --surface-hover: #2a2a2a;
 
-    /* Text on Dark (Warm Off-White) */
-    --text: #F0EBE3;
-    --text-secondary: rgba(240, 235, 227, 0.85);
-    --text-muted: rgba(240, 235, 227, 0.55);
+    /* Ink (Framer-style: binary hierarchy) */
+    --ink: #F0EBE3;
+    --ink-secondary: rgba(240, 235, 227, 0.85);
+    --ink-muted: #a09888;
+    --ink-dim: rgba(160, 152, 136, 0.4);
 
-    /* Light Surface (Warm Off-White - Gallery only) */
+    /* Hairlines (Framer precision) */
+    --hairline: #262626;
+    --hairline-soft: #1a1a1a;
+    --hairline-strong: #333333;
+
+    /* Light Surface (Gallery only) */
     --canvas-light: #F5F0EB;
-    --canvas-cream: #EDE6DC;
     --surface-light-1: #E5DED3;
     --surface-light-2: #DAD0C3;
-    --surface-light-hover: #CEC4B7;
+    --ink-light: #1A1515;
+    --ink-light-secondary: #3A3530;
+    --ink-light-muted: #8A8580;
+    --hairline-light: #d0c8bc;
+    --hairline-light-strong: #b8b0a4;
 
-    /* Text on Light (Warm Near-Black) */
-    --text-light: #1A1515;
-    --text-light-secondary: #3A3530;
-    --text-light-muted: #6A6560;
+    /* Gradient Spotlights (Framer's signature — replaces blue with red tones) */
+    --gradient-spotlight-deep: radial-gradient(800px circle at 30% 40%, rgba(122, 26, 26, 0.25), transparent 50%);
+    --gradient-spotlight-warm: radial-gradient(600px circle at 70% 30%, rgba(139, 42, 42, 0.15), transparent 45%);
+    --gradient-spotlight-amber: radial-gradient(500px circle at 50% 60%, rgba(180, 80, 30, 0.10), transparent 40%);
+    --gradient-spotlight-card: linear-gradient(135deg, rgba(122, 26, 26, 0.20), rgba(180, 80, 30, 0.08));
 
-    /* Borders */
-    --border-subtle: rgba(240, 235, 227, 0.03);
-    --border: rgba(240, 235, 227, 0.06);
-    --border-strong: rgba(240, 235, 227, 0.12);
-    --border-light: rgba(26, 21, 21, 0.08);
-    --border-light-strong: rgba(26, 21, 21, 0.15);
-
-    /* Legacy aliases (backward compat) */
+    /* Legacy aliases */
     --accent: var(--primary);
-    --accent-dim: var(--primary-dim);
-    --accent-glow: var(--primary-glow);
     --accent-hover: var(--primary-hover);
-    --stroke-subtle: var(--border-subtle);
-
-    /* Effects */
-    --gradient-spotlight: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(122, 26, 26, 0.08), transparent 40%);
-    --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --transition-smooth: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-
-    /* Animation duration tokens */
-    --duration-instant: 0.1s;
-    --duration-fast: 0.2s;
-    --duration-normal: 0.4s;
-    --duration-slow: 0.6s;
-    --duration-xslow: 1.0s;
-    --duration-xxslow: 1.5s;
+    --void: var(--canvas);
+    --surface: var(--surface-1);
+    --surface-alt: var(--surface-2);
+    --text: var(--ink);
+    --text-secondary: var(--ink-secondary);
+    --text-muted: var(--ink-muted);
+    --border: var(--hairline);
+    --border-strong: var(--hairline-strong);
 
     /* =========================================
-       Spacing System — 4px base
+       Typography — Framer-style aggressive tracking
+       Display: Montserrat 700–800
+       Body: Inter 400–500
+       ========================================= */
+    --display-xxl: clamp(3rem, 10vw, 7rem);
+    --display-xxl-ls: -0.06em;
+    --display-xxl-lh: 0.90;
+
+    --display-xl: clamp(2.5rem, 6vw, 4.5rem);
+    --display-xl-ls: -0.04em;
+    --display-xl-lh: 0.95;
+
+    --display-lg: clamp(2rem, 4vw, 3rem);
+    --display-lg-ls: -0.03em;
+    --display-lg-lh: 1.00;
+
+    --display-md: clamp(1.5rem, 3vw, 2.5rem);
+    --display-md-ls: -0.02em;
+    --display-md-lh: 1.10;
+
+    --heading: clamp(1.25rem, 2vw, 1.75rem);
+    --heading-ls: -0.015em;
+    --heading-lh: 1.20;
+
+    --body: 1rem;
+    --body-ls: -0.01em;
+    --body-lh: 1.50;
+
+    --body-sm: 0.875rem;
+    --body-sm-ls: -0.005em;
+    --body-sm-lh: 1.50;
+
+    --caption: 0.75rem;
+    --caption-ls: 0.10em;
+    --caption-lh: 1.40;
+
+    --micro: 0.65rem;
+    --micro-ls: 0.15em;
+    --micro-lh: 1.30;
+
+    --button: 0.8rem;
+    --button-ls: 0.05em;
+    --button-lh: 1.00;
+
+    /* =========================================
+       Spacing (4px base)
        ========================================= */
     --space-xxs: 4px;
     --space-xs: 8px;
@@ -84,11 +122,11 @@
     --space-xl: 32px;
     --space-xxl: 48px;
     --space-huge: 64px;
-    --space-section: 80px;
-    --space-section-wide: 120px;
+    --space-section: 96px;
+    --space-section-wide: 128px;
 
     /* =========================================
-       Border Radius System
+       Radius
        ========================================= */
     --radius-none: 0;
     --radius-xs: 4px;
@@ -100,27 +138,26 @@
     --radius-pill: 9999px;
 
     /* =========================================
-       Typography Display Tier System
-       Uses Montserrat 700 for display, Inter for body.
-       Letter-spacing tightens at larger sizes.
+       Animation
        ========================================= */
-    --display-xxl: clamp(3.5rem, 10vw, 7.5rem);
-    --display-xxl-ls: -0.04em;
-    --display-xl: clamp(2.5rem, 6vw, 5rem);
-    --display-xl-ls: -0.03em;
-    --display-lg: clamp(2rem, 4vw, 3.5rem);
-    --display-lg-ls: -0.02em;
-    --display-md: clamp(1.5rem, 3vw, 2.5rem);
-    --display-md-ls: -0.015em;
+    --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --body-size: 1rem;
-    --body-ls: -0.01em;
-    --body-sm-size: 0.9rem;
-    --body-sm-ls: 0;
-    --caption-size: 0.7rem;
-    --caption-ls: 0.15em;
+    --duration-instant: 0.1s;
+    --duration-fast: 0.2s;
+    --duration-normal: 0.4s;
+    --duration-slow: 0.6s;
+    --duration-xslow: 1.0s;
+    --duration-xxslow: 1.5s;
+
+    --transition-smooth: var(--duration-slow) var(--ease-out);
+
+    /* Mouse spotlight (Hero) */
+    --gradient-spotlight: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(122, 26, 26, 0.08), transparent 40%);
 }
 
+/* === BASE RESET === */
 * {
     margin: 0;
     padding: 0;
@@ -130,110 +167,114 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
-    scroll-padding-top: 100px;
-    background: var(--void);
+    background: var(--canvas);
 }
 
 body {
-    background: var(--void);
-    color: var(--text);
+    background: var(--canvas);
+    color: var(--ink);
     font-family: 'Inter', -apple-system, sans-serif;
-    line-height: 1.6;
+    font-size: var(--body);
+    line-height: var(--body-lh);
+    letter-spacing: var(--body-ls);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
 }
 
-/* Film grain overlay */
+/* === FILM GRAIN === */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.02;
+    opacity: 0.015;
     pointer-events: none;
     z-index: 1000;
 }
 
-/* TYPOGRAPHY — Display Tier System */
-h1,
-.display-xxl {
+/* === TYPOGRAPHY === */
+h1, .display-xxl {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: var(--display-xxl-ls);
+    font-weight: 800;
     font-size: var(--display-xxl);
+    line-height: var(--display-xxl-lh);
+    letter-spacing: var(--display-xxl-ls);
 }
 
-h2,
-.display-xl {
+h2, .display-xl {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: var(--display-xl-ls);
     font-size: var(--display-xl);
+    line-height: var(--display-xl-lh);
+    letter-spacing: var(--display-xl-ls);
 }
 
-h3,
-.display-lg {
+h3, .display-lg {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: var(--display-lg-ls);
     font-size: var(--display-lg);
+    line-height: var(--display-lg-lh);
+    letter-spacing: var(--display-lg-ls);
 }
 
-h4,
-.display-md {
+h4, .display-md {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: var(--display-md-ls);
     font-size: var(--display-md);
+    line-height: var(--display-md-lh);
+    letter-spacing: var(--display-md-ls);
 }
 
-h5,
-h6,
-.heading {
+h5, h6, .heading {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    font-size: var(--heading);
+    line-height: var(--heading-lh);
+    letter-spacing: var(--heading-ls);
 }
 
 .body {
-    font-size: var(--body-size);
+    font-size: var(--body);
     letter-spacing: var(--body-ls);
-    line-height: 1.6;
+    line-height: var(--body-lh);
 }
 
 .body-sm {
-    font-size: var(--body-sm-size);
+    font-size: var(--body-sm);
     letter-spacing: var(--body-sm-ls);
-    line-height: 1.6;
+    line-height: var(--body-sm-lh);
 }
 
 .caption {
-    font-size: var(--caption-size);
+    font-size: var(--caption);
     letter-spacing: var(--caption-ls);
     text-transform: uppercase;
-    line-height: 1.4;
+    line-height: var(--caption-lh);
+}
+
+.micro {
+    font-size: var(--micro);
+    letter-spacing: var(--micro-ls);
+    text-transform: uppercase;
+    line-height: var(--micro-lh);
 }
 
 .mono {
     font-family: 'Inter', sans-serif;
+    font-variant-numeric: tabular-nums;
 }
 
 .text-accent {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 .text-muted {
-    color: var(--text-muted);
+    color: var(--ink-muted);
 }
 
-/* LAYOUT */
+/* === LAYOUT === */
 .container {
     width: 100%;
     max-width: 1400px;
@@ -241,152 +282,18 @@ h6,
     padding: 0 clamp(1.5rem, 5vw, 4rem);
 }
 
-.container-wide {
-    max-width: 1600px;
-}
-
 section {
     position: relative;
 }
 
-/* LINKS */
+/* === LINKS === */
 a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.3s var(--ease-out);
+    transition: color var(--duration-fast) var(--ease-out);
 }
 
-/* REVEAL ANIMATIONS - smoother timing */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.reveal-delay-1 {
-    transition-delay: 0.12s;
-}
-
-.reveal-delay-2 {
-    transition-delay: 0.24s;
-}
-
-.reveal-delay-3 {
-    transition-delay: 0.36s;
-}
-
-.reveal-delay-4 {
-    transition-delay: 0.48s;
-}
-
-.reveal-delay-5 {
-    transition-delay: 0.6s;
-}
-
-/* STAGGER ANIMATIONS */
-@keyframes fadeSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes marquee {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-@keyframes pulse {
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
-}
-
-@keyframes float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-/* SELECTION */
-::selection {
-    background: var(--primary);
-    color: #F0EBE3;
-}
-
-/* SCROLLBAR */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--void);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--border-strong);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-}
-
-/* RESPONSIVE UTILITIES */
-@media (max-width: 768px) {
-    html {
-        font-size: 14px;
-    }
-}
-
-/* Smooth focus states for accessibility */
-*:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-    border-radius: 2px;
-}
-
-/* =========================================
-   App Layout
-   ========================================= */
-
-/* Dither Background Layout */
+/* === APP LAYOUT === */
 .app-container {
     position: relative;
     min-height: 100vh;
@@ -407,7 +314,6 @@ a {
     pointer-events: none;
 }
 
-/* Re-enable pointer events for interactive elements */
 .content-layer header,
 .content-layer main,
 .content-layer footer,
@@ -416,4 +322,108 @@ a {
 .content-layer input,
 .content-layer [role="button"] {
     pointer-events: auto;
+}
+
+/* === REVEAL ANIMATIONS === */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity var(--duration-xslow) var(--ease-out-expo), transform var(--duration-xslow) var(--ease-out-expo);
+    will-change: opacity, transform;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+.reveal-delay-4 { transition-delay: 0.48s; }
+.reveal-delay-5 { transition-delay: 0.6s; }
+
+/* Section top-line entry ceremony */
+.section-top-line {
+    position: relative;
+}
+
+.section-top-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
+    z-index: 1;
+}
+
+.section-top-line.visible::before {
+    transform: scaleX(1);
+}
+
+/* === KEYFRAMES === */
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* === MISC === */
+::selection {
+    background: var(--primary);
+    color: var(--ink);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--canvas);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--hairline);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+*:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    :root {
+        --space-section: 64px;
+        --space-section-wide: 80px;
+    }
 }

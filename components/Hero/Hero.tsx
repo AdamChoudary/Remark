@@ -20,7 +20,25 @@ function Hero() {
     };
 
     hero.addEventListener('mousemove', handleMouseMove);
-    return () => hero.removeEventListener('mousemove', handleMouseMove);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '-50px' }
+    );
+
+    const revealElements = hero.querySelectorAll('.reveal');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      hero.removeEventListener('mousemove', handleMouseMove);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -29,14 +47,12 @@ function Hero() {
 
       <div className="container">
         <div className="hero-content">
-          {/* Eyebrow */}
-          <div className="hero-eyebrow">
+          <div className="hero-eyebrow reveal">
             <span className="eyebrow-line"></span>
-            <span className="mono">Digital Solutions Agency</span>
+            <span className="mono">DIGITAL SOLUTIONS AGENCY</span>
           </div>
 
-          {/* Main title */}
-          <h1 className="hero-title">
+          <h1 className="hero-title reveal reveal-delay-1">
             <span className="title-line">
               <span className="title-word">IDEAS</span>
               <span className="title-arrow">→</span>
@@ -44,61 +60,40 @@ function Hero() {
             </span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="hero-subtitle">
-            We don&apos;t just build websites. We craft
-            <span className="highlight"> intelligent digital solutions</span> that scale your business.
+          <p className="hero-subtitle reveal reveal-delay-2">
+            We transform ambitious visions into digital experiences that captivate, convert, and endure.
           </p>
 
-          {/* CTA Group */}
-          <div className="hero-cta">
-            <Button href="#services" variant="primary" magnetic>
-              Our Services <i className="ri-arrow-right-line"></i>
+          <div className="hero-cta reveal reveal-delay-3">
+            <Button href="#services" variant="primary">
+              Our Services
             </Button>
             <Button href="#contact" variant="ghost">
               Start a Project
             </Button>
           </div>
-
-          {/* Trust bar */}
-          <div className="hero-trust">
-            <span className="trust-label mono">Our Expertise</span>
-            <div className="trust-logos">
-              <span className="trust-logo">Web Development</span>
-              <span className="trust-divider">•</span>
-              <span className="trust-logo">Digital Marketing</span>
-              <span className="trust-divider">•</span>
-              <span className="trust-logo">Creative Production</span>
-              <span className="trust-divider">•</span>
-              <span className="trust-logo">Brand Identity</span>
-              <span className="trust-divider">•</span>
-              <span className="trust-logo">Conversational AI</span>
-            </div>
-          </div>
         </div>
 
-        {/* Stats strip */}
-        <div className="hero-stats">
+        <div className="hero-stats reveal reveal-delay-4">
           <div className="stat">
             <span className="stat-number">50+</span>
-            <span className="stat-label mono">Projects Delivered</span>
-          </div>
-          <div className="stat-divider"></div>
-          <div className="stat">
-            <span className="stat-number">30+</span>
             <span className="stat-label mono">Happy Clients</span>
           </div>
           <div className="stat-divider"></div>
           <div className="stat">
-            <span className="stat-number">24/7</span>
-            <span className="stat-label mono">Support Available</span>
+            <span className="stat-number">120+</span>
+            <span className="stat-label mono">Projects Delivered</span>
+          </div>
+          <div className="stat-divider"></div>
+          <div className="stat">
+            <span className="stat-number">8</span>
+            <span className="stat-label mono">Years Experience</span>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="hero-scroll">
-        <span className="mono">Scroll</span>
+      <div className="hero-scroll reveal reveal-delay-5">
+        <span className="mono">SCROLL</span>
         <div className="scroll-line"></div>
       </div>
     </section>

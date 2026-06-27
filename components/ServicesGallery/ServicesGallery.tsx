@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './ServicesGallery.css';
 import { useScrollContext } from '../ScrollProvider';
 import Button from '../Button/Button';
@@ -30,10 +30,37 @@ for (let i = 0; i < workItems.length; i += PANEL_SIZE) {
   panels.push(workItems.slice(i, i + PANEL_SIZE));
 }
 
+const panelTitles = [
+  'Digital Presence',
+  'Creative Craft',
+  'Brand & Experience',
+  'Tactical Growth',
+  'Intelligent Systems',
+];
+
 function ServicesGallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const { isDesktop } = useScrollContext();
+  const [activePanel, setActivePanel] = useState(0);
+
+  useEffect(() => {
+    if (!isDesktop || !sectionRef.current) return;
+    const section = sectionRef.current;
+
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const offsetTop = section.offsetTop;
+      const totalDistance = panels.length * window.innerHeight;
+      const raw = (scrollTop - offsetTop) / totalDistance;
+      const clamped = Math.max(0, Math.min(1, raw));
+      setActivePanel(Math.round(clamped * (panels.length - 1)));
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isDesktop]);
 
   useEffect(() => {
     if (!isDesktop || !sectionRef.current || !trackRef.current) return;
@@ -107,7 +134,8 @@ function ServicesGallery() {
           <div className="services-panel" key={panelIdx}>
             <div className="container">
               <div className="panel-header">
-                <span className="panel-number mono">Panel {String(panelIdx + 1).padStart(2, '0')} / {String(panels.length).padStart(2, '0')}</span>
+                <span className="panel-number mono">{String(panelIdx + 1).padStart(2, '0')} / {String(panels.length).padStart(2, '0')}</span>
+                <h3 className="panel-title">{panelTitles[panelIdx]}</h3>
               </div>
               <div className="panel-cards">
                 {panel.map((item, cardIdx) => {
@@ -117,10 +145,10 @@ function ServicesGallery() {
                       <div className="gallery-card transition-card reveal" key="transition">
                         <div className="transition-content">
                           <span className="transition-label mono">All 15 Services</span>
-                          <h3 className="transition-title">From websites to AI.</h3>
-                          <p className="transition-desc">From design to marketing. From strategy to execution — we deliver end-to-end.</p>
+                          <h3 className="transition-title">From digital foundations</h3>
+                          <p className="transition-desc">Websites, AI, marketing, design — we deliver end-to-end across every discipline.</p>
                           <Button href="#capabilities" variant="primary">
-                            See how we deliver <i className="ri-arrow-down-line"></i>
+                            See how we deliver <i className="ri-arrow-right-up-line"></i>
                           </Button>
                         </div>
                       </div>
@@ -156,15 +184,20 @@ function ServicesGallery() {
       <div className="gallery-progress" aria-hidden="true">
         <div className="progress-dots">
           {panels.map((_, i) => (
-            <div className="progress-dot" key={i} />
+            <div
+              className={`progress-dot${i === activePanel ? ' active' : ''}${i < activePanel ? ' past' : ''}`}
+              key={i}
+            />
           ))}
         </div>
         <span className="progress-label mono">Scroll to explore services</span>
       </div>
 
-      <div className="gallery-scroll-hint" aria-hidden="true">
-        <span className="mono">↓ Continue</span>
-      </div>
+      {activePanel === 0 && (
+        <div className="gallery-scroll-hint" aria-hidden="true">
+          <span className="mono">Scroll to explore →</span>
+        </div>
+      )}
     </section>
   );
 }

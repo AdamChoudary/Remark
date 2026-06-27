@@ -1,11 +1,11 @@
 .testimonial {
-    padding: 0 0 10rem;
-    background: var(--surface);
+    padding: 0 0 var(--space-section);
+    background: var(--surface-1);
     position: relative;
 }
 
 .testimonial-content {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
@@ -16,25 +16,25 @@
     font-weight: 700;
     color: var(--primary);
     line-height: 0.5;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-xl);
     opacity: 0;
     transform: scale(0.8);
     transition: opacity var(--duration-xslow) var(--ease-out-expo), transform var(--duration-xslow) var(--ease-out-expo);
 }
 
 .quote-mark.visible {
-    opacity: 0.3;
+    opacity: 0.2;
     transform: scale(1);
 }
 
 .testimonial-quote {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+    font-size: var(--display-lg);
     font-weight: 700;
     line-height: 1.4;
-    margin-bottom: 3rem;
-    letter-spacing: -0.01em;
-    color: var(--text);
+    margin-bottom: var(--space-xxl);
+    letter-spacing: -0.03em;
+    color: var(--ink);
 }
 
 .testimonial-quote em {
@@ -46,8 +46,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 4rem;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xxl);
 }
 
 .author-avatar {
@@ -56,10 +56,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
     font-size: 1.25rem;
-    color: var(--text-muted);
+    color: var(--ink-muted);
 }
 
 .author-info {
@@ -73,25 +74,25 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--text);
+    color: var(--ink);
 }
 
 .author-title {
-    font-size: 0.7rem;
-    color: var(--text-muted);
+    font-size: var(--micro);
+    letter-spacing: var(--micro-ls);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    color: var(--ink-muted);
 }
 
-/* Metrics bar */
 .metrics-bar {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
-    padding: 2.5rem;
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
+    gap: var(--space-xxl);
+    padding: var(--space-xl);
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
     opacity: 0;
     transform: translateY(20px);
     transition: opacity var(--duration-slow) var(--ease-out-expo), transform var(--duration-slow) var(--ease-out-expo);
@@ -106,20 +107,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-xs);
 }
 
 .metric-value {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
+    font-size: var(--display-md);
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--ink);
     font-variant-numeric: tabular-nums;
     transition: all var(--duration-normal) var(--ease-out);
 }
 
 .metric-value.arrived {
-    color: var(--text);
+    color: var(--ink);
     text-shadow: 0 0 20px var(--primary-glow);
     animation: counterLand 0.6s var(--ease-out-expo) forwards;
 }
@@ -130,48 +131,43 @@
 }
 
 .metric-label {
-    font-size: 0.65rem;
+    font-size: var(--micro);
+    letter-spacing: var(--micro-ls);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
+    color: var(--ink-muted);
 }
 
 .metric-divider {
     width: 1px;
     height: 40px;
-    background: var(--border);
+    background: var(--hairline);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .testimonial {
-        padding: 0 0 5rem;
+        padding: 0 0 var(--space-section);
     }
 
     .quote-mark {
         font-size: 4rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--space-lg);
     }
 
     .testimonial-quote {
-        margin-bottom: 2rem;
+        margin-bottom: var(--space-xl);
     }
 
     .testimonial-author {
-        margin-bottom: 3rem;
+        margin-bottom: var(--space-lg);
     }
 
     .metrics-bar {
         flex-direction: column;
-        gap: 2rem;
-        padding: 2rem;
+        gap: var(--space-xl);
+        padding: var(--space-lg);
     }
 
     .metric-divider {
         display: none;
-    }
-
-    .metric-value {
-        font-size: 1.75rem;
     }
 }

@@ -1,37 +1,43 @@
 .capabilities {
-    padding: 6rem 0 0;
-    background: var(--void);
-    color: var(--text);
+    padding: var(--space-section) 0 0;
+    background: var(--canvas);
+    color: var(--ink);
 }
 
 .capabilities-header {
-    margin-bottom: 5rem;
+    margin-bottom: var(--space-xxl);
+    padding-top: var(--space-xxl);
 }
 
 .capabilities-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1;
-    color: var(--text);
+    font-size: var(--display-xl);
+    letter-spacing: var(--display-xl-ls);
+    line-height: var(--display-xl-lh);
+    color: var(--ink);
+    margin-top: var(--space-md);
 }
 
-.capabilities-title .accent {
-    color: var(--primary);
-}
-
-/* Bento grid */
 .cap-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 5rem;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-section);
 }
 
 .cap-card {
     position: relative;
-    padding: 2.5rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    transition: all var(--transition-smooth);
+    padding: var(--space-xxl);
+    background: var(--surface-1);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    transition: all var(--duration-slow) var(--ease-out);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.cap-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .cap-card::before {
@@ -44,13 +50,13 @@
     background: var(--primary);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.5s var(--ease-out);
+    transition: transform var(--duration-slow) var(--ease-out-expo);
 }
 
 .cap-card:hover {
-    background: var(--surface-alt);
+    background: var(--surface-2);
     border-color: var(--primary);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .cap-card:hover::before {
@@ -59,13 +65,17 @@
 
 .cap-card:active {
     transform: scale(0.98);
+    transition: transform var(--duration-instant) var(--ease-out);
 }
 
 .cap-card.featured {
-    grid-row: span 2;
-    background: var(--surface);
+    grid-column: 1 / -1;
+    background: var(--gradient-spotlight-card);
+    border: 1px solid var(--primary);
     border-top: 2px solid var(--primary);
-    border-color: var(--border-strong);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 .cap-card.featured::before {
@@ -73,7 +83,8 @@
 }
 
 .cap-card.featured:hover {
-    background: var(--surface-alt);
+    background: var(--gradient-spotlight-card);
+    border-color: var(--primary-hover);
 }
 
 .cap-card.featured:active {
@@ -87,39 +98,60 @@
     align-items: center;
     justify-content: center;
     background: var(--primary-dim);
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-lg);
+    border-radius: var(--radius-sm);
+    font-size: 1.25rem;
     transition: all var(--duration-fast) var(--ease-out);
 }
 
 .cap-card:hover .cap-icon {
     background: var(--primary);
-    color: var(--void);
+    color: var(--ink);
 }
 
 .cap-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: var(--heading);
+    letter-spacing: var(--heading-ls);
+    margin-bottom: var(--space-sm);
+    color: var(--ink);
 }
 
 .cap-desc {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
+    font-size: var(--body-sm);
+    color: var(--ink-secondary);
+    line-height: var(--body-sm-lh);
+}
+
+.cap-card.featured .cap-title {
+    font-size: var(--display-md);
+    letter-spacing: var(--display-md-ls);
 }
 
 .cap-card.featured .cap-desc {
-    color: var(--text-secondary);
+    font-size: var(--body);
+    color: var(--ink-secondary);
+    max-width: 600px;
 }
 
-/* Tool marquee */
+.cap-card.featured .cap-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+}
+
+.cap-cta {
+    margin-top: var(--space-md);
+}
+
 .capabilities-loop-text {
-    fill: var(--text);
+    fill: var(--ink);
     font-family: 'Montserrat', sans-serif;
     font-size: 4rem;
     letter-spacing: -0.02em;
     font-weight: 800;
-    opacity: 0.15;
+    opacity: 0.08;
 }
 
 .curved-loop-jacket {
@@ -134,34 +166,37 @@
     }
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
     .cap-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
     .cap-card.featured {
-        grid-row: span 1;
+        grid-column: 1 / -1;
     }
 }
 
 @media (max-width: 768px) {
     .capabilities {
-        padding: 5rem 0 0;
+        padding: var(--space-section) 0 0;
     }
 
     .capabilities-header {
-        margin-bottom: 3rem;
+        margin-bottom: var(--space-xl);
         text-align: center;
     }
 
     .cap-grid {
         grid-template-columns: 1fr;
-        margin-bottom: 3rem;
+        margin-bottom: var(--space-xxl);
     }
 
     .cap-card {
-        padding: 2rem;
+        padding: var(--space-xl);
+    }
+
+    .cap-card.featured {
+        padding: var(--space-xl);
     }
 
     .capabilities-loop-text {

@@ -8,14 +8,14 @@
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--hairline-strong);
     background: transparent;
-    color: var(--text);
+    color: var(--ink);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
     position: relative;
     overflow: hidden;
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
 }
 
 .btn::before {
@@ -25,15 +25,14 @@
     background: var(--primary-hover);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform var(--transition-smooth);
+    transition: transform var(--duration-slow) var(--ease-out);
     z-index: -1;
     border-radius: inherit;
 }
 
 .btn:hover {
-    color: var(--text);
+    color: var(--ink);
     border-color: var(--primary-hover);
-    transform: translateY(-1px);
 }
 
 .btn:hover::before {
@@ -42,7 +41,7 @@
 
 .btn-primary {
     background: var(--primary);
-    color: var(--text);
+    color: var(--ink);
     border-color: var(--primary);
 }
 
@@ -51,8 +50,9 @@
 }
 
 .btn-primary:hover {
-    color: var(--text);
+    color: var(--ink);
     background: var(--primary-hover);
+    border-color: var(--primary-hover);
 }
 
 .btn-primary:active {
@@ -60,8 +60,7 @@
 }
 
 .btn-ghost {
-    border-color: var(--border-strong);
-    padding: 1rem 2rem;
+    border-color: var(--hairline-strong);
 }
 
 .btn-ghost::before {
@@ -76,14 +75,13 @@
     width: 0;
     height: 1px;
     background: var(--primary-hover);
-    transition: width 0.4s var(--ease-out);
+    transition: width var(--duration-slow) var(--ease-out);
     transform: translateX(-50%);
 }
 
 .btn-ghost:hover {
     color: var(--primary-hover);
-    background: var(--surface);
-    transform: none;
+    background: var(--surface-1);
     border-color: var(--primary-hover);
 }
 
@@ -98,7 +96,7 @@
 
 .btn i {
     font-size: 1.1em;
-    transition: transform var(--transition-smooth);
+    transition: transform var(--duration-fast) var(--ease-out);
 }
 
 .btn:hover i {

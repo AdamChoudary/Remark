@@ -1,35 +1,16 @@
 .narrative {
-    padding: 10rem 0;
-    background: var(--surface);
+    padding: var(--space-section) 0;
+    background: var(--surface-1);
     position: relative;
 }
 
-.narrative::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--primary);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--duration-slow) var(--ease-out-expo);
-    z-index: 1;
-}
-
-.narrative.top-line-visible::before {
-    transform: scaleX(1);
-}
-
-/* Section label */
 .section-label {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: var(--micro);
+    letter-spacing: var(--micro-ls);
     text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
+    color: var(--ink-muted);
+    margin-bottom: var(--space-md);
     font-weight: 600;
 }
 
@@ -37,41 +18,29 @@
     color: var(--primary);
 }
 
-/* Header */
 .narrative-header {
-    margin-bottom: 5rem;
+    margin-bottom: var(--space-xxl);
 }
 
 .narrative-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
-    color: var(--text);
+    color: var(--ink);
 }
 
-.narrative-title .strike {
-    text-decoration: line-through;
-    text-decoration-color: var(--primary);
-    text-decoration-thickness: 2px;
-    opacity: 0.4;
-}
-
-/* Problem grid */
 .problem-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 6rem;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-section);
 }
 
 .problem-card {
-    padding: 2.5rem;
-    background: var(--surface-alt);
+    padding: var(--space-xl);
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
     border-left: 2px solid var(--primary);
-    transition: all var(--transition-smooth);
-    position: relative;
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity var(--duration-slow) var(--ease-out-expo), transform var(--duration-slow) var(--ease-out-expo), border-left-color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+    transform: translateY(24px);
+    transition: opacity var(--duration-xslow) var(--ease-out-expo), transform var(--duration-xslow) var(--ease-out-expo), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
 }
 
 .problem-card.visible {
@@ -79,54 +48,41 @@
     transform: translateY(0);
 }
 
-.problem-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--primary-dim), transparent);
-    opacity: 0;
-    transition: opacity 0.4s var(--ease-out);
-}
-
 .problem-card:hover {
+    background: var(--surface-3);
+    border-color: var(--primary-hover);
     border-left-color: var(--primary-hover);
-    background: var(--elevated);
     transform: translateX(4px);
-}
-
-.problem-card:hover::before {
-    opacity: 1;
 }
 
 .problem-number {
     display: block;
-    font-size: 0.75rem;
+    font-size: var(--micro);
     color: var(--primary);
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.15em;
+    margin-bottom: var(--space-md);
+    letter-spacing: var(--micro-ls);
     font-weight: 700;
-    position: relative;
 }
 
 .problem-title {
-    font-size: 1.35rem;
-    margin-bottom: 0.75rem;
-    color: var(--text);
-    position: relative;
+    font-size: var(--heading);
+    letter-spacing: var(--heading-ls);
+    line-height: var(--heading-lh);
+    margin-bottom: var(--space-sm);
+    color: var(--ink);
 }
 
 .problem-desc {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    position: relative;
+    font-size: var(--body-sm);
+    letter-spacing: var(--body-sm-ls);
+    line-height: var(--body-sm-lh);
+    color: var(--ink-secondary);
 }
 
-/* Solution */
 .solution {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 4rem;
+    gap: var(--space-xxl);
     align-items: start;
 }
 
@@ -140,7 +96,7 @@
     transition: transform var(--duration-slow) var(--ease-out-expo);
 }
 
-.solution-line.visible {
+.solution.visible .solution-line {
     transform: scaleY(1);
 }
 
@@ -149,10 +105,8 @@
 }
 
 .solution-title {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    color: var(--text);
+    margin-bottom: var(--space-md);
+    color: var(--ink);
 }
 
 .solution-title .accent {
@@ -160,14 +114,11 @@
 }
 
 .solution-desc {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
+    font-size: var(--body);
+    color: var(--ink-secondary);
+    line-height: var(--body-lh);
 }
 
-/* Dissolve transition - bridges Narrative → Gallery */
-/* Always visible at the bottom of Narrative. When Gallery (canvas-light)
-   scrolls up behind it, the gradient creates a seamless dissolve effect. */
 .narrative::after {
     content: '';
     position: absolute;
@@ -181,11 +132,10 @@
     z-index: 2;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
     .problem-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: var(--space-lg);
     }
 
     .narrative::after {
@@ -196,25 +146,25 @@
 
 @media (max-width: 768px) {
     .narrative {
-        padding: 5rem 0;
+        padding: var(--space-section) 0;
     }
 
     .narrative-header {
-        margin-bottom: 3rem;
+        margin-bottom: var(--space-xxl);
         text-align: center;
     }
 
     .problem-grid {
-        margin-bottom: 4rem;
+        margin-bottom: var(--space-xxl);
     }
 
     .problem-card {
-        padding: 2rem;
+        padding: var(--space-lg);
     }
 
     .solution {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: var(--space-xl);
         text-align: center;
     }
 

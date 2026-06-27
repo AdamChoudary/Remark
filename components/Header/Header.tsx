@@ -51,7 +51,7 @@ function Header() {
         height="auto"
         borderRadius={40}
         borderWidth={0}
-        opacity={scrolled ? 0.95 : 0.7}
+        opacity={scrolled ? 0.92 : 0.65}
         blur={scrolled ? 20 : 10}
         displace={0.3}
         distortionScale={-180}

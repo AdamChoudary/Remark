@@ -28,44 +28,39 @@ function Footer() {
   return (
     <footer className="footer" ref={footerRef}>
       <div className="container">
-        {/* Main footer content */}
         <div className="footer-main reveal">
           <div className="footer-brand">
             <Image src="/logo.png" alt="Remark Studio" className="footer-logo" width={120} height={36} />
             <p className="footer-tagline">Digital Solutions Agency</p>
           </div>
 
-          <div className="footer-links">
-            <div className="footer-col">
-              <span className="footer-col-title mono">Navigation</span>
-              <a href="#services">Services</a>
-              <a href="#process">Process</a>
-              <a href="#capabilities">Capabilities</a>
-              <a href="#contact">Contact</a>
-            </div>
-            <div className="footer-col">
-              <span className="footer-col-title mono">Connect</span>
-              <a href="https://www.instagram.com/remark_studios" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="https://www.tiktok.com/@remark.studio" target="_blank" rel="noopener noreferrer">TikTok</a>
-              <a href="https://www.facebook.com/remarkstudio1" target="_blank" rel="noopener noreferrer">Facebook</a>
-              <a href="https://wa.me/923268450001" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-              <a href="mailto:hello@remarkstudio.agency">Email</a>
-            </div>
+          <div className="footer-nav">
+            <span className="footer-col-title">Navigation</span>
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#capabilities">Capabilities</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <div className="footer-connect">
+            <span className="footer-col-title">Connect</span>
+            <a href="https://www.instagram.com/remark_studios" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.tiktok.com/@remark.studio" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://www.facebook.com/remarkstudio1" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href="https://wa.me/923268450001" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="mailto:hello@remarkstudio.agency">Email</a>
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="footer-bottom reveal reveal-delay-1">
-          <div className="footer-copy mono">
-            © 2026 REMARK STUDIO | All Rights Reserved
-          </div>
-          <div className="footer-location mono">
+          <div className="footer-copy">&copy; 2026 REMARK STUDIO &middot; All Rights Reserved</div>
+          <div className="footer-location">
             <i className="ri-map-pin-line"></i>
-            Office#104, Mezzanine Floor, Embassy Gardens, Sector C1, Bahria Enclave, Islamabad
+            Islamabad, Pakistan
           </div>
           <div className="footer-status">
             <span className="status-dot"></span>
-            <span className="mono">Available for projects</span>
+            <span>Available for projects</span>
           </div>
         </div>
       </div>

@@ -39,22 +39,24 @@ function Narrative() {
     const elements = sectionRef.current?.querySelectorAll('.reveal');
     elements?.forEach((el) => observer.observe(el));
 
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="process" className="narrative" ref={sectionRef}>
+    <section id="process" className="narrative section-top-line" ref={sectionRef}>
       <div className="container">
-        {/* Section header */}
         <div className="narrative-header reveal">
-          <span className="section-label mono">The Problem</span>
+          <span className="section-label mono">THE PROBLEM</span>
           <h2 className="narrative-title">
-            Your business deserves<br />
-            better than <span className="strike">good enough</span>
+            Why most agencies<br />
+            fail to deliver
           </h2>
         </div>
 
-        {/* Problem cards */}
         <div className="problem-grid">
           {problems.map((problem, index) => (
             <div
@@ -68,17 +70,15 @@ function Narrative() {
           ))}
         </div>
 
-        {/* Solution */}
         <div className="solution reveal">
           <div className="solution-line"></div>
           <div className="solution-content">
             <span className="section-label mono accent">The Solution</span>
             <h3 className="solution-title">
-              Your vision. Our expertise.<br />
-              <span className="accent">Scalable digital solutions.</span>
+              The <span className="accent">Remark</span> difference
             </h3>
             <p className="solution-desc">
-              From custom web platforms and AI-driven conversational intelligence to performance growth marketing, premium brand identity, high-end video production, and custom print materials — we engineer every touchpoint of your brand&apos;s digital and physical presence.
+              We don&apos;t just build websites — we engineer every touchpoint of your brand&apos;s digital presence. From custom web platforms and AI-driven conversational intelligence to performance growth marketing, premium brand identity, and high-end video production, our multidisciplinary team delivers solutions that scale.
             </p>
           </div>
         </div>

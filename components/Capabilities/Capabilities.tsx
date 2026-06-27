@@ -3,14 +3,15 @@
 import { useEffect, useRef } from 'react';
 import './Capabilities.css';
 import CurvedLoop from '../CurvedLoop';
+import Button from '../Button/Button';
 
 const capabilities = [
-  { icon: 'ri-code-s-slash-line', title: 'Web Development', description: 'Property sites, portfolios, business websites & SaaS platforms. Modern, responsive, and SEO-optimized.', featured: true },
+  { icon: 'ri-code-s-slash-line', title: 'Web Development', description: 'Property sites, portfolios, business websites & SaaS platforms. Modern, responsive, and SEO-optimized.' },
   { icon: 'ri-customer-service-2-line', title: 'Voice Agents', description: 'AI-powered voice agents for customer support, call handling, helplines, and marketing campaigns.' },
   { icon: 'ri-robot-2-line', title: 'Chat Bots', description: 'Intelligent conversational bots for customer support, handling, and user guidance across platforms.' },
   { icon: 'ri-database-2-line', title: 'CRM & ERP', description: 'End-to-end CRM & ERP solutions to streamline your business operations and boost efficiency.' },
   { icon: 'ri-shield-check-line', title: 'Scalable & Secure', description: 'Enterprise-grade security and infrastructure built to scale with your growing business.' },
-  { icon: 'ri-line-chart-line', title: 'Analytics & Insights', description: 'Data-driven dashboards and reporting to track performance and make informed decisions.' },
+  { icon: 'ri-line-chart-line', title: 'Full-Spectrum Digital', description: 'From strategy to execution — we handle every layer of your digital ecosystem. Websites, AI agents, chatbots, CRM, analytics, performance marketing, and beyond.', featured: true },
 ];
 
 const tools = ['REACT', 'NEXT.JS', 'AI & MACHINE LEARNING', 'OPENAI', 'FIGMA', 'ADOBE CREATIVE SUITE', 'DAVINCI RESOLVE', 'META ADS', 'GOOGLE ANALYTICS', 'SALESFORCE', 'NODE.JS', 'PYTHON'];
@@ -33,17 +34,20 @@ function Capabilities() {
     const elements = sectionRef.current?.querySelectorAll('.reveal');
     elements?.forEach((el) => observer.observe(el));
 
+    const section = sectionRef.current;
+    if (section?.classList.contains('section-top-line')) {
+      observer.observe(section);
+    }
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="capabilities" className="capabilities" ref={sectionRef}>
+    <section id="capabilities" className="capabilities section-top-line" ref={sectionRef}>
       <div className="container">
         <div className="capabilities-header reveal">
-          <span className="section-label mono">Capabilities</span>
           <h2 className="capabilities-title">
-            What we<br />
-            <span className="accent">bring to the table</span>
+            Our Capabilities
           </h2>
         </div>
 
@@ -58,11 +62,17 @@ function Capabilities() {
               </div>
               <h3 className="cap-title">{cap.title}</h3>
               <p className="cap-desc">{cap.description}</p>
+              {cap.featured && (
+                <div className="cap-cta">
+                  <Button href="#contact" variant="primary">
+                    Start your project <i className="ri-arrow-right-up-line"></i>
+                  </Button>
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Tool curved loop */}
         <div className="reveal">
           <CurvedLoop
             marqueeText={tools.join(' ✦ ') + ' ✦ '}
