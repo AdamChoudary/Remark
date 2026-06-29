@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap');
 @import "tailwindcss";
+/* Fonts (Clash Display + Satoshi) are loaded once in app/layout.tsx via Fontshare.
+   Type is referenced through --font-display / --font-body below — single source. */
 
 /* =========================================
    Remark Studio v3 — Framer-Inspired
@@ -11,6 +12,25 @@
    scroll gallery as signature.
    ========================================= */
 
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .section-top-line::before {
+        transform: scaleX(1) !important;
+    }
+}
+
 :root {
     /* Brand (Deep Mahogany Red) */
     --primary: #7A1A1A;
@@ -19,6 +39,15 @@
     --primary-hover: #8B2A2A;
     --primary-press: #5A0E0E;
     --primary-soft: rgba(122, 26, 26, 0.06);
+
+    /* Typefaces — single source of truth. Change here, changes everywhere. */
+    --font-display: 'Clash Display', sans-serif;
+    --font-body: 'Satoshi', 'Inter', -apple-system, sans-serif;
+
+    /* Button system tokens */
+    --btn-radius: 4px;
+    --btn-height: 48px;
+    --btn-height-sm: 40px;
 
     /* Dark Canvas & Surfaces (Framer hierarchy) */
     --canvas: #080808;
@@ -54,6 +83,29 @@
     --gradient-spotlight-amber: radial-gradient(500px circle at 50% 60%, rgba(180, 80, 30, 0.10), transparent 40%);
     --gradient-spotlight-card: linear-gradient(135deg, rgba(122, 26, 26, 0.20), rgba(180, 80, 30, 0.08));
 
+    /* Glassmorphism v2 — frosted glass surfaces */
+    --glass-bg: rgba(20, 20, 20, 0.55);
+    --glass-bg-light: rgba(245, 240, 235, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-strong: rgba(255, 255, 255, 0.15);
+    --glass-blur: 14px;
+    --glass-blur-lg: 40px;
+    --glass-saturate: 180%;
+    --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+    --glass-chromatic: linear-gradient(90deg, rgba(122, 26, 26, 0.15), rgba(180, 80, 30, 0.05), rgba(122, 26, 26, 0.15));
+
+    /* Expanded surface ladder (Linear-style 4-step) */
+    --surface-4: #2e2e2e;
+    --surface-5: #383838;
+
+    /* Maximalist decoration — badges, glows, accents */
+    --badge-bg: rgba(122, 26, 26, 0.12);
+    --badge-text: #7A1A1A;
+    --badge-border: rgba(122, 26, 26, 0.25);
+    --glow-amber: rgba(180, 80, 30, 0.08);
+    --glow-primary: rgba(122, 26, 26, 0.06);
+    --glow-primary-strong: rgba(122, 26, 26, 0.15);
+
     /* Legacy aliases */
     --accent: var(--primary);
     --accent-hover: var(--primary-hover);
@@ -67,9 +119,9 @@
     --border-strong: var(--hairline-strong);
 
     /* =========================================
-       Typography — Framer-style aggressive tracking
-       Display: Montserrat 700–800
-       Body: Inter 400–500
+       Typography — aggressive tracking
+       Display: Clash Display 500–700 (--font-display)
+       Body: Satoshi 400–500 (--font-body)
        ========================================= */
     --display-xxl: clamp(3rem, 10vw, 7rem);
     --display-xxl-ls: -0.06em;
@@ -165,15 +217,18 @@
 }
 
 html {
-    scroll-behavior: smooth;
     font-size: 16px;
     background: var(--canvas);
+}
+
+html:not(.lenis) {
+    scroll-behavior: smooth;
 }
 
 body {
     background: var(--canvas);
     color: var(--ink);
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: var(--font-body);
     font-size: var(--body);
     line-height: var(--body-lh);
     letter-spacing: var(--body-ls);
@@ -196,15 +251,15 @@ body::before {
 
 /* === TYPOGRAPHY === */
 h1, .display-xxl {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-weight: 700;
     font-size: var(--display-xxl);
     line-height: var(--display-xxl-lh);
     letter-spacing: var(--display-xxl-ls);
 }
 
 h2, .display-xl {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--display-xl);
     line-height: var(--display-xl-lh);
@@ -212,7 +267,7 @@ h2, .display-xl {
 }
 
 h3, .display-lg {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--display-lg);
     line-height: var(--display-lg-lh);
@@ -220,7 +275,7 @@ h3, .display-lg {
 }
 
 h4, .display-md {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--display-md);
     line-height: var(--display-md-lh);
@@ -228,7 +283,7 @@ h4, .display-md {
 }
 
 h5, h6, .heading {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--heading);
     line-height: var(--heading-lh);
@@ -262,8 +317,9 @@ h5, h6, .heading {
 }
 
 .mono {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
 }
 
 .text-accent {
@@ -327,8 +383,8 @@ a {
 /* === REVEAL ANIMATIONS === */
 .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity var(--duration-xslow) var(--ease-out-expo), transform var(--duration-xslow) var(--ease-out-expo);
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
     will-change: opacity, transform;
 }
 
@@ -342,6 +398,49 @@ a {
 .reveal-delay-3 { transition-delay: 0.36s; }
 .reveal-delay-4 { transition-delay: 0.48s; }
 .reveal-delay-5 { transition-delay: 0.6s; }
+.reveal-delay-6 { transition-delay: 0.72s; }
+
+/* === GLASS SURFACE (2026 V2) === */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: saturate(var(--glass-saturate)) blur(var(--glass-blur));
+    -webkit-backdrop-filter: saturate(var(--glass-saturate)) blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    position: relative;
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-shine);
+    pointer-events: none;
+}
+
+.glass-light {
+    background: var(--glass-bg-light);
+    backdrop-filter: saturate(150%) blur(12px);
+    -webkit-backdrop-filter: saturate(150%) blur(12px);
+    border: 1px solid var(--hairline-light);
+}
+
+/* === BADGE === */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
+    border-radius: var(--radius-pill);
+    font-size: var(--micro);
+    letter-spacing: var(--micro-ls);
+    text-transform: uppercase;
+    color: var(--badge-text);
+    font-weight: 600;
+    white-space: nowrap;
+}
 
 /* Section top-line entry ceremony */
 .section-top-line {
@@ -380,11 +479,6 @@ a {
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
 }
 
 /* === MISC === */

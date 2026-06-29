@@ -1,113 +1,126 @@
+/* =========================================
+   Button — the single button system.
+   Variants: (default outline) · primary · ghost
+   Sizes: (default 48px) · sm 40px
+   Every CTA on the site uses these classes.
+   ========================================= */
 .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border: 1px solid var(--hairline-strong);
-    background: transparent;
-    color: var(--ink);
-    cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-out);
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: var(--btn-height);
+  padding: 0 1.5rem;
+  font-family: var(--font-body);
+  font-size: var(--button);
+  font-weight: 600;
+  letter-spacing: var(--button-ls);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s var(--ease-out),
+              color 0.2s var(--ease-out),
+              border-color 0.2s var(--ease-out),
+              box-shadow 0.2s var(--ease-out),
+              transform 0.1s var(--ease-out);
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--primary-hover);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--duration-slow) var(--ease-out);
-    z-index: -1;
-    border-radius: inherit;
-}
-
-.btn:hover {
-    color: var(--ink);
-    border-color: var(--primary-hover);
-}
-
-.btn:hover::before {
-    transform: scaleX(1);
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: var(--ink);
-    border-color: var(--primary);
-}
-
-.btn-primary::before {
-    background: var(--primary-hover);
-}
-
-.btn-primary:hover {
-    color: var(--ink);
-    background: var(--primary-hover);
-    border-color: var(--primary-hover);
-}
-
-.btn-primary:active {
-    transform: scale(0.97);
-}
-
-.btn-ghost {
-    border-color: var(--hairline-strong);
-}
-
-.btn-ghost::before {
-    display: none;
-}
-
-.btn-ghost::after {
-    content: '';
-    position: absolute;
-    bottom: 0.5rem;
-    left: 50%;
-    width: 0;
-    height: 1px;
-    background: var(--primary-hover);
-    transition: width var(--duration-slow) var(--ease-out);
-    transform: translateX(-50%);
-}
-
-.btn-ghost:hover {
-    color: var(--primary-hover);
-    background: var(--surface-1);
-    border-color: var(--primary-hover);
-}
-
-.btn-ghost:hover::after {
-    width: 80%;
-}
-
-/* Magnetic button effect applied via JS */
-.btn-magnetic {
-    transition: transform 0.3s var(--ease-out);
-}
-
+.btn svg,
 .btn i {
-    font-size: 1.1em;
-    transition: transform var(--duration-fast) var(--ease-out);
+  transition: transform 0.2s var(--ease-out);
 }
 
-.btn:hover i {
-    transform: translateX(3px);
+.btn:hover svg,
+.btn:hover i,
+.btn:focus-visible svg,
+.btn:focus-visible i {
+  transform: translateX(3px);
+}
+
+/* default (outline) */
+.btn:hover,
+.btn:focus-visible {
+  background: var(--surface-2);
+  border-color: var(--hairline-strong);
 }
 
 .btn:active {
-    transform: scale(0.97);
-    transition: transform var(--duration-instant) var(--ease-out);
+  transform: scale(0.97);
 }
 
-.btn-ghost:active {
-    transform: scale(0.97);
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* primary — solid mahogany + ink glow on hover */
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--ink);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  box-shadow: 0 0 24px var(--primary-glow);
+}
+
+/* ghost — borderless, underline draws from left */
+.btn-ghost {
+  position: relative;
+  padding-inline: 0.25rem;
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-secondary);
+}
+
+.btn-ghost::after {
+  content: '';
+  position: absolute;
+  left: 0.25rem;
+  right: 0.25rem;
+  bottom: 10px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-out-expo), background 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-ghost:hover::after,
+.btn-ghost:focus-visible::after {
+  transform: scaleX(1);
+  background: var(--primary);
+  opacity: 1;
+}
+
+/* size — small (header / dense rows) */
+.btn-sm {
+  min-height: var(--btn-height-sm);
+  padding: 0 1rem;
+  font-size: var(--micro);
+}
+
+/* full-width (mobile / forms) */
+.btn-block {
+  width: 100%;
+}
+
+/* magnetic hook (no-op without JS — kept for opt-in enhancement) */
+.btn-magnetic {
+  transition: transform 0.3s var(--ease-out);
 }

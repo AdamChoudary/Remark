@@ -1,184 +1,287 @@
+/* =========================================
+   NARRATIVE — Three Friction Points
+   ========================================= */
+
 .narrative {
-    padding: var(--space-section) 0;
-    background: var(--surface-1);
-    position: relative;
+  position: relative;
 }
 
-.section-label {
-    display: inline-block;
-    font-size: var(--micro);
-    letter-spacing: var(--micro-ls);
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: var(--space-md);
-    font-weight: 600;
+/* Tighter header-to-cards gap */
+.narrative .section-header {
+  margin-bottom: var(--space-huge, 64px);
 }
 
-.section-label.accent {
-    color: var(--primary);
+/* =========================================
+   Cards Grid
+   ========================================= */
+.narrative-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  margin-bottom: var(--space-section-wide, 128px);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm, 6px);
+  overflow: hidden;
 }
 
-.narrative-header {
-    margin-bottom: var(--space-xxl);
+/* =========================================
+   Card
+   ========================================= */
+.narrative-card {
+  background: var(--surface-1);
+  padding: var(--space-xxl, 48px) var(--space-xl, 32px) var(--space-xl, 32px);
+  position: relative;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.narrative-title {
-    color: var(--ink);
+.narrative-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: var(--card-accent, var(--primary));
+  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.problem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xl);
-    margin-bottom: var(--space-section);
+.narrative-card:hover {
+  background: var(--surface-2);
+  box-shadow: 0 4px 16px oklch(0% 0 0 / 0.2);
+  z-index: 1;
 }
 
-.problem-card {
-    padding: var(--space-xl);
-    background: var(--surface-2);
-    border: 1px solid var(--hairline);
-    border-left: 2px solid var(--primary);
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity var(--duration-xslow) var(--ease-out-expo), transform var(--duration-xslow) var(--ease-out-expo), background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+.narrative-card:hover::before {
+  height: 100%;
 }
 
-.problem-card.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* Top accent line */
+.narrative-card-accent {
+  width: 48px;
+  height: 2px;
+  background: var(--card-accent, var(--primary));
+  margin-bottom: var(--space-lg, 24px);
 }
 
-.problem-card:hover {
-    background: var(--surface-3);
-    border-color: var(--primary-hover);
-    border-left-color: var(--primary-hover);
-    transform: translateX(4px);
+/* Mahogany ramp — subtle tonal distinction, strictly on-brand (no blue/amber/crimson) */
+.narrative-card:nth-child(1) { --card-accent: oklch(45% 0.13 28); }
+.narrative-card:nth-child(2) { --card-accent: oklch(50% 0.14 33); }
+.narrative-card:nth-child(3) { --card-accent: oklch(40% 0.12 22); }
+
+/* Number */
+.narrative-card-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--card-accent);
+  display: block;
+  margin-bottom: var(--space-sm, 12px);
+  transition: opacity 0.2s ease;
+  opacity: 0.15;
 }
 
-.problem-number {
-    display: block;
-    font-size: var(--micro);
-    color: var(--primary);
-    margin-bottom: var(--space-md);
-    letter-spacing: var(--micro-ls);
-    font-weight: 700;
+.narrative-card:hover .narrative-card-num {
+  opacity: 0.25;
 }
 
-.problem-title {
-    font-size: var(--heading);
-    letter-spacing: var(--heading-ls);
-    line-height: var(--heading-lh);
-    margin-bottom: var(--space-sm);
-    color: var(--ink);
+/* Title */
+.narrative-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.3;
+  padding-bottom: var(--space-sm, 12px);
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: var(--space-sm, 12px);
+  transition: color 0.2s ease;
 }
 
-.problem-desc {
-    font-size: var(--body-sm);
-    letter-spacing: var(--body-sm-ls);
-    line-height: var(--body-sm-lh);
-    color: var(--ink-secondary);
+.narrative-card:hover .narrative-card-title {
+  color: var(--card-accent, var(--primary));
 }
 
-.solution {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-xxl);
-    align-items: start;
+/* Body */
+.narrative-card-body {
+  font-size: var(--body-sm, 0.875rem);
+  line-height: 1.8;
+  color: var(--ink-secondary);
+  margin: 0;
+  text-wrap: pretty;
 }
 
-.solution-line {
-    width: 1px;
-    height: 100%;
-    min-height: 200px;
-    background: linear-gradient(to bottom, var(--primary), transparent);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform var(--duration-slow) var(--ease-out-expo);
+.narrative-card-body strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
-.solution.visible .solution-line {
-    transform: scaleY(1);
+/* =========================================
+   Pull Quote
+   ========================================= */
+.narrative-quote {
+  text-align: center;
+  padding: var(--space-huge, 64px) var(--space-xl, 32px);
+  margin-bottom: var(--space-section, 96px);
+  position: relative;
 }
 
-.solution-content {
-    max-width: 600px;
+.narrative-quote-rule {
+  width: 64px;
+  height: 2px;
+  background: var(--primary);
+  margin: 0 auto var(--space-xxl, 48px);
 }
 
-.solution-title {
-    margin-bottom: var(--space-md);
-    color: var(--ink);
+.narrative-quote-line {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: pretty;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s calc(0.2s + var(--i) * 0.15s) cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s calc(0.2s + var(--i) * 0.15s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.solution-title .accent {
-    color: var(--primary);
+.narrative-quote.visible .narrative-quote-line {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.solution-desc {
-    font-size: var(--body);
-    color: var(--ink-secondary);
-    line-height: var(--body-lh);
+.narrative-quote-line:last-child {
+  color: var(--primary);
 }
 
-.narrative::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    background: linear-gradient(to bottom, transparent, var(--canvas-light));
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 2;
+/* =========================================
+   Closing
+   ========================================= */
+.narrative-close {
+  padding-top: var(--space-xl, 32px);
+  padding-bottom: var(--space-section-wide, 128px);
+  max-width: 560px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.narrative-close.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.narrative-close-eyebrow {
+  font-size: var(--caption, 0.75rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--space-md, 16px);
+}
+
+.narrative-close-eyebrow::after {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--hairline-strong, #333);
+}
+
+.narrative-close-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-md, 16px);
+  text-wrap: pretty;
+}
+
+.narrative-close-desc {
+  font-size: var(--body, 1rem);
+  line-height: 1.7;
+  color: var(--ink-secondary);
+  margin: 0 0 var(--space-lg, 24px);
+  text-wrap: pretty;
+}
+
+/* Closing CTA uses the shared .btn .btn-primary system */
+
+/* =========================================
+   Responsive — Tablet
+   ========================================= */
 @media (max-width: 1024px) {
-    .problem-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-lg);
-    }
+  .narrative-cards {
+    grid-template-columns: 1fr;
+    margin-left: var(--space-xl, 32px);
+    margin-right: var(--space-xl, 32px);
+  }
 
-    .narrative::after {
-        height: 60px;
-        opacity: 0.4;
-    }
+  .narrative-quote {
+    padding: var(--space-section, 96px) var(--space-lg, 24px);
+  }
 }
 
+/* =========================================
+   Responsive — Mobile
+   ========================================= */
 @media (max-width: 768px) {
-    .narrative {
-        padding: var(--space-section) 0;
-    }
+  .narrative-card {
+    padding: var(--space-xl, 32px);
+  }
 
-    .narrative-header {
-        margin-bottom: var(--space-xxl);
-        text-align: center;
-    }
+  .narrative-card-num {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+  }
 
-    .problem-grid {
-        margin-bottom: var(--space-xxl);
-    }
+  .narrative-quote-line {
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+  }
 
-    .problem-card {
-        padding: var(--space-lg);
-    }
+  .narrative-close-title {
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+  }
+}
 
-    .solution {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
-        text-align: center;
-    }
+@media (max-width: 480px) {
+  .narrative-cards {
+    margin-left: var(--space-md, 16px);
+    margin-right: var(--space-md, 16px);
+  }
 
-    .solution-content {
-        margin: 0 auto;
-    }
+  .narrative-card {
+    padding: var(--space-lg, 24px);
+  }
 
-    .solution-line {
-        width: 60px;
-        height: 1px;
-        min-height: auto;
-    }
+  .narrative-close .btn {
+    width: 100%;
+  }
+}
 
-    .narrative::after {
-        display: none;
-    }
+/* =========================================
+   Reduced Motion
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+  .narrative-quote-line,
+  .narrative-close {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .narrative-quote-line { opacity: 1; transform: none; }
+  .narrative-close { opacity: 1; transform: none; }
 }

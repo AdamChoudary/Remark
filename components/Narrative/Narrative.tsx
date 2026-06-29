@@ -1,87 +1,94 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useReveal } from '@/hooks/useReveal';
+import { SectionHeader } from '@/components/SectionHeader/SectionHeader';
 import './Narrative.css';
 
-const problems = [
-  {
-    number: '01',
-    title: 'Outdated or no web presence',
-    description: 'Your competitors are online and thriving while your business lacks a professional digital footprint.',
-  },
-  {
-    number: '02',
-    title: 'Customer queries going unanswered',
-    description: 'Missed calls, delayed responses, and overwhelmed support teams cost you customers every day.',
-  },
-  {
-    number: '03',
-    title: 'Manual processes slowing growth',
-    description: 'Without proper CRM & ERP systems, your business operations are inefficient and error-prone.',
-  },
-];
-
 function Narrative() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '-50px' }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.reveal');
-    elements?.forEach((el) => observer.observe(el));
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useReveal(0.05);
 
   return (
-    <section id="process" className="narrative section-top-line" ref={sectionRef}>
+    <section className="narrative section-top-line" ref={sectionRef}>
+
       <div className="container">
-        <div className="narrative-header reveal">
-          <span className="section-label mono">THE PROBLEM</span>
-          <h2 className="narrative-title">
-            Why most agencies<br />
-            fail to deliver
-          </h2>
-        </div>
+        <SectionHeader
+          eyebrow="The Challenge"
+          title="Three things holding your business back"
+          className="reveal"
+        />
 
-        <div className="problem-grid">
-          {problems.map((problem, index) => (
-            <div
-              className={`problem-card reveal reveal-delay-${index + 1}`}
-              key={problem.number}
-            >
-              <span className="problem-number mono">{problem.number}</span>
-              <h3 className="problem-title">{problem.title}</h3>
-              <p className="problem-desc">{problem.description}</p>
-            </div>
-          ))}
-        </div>
+        {/* ─── Cards ─── */}
+        <div className="narrative-cards reveal">
 
-        <div className="solution reveal">
-          <div className="solution-line"></div>
-          <div className="solution-content">
-            <span className="section-label mono accent">The Solution</span>
-            <h3 className="solution-title">
-              The <span className="accent">Remark</span> difference
-            </h3>
-            <p className="solution-desc">
-              We don&apos;t just build websites — we engineer every touchpoint of your brand&apos;s digital presence. From custom web platforms and AI-driven conversational intelligence to performance growth marketing, premium brand identity, and high-end video production, our multidisciplinary team delivers solutions that scale.
+          <article className="narrative-card">
+            <div className="narrative-card-accent" aria-hidden="true" />
+            <span className="narrative-card-num">01</span>
+            <h3 className="narrative-card-title">Web Presence</h3>
+            <p className="narrative-card-body">
+              While your competitors are capturing market share online, an outdated
+              web presence leaves you invisible. A modern website isn&apos;t
+              optional&mdash;it&apos;s the cost of entry. We&apos;ve delivered{' '}
+              <strong>over 200 projects</strong> from the ground up.
             </p>
-          </div>
+          </article>
+
+          <article className="narrative-card">
+            <div className="narrative-card-accent" aria-hidden="true" />
+            <span className="narrative-card-num">02</span>
+            <h3 className="narrative-card-title">Voice &amp; AI</h3>
+            <p className="narrative-card-body">
+              Every missed call, every delayed response is a customer lost. AI voice
+              agents don&apos;t sleep, don&apos;t take breaks. Across{' '}
+              <strong>50+ web properties</strong>, automation reduced response
+              times by <strong>80%</strong>.
+            </p>
+          </article>
+
+          <article className="narrative-card">
+            <div className="narrative-card-accent" aria-hidden="true" />
+            <span className="narrative-card-num">03</span>
+            <h3 className="narrative-card-title">Systems &amp; Operations</h3>
+            <p className="narrative-card-body">
+              Fragmented tools and manual processes are the silent ceiling on growth.
+              We engineer integrated CRM and ERP systems that maintain{' '}
+              <strong>99.9% uptime</strong> so your team focuses on what matters.
+            </p>
+          </article>
+
         </div>
+
+        {/* ─── Pull Quote ─── */}
+        <div className="narrative-quote reveal">
+          <div className="narrative-quote-rule" aria-hidden="true" />
+          <p className="narrative-quote-line" style={{ '--i': 0 } as React.CSSProperties}>
+            What if the gap between
+          </p>
+          <p className="narrative-quote-line" style={{ '--i': 1 } as React.CSSProperties}>
+            idea and execution was
+          </p>
+          <p className="narrative-quote-line" style={{ '--i': 2 } as React.CSSProperties}>
+            just a conversation?
+          </p>
+        </div>
+
+        {/* ─── Closing ─── */}
+        <div className="narrative-close reveal">
+          <span className="narrative-close-eyebrow">The Remark Difference</span>
+          <p className="narrative-close-title">
+            We don&apos;t just build websites&mdash;we engineer every touchpoint.
+          </p>
+          <p className="narrative-close-desc">
+            Websites, AI agents, chatbots, CRM, marketing, design&mdash;end-to-end
+            across every discipline. One team, one vision, seamless integration.
+          </p>
+          <a className="btn btn-primary" href="#contact">
+            Start your journey
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
       </div>
     </section>
   );

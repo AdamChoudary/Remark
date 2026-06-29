@@ -45,14 +45,15 @@ export function getWaveColor(progress: number): [number, number, number] {
 }
 
 export function ScrollProvider({ children }: { children: ReactNode }) {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1025px) and (pointer: fine)').matches : false
+  );
   const [progress, setProgress] = useState(0);
   const progressRef = useRef(0);
   const frameId = useRef(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1025px) and (pointer: fine)');
-    setIsDesktop(mq.matches);
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
@@ -79,6 +80,8 @@ export function ScrollProvider({ children }: { children: ReactNode }) {
         touchMultiplier: 1,
       });
 
+      document.documentElement.classList.add('lenis');
+
       lenis.on('scroll', (e: { progress: number }) => {
         progressRef.current = e.progress;
       });
@@ -95,6 +98,7 @@ export function ScrollProvider({ children }: { children: ReactNode }) {
       frameId.current = requestAnimationFrame(updateProgress);
 
       cleanup = () => {
+        document.documentElement.classList.remove('lenis');
         cancelAnimationFrame(frameId.current);
         gsap.ticker.remove(lenis.raf);
         lenis.destroy();

@@ -1,1069 +1,554 @@
----
-version: 2.0
-name: remark-studio-design-system-v2
-description: "A dusky luxury design system for Remark Studio — a digital solutions agency landing page. The interface is a warm near-black canvas with deep mahogany-red brand accents, built around one signature horizontal scroll experience. Every design decision is evaluated for its psychological effect: symmetry, relaxation, thrill, and zero annoyance. No blue. No gimmicks. One scroll moment that matters."
----
-
-# Remark Studio Design System v2
-
-## Design Philosophy
-
-**"The scroll is the story."** — The page is designed as an emotional arc, not a grid of sections. Every visual has a complete lifecycle: a deliberate entrance, a purposeful presence, and a meaningful exit. Nothing appears from nowhere and nothing disappears without closure. The horizontal gallery is not decoration — it's the climax. Everything before it builds anticipation; everything after it resolves into trust.
-
-**No dead ends.** — A spotlight that blooms from and returns to the void. A gallery that doesn't just end but bridges to what's next. Numbers that don't just sit there but arrive with ceremony. A background that subtly shifts with every scroll position — never static, always transforming. Every pixel has a purpose and a lifespan.
-
-**One scroll moment, perfectly executed.** — A single horizontal pinned section hits harder than two or three. The first time the user scrolls vertically and the content moves horizontally, that surprise is pure dopamine. The second time, it's expected and loses its magic. We get one chance to amaze — we save it for the Services Gallery.
-
-**Red. Black. White. Nothing else.** — No blue hover state. No secondary accent. No gradient backgrounds. The brand speaks through a disciplined three-color palette. Pure black and pure white are avoided — they feel cheap. Every shade is a considered luxury variant: deep mahogany reds, warm near-blacks, cream off-whites.
-
-**Never annoy the user.** — The scroll engine must feel like a mechanical extension of the user's intent. No forced animation waits. No scrolljacking. No Lenis on mobile. The horizontal section must be skippable. The user is always in control — we just make the ride smooth.
-
----
-
-## Emotional Arc (Page Rhythm)
-
-```
-VERTICAL — Hero
-  State: Bold, impressive, confident
-  Pace: Slow, cinematic entrance (staggered 1.2s reveals)
-  Feeling: "This is a serious studio"
-  ↓ scroll
-
-VERTICAL — Narrative
-  State: Understanding, empathetic
-  Pace: Reading speed. Calm. Information-gathering.
-  Feeling: "They understand my problem"
-  ↓ scroll
-
-HORIZONTAL — Services Gallery ✦ CLIMAX ✦
-  State: Expansion, revelation, breadth
-  Pace: Smooth, continuous. Surprise of horizontal motion.
-  Feeling: "They have solutions for EVERYTHING"
-  ↓ scroll (horizontal transition ends)
-
-VERTICAL — Capabilities
-  State: Grounding, concrete, credibility
-  Pace: Stable. All content visible. No tricks.
-  Feeling: "And they have the tools to deliver"
-  ↓ scroll
-
-VERTICAL — Testimonial
-  State: Quiet confidence. Social proof.
-  Pace: Slow, single voice.
-  Feeling: "Other people trust them. I can too."
-  ↓ scroll
-
-VERTICAL — CTA
-  State: Warm invitation. No pressure.
-  Pace: Open-ended, personal.
-  Feeling: "I want to talk to them."
-```
-
-### Why This Works Psychologically
-
-**The Hero → Narrative → Gallery sequence** follows the classic three-act structure:
-- Act 1 (Hero): Establish authority — "We exist, we're good"
-- Act 2 (Narrative): Build empathy — "We see your pain points"  
-- Act 3 (Gallery): The reveal — "Here's exactly how we solve them"
-
-The horizontal scroll at Act 3 is the **payoff**. The user has been reading vertically (comfortable, expected) and suddenly the page expands horizontally. This shift is:
-- **Surprising but not disorienting** — the content is continuous (services/services)
-- **Expansive** — horizontal feels infinite, like "they have even more to offer"
-- **Rewarding** — the user's scroll investment pays off with visual novelty
-
-**After the climax, the page doesn't try to top itself.** Capabilities (vertical bento) is stable and solid — it reassures. Testimonial is quiet. CTA is warm. The energy decreases gracefully, like the denouement after a movie's climax.
-
----
-
-## Colors
-
-### Brand Palette (Red — Dusky, Luxury, No Blue)
-
-```yaml
-primary: "#7A1A1A"        # Remark Red — deep mahogany-red. Brand accent, CTAs, highlights.
-primary-dim: rgba(122, 26, 26, 0.12)  # Subtle red tint — cards, hover rings
-primary-glow: rgba(122, 26, 26, 0.3)  # Red glow — spotlight, selection
-primary-hover: "#8B2A2A"  # Warmer red — the ONLY hover state for ALL interactive elements
-primary-dark: "#4A0E0E"   # Near-black red — decorative accents, footer
-primary-warm: "#6B1626"   # Deep burgundy — alternate red accent
-```
-
-**ONE red per viewport.** The brand accent is powerful because it's rare. Never more than one red element visible at a time. Red draws the eye — if everything is red, nothing is.
-
-### Dark Surface (Warm Near-Black — Primary Canvas)
-
-```yaml
-canvas-dark: "#080808"    # Page background. Deepest, warmest near-black.
-surface-1: "#121212"      # Card backgrounds. One step from void.
-surface-2: "#1A1818"     # Featured cards. Subtle red undertone.
-surface-3: "#252222"     # Hover surfaces. Warm charcoal.
-surface-hover: "#302C2C" # Interactive hover on dark.
-```
-
-Why warm? Pure gray/black feels industrial. The slight red/brown warmth in all dark surfaces creates a subconscious feeling of being in a dimly lit gallery or lounge — expensive, comfortable, intimate. The warmth is invisible unless compared side-by-side with a cool black.
-
-### Light Surface (Warm Off-White — Gallery Interlude)
-
-```yaml
-canvas-light: "#F5F0EB"           # Warm off-white — Services Gallery background only
-surface-light-1: "#E5DED3"        # Card backgrounds within gallery
-surface-light-2: "#DAD0C3"        # Elevated cards in gallery
-surface-light-hover: "#CEC4B7"    # Card hover in gallery
-```
-
-The warm off-white is used in ONLY ONE place: the horizontal Services Gallery. This exclusivity makes the gallery feel physically different from the rest of the page — like walking from a dim corridor into a sunlit gallery room. When the user scrolls out of it back into the dark track, there's a subconscious feeling of returning to a comfortable den.
-
-### Text
-
-```yaml
-text-primary: "#F0EBE3"                    # Warm off-white — headlines on dark
-text-secondary: rgba(240, 235, 227, 0.85)  # Body on dark — comfortable reading
-text-muted: rgba(240, 235, 227, 0.55)      # Secondary/meta text on dark
-
-text-light: "#1A1515"                      # Warm near-black — headlines on light
-text-light-secondary: "#3A3530"            # Body on light
-text-light-muted: "#6A6560"                # Secondary text on light
-```
-
-Pure white (`#ffffff`) on near-black creates halation — the text appears to bloom and causes eye strain after seconds of reading. Warm off-white eliminates this entirely while maintaining contrast. Users won't notice it consciously but will feel less tired.
-
-### Borders
-
-```yaml
-border-subtle: rgba(240, 235, 227, 0.03)  # Hairline on dark — barely perceptible
-border-default: rgba(240, 235, 227, 0.06)  # Standard dark border
-border-strong: rgba(240, 235, 227, 0.12)   # Emphasized dark border
-border-light: rgba(26, 21, 21, 0.08)       # Standard light border
-border-light-strong: rgba(26, 21, 21, 0.15)# Emphasized light border
-```
-
-Borders are traces, not lines. At 0.03-0.06 opacity on dark, they're barely perceptible — just enough to define a card edge without creating visual noise. The near-black canvas provides depth through surface color shift, not borders.
-
-### Removed from v1
-
-| Token | Why Removed |
-|-------|-------------|
-| `accent-blue: #0052ef` | No blue in the palette. Hover uses `primary-hover` instead. |
-| `canvas-cream: #fbfaf7` | Replaced by warmer, dusker `canvas-light: #F5F0EB` |
-| `surface-light-1: #f5f5f7` | Too cool/gray — replaced with warm bone tones |
-
----
-
-## Typography
-
-### Font Family (Unchanged from v1)
-
-```yaml
-display: "Montserrat, sans-serif"            # Poster-grade geometric sans — headings, hero
-body: "'Inter', -apple-system, sans-serif"   # Variable font — everything else
-mono: "'Inter', sans-serif"                  # Technical labels, section markers, stats
-```
-
-### Scale (Unchanged from v1)
-
-```yaml
-display-xxl: clamp(48px, 8vw, 96px) 700 -0.04em 0.92 uppercase
-display-xl:  clamp(36px, 6vw, 72px) 700 -0.03em 0.95
-display-lg:  clamp(28px, 4vw, 48px) 700 -0.025em 1.0
-display-md:  clamp(22px, 3vw, 36px) 700 -0.02em 1.05
-headline:    clamp(18px, 2.5vw, 28px) 700 -0.015em 1.15
-subhead:     clamp(16px, 2vw, 22px) Inter 600 -0.01em 1.3
-body-lg:     18px Inter 400 1.6 -0.01em
-body:        16px Inter 400 1.6
-body-sm:     14px Inter 400 1.5
-caption:     13px Inter 500 1.4 -0.01em
-micro:       12px Inter 500 1.3 0.05em uppercase
-button:      14px Inter 600 1.0
-```
-
-### Psychological Notes on Typography
-
-- **Negative tracking on display sizes** (up to -0.04em) creates density and gravity. At 96px, -0.04em is -3.84px of letter-spacing. This compression subconsciously signals confidence — the brand has nothing to prove, it can pack letters tight because it knows they'll be read.
-
-- **Montserrat for display only.** If body text used Montserrat, the site would feel like a poster that never ends — exhausting. Inter's neutral warmth gives the eyes a rest between display moments.
-
-- **Lowercase body, uppercase display.** Uppercase subconsciously signals importance/authority. Using it only at display scale (hero, section headers) reserves that authority signal for the most important moments. Micro labels in uppercase at 12px feel technical and precise, not shouty.
-
-- **Minimum 1.6 line-height on body.** On a dark canvas, text needs breathing room. Tighter body text on dark feels cramped and hard to track visually.
-
----
-
-## Layout & Scroll Architecture
-
-### Page Architecture
-
-```
-┌──────────────────────────────────────────────────┐
-│  HERO (V)                                        │
-│  Full-viewport. Dither BG visible through.       │
-│  Spotlight. Title "IDEAS → REALITY". Stats.       │
-│  ↓  Enters fast, then slows as user reads         │
-├──────────────────────────────────────────────────┤
-│  NARRATIVE (V)                                    │
-│  "The Problem" — 3 cards + solution.              │
-│  ↓  Reading pace. Calm before the climax.         │
-├══════════════════════════════════════════════════┤
-│  SERVICES GALLERY (H) ✦  THE SIGNATURE MOMENT     │
-│                                                   │
-│  │ Panel 1  │ Panel 2  │ Panel 3  │ Panel 4  │   │
-│  │ 3 cards  │ 3 cards  │ 3 cards  │ 3 cards  │   │
-│  │          │          │          │          │   │
-│  ← content translates left as user scrolls ↓ →   │
-│                                                   │
-│  Background: canvas-light (warm off-white)         │
-│  —The only light section on the page—             │
-│  5 panels × 3 cards each = 15 services            │
-│  Progress bar at bottom: ○ ○ ○ ○ ○               │
-│  ↓  Climax. Surprise. Expansion.                  │
-├══════════════════════════════════════════════════┤
-│  HORIZONTAL→VERTICAL TRANSITION                   │
-│  As last panel exits, the dark track returns.     │
-│  This transition itself feels like exhaling.      │
-│  ↓                                                │
-├──────────────────────────────────────────────────┤
-│  CAPABILITIES (V)                                 │
-│  Bento grid. 6 cards. 1 featured.                │
-│  Tool marquee below.                             │
-│  ↓  Grounding. Stability. Credibility.           │
-├──────────────────────────────────────────────────┤
-│  TESTIMONIAL (V)                                  │
-│  Single quote + 3 metrics. Quiet confidence.      │
-│  ↓  Trust.                                       │
-├──────────────────────────────────────────────────┤
-│  CTA (V)                                         │
-│  Form + social links. Warm invitation.           │
-│  ↓  Action.                                      │
-├──────────────────────────────────────────────────┤
-│  FOOTER (V)                                      │
-│  Link grid.                                      │
-└──────────────────────────────────────────────────┘
-```
-
-### Why Only One Horizontal Section?
-
-**The psychological rule: One surprise per experience.**
-
-Two horizontal sections would create:
-1. **Annotation fatigue**: "Oh, another horizontal one. I get it." The second one is boring before it loads.
-2. **Loss of specialness**: If everything is a special scroll treatment, nothing is.
-3. **Mobile resentment**: Two sections collapsing to vertical means the mobile user misses TWO experiences. One is acceptable "mobile tax"; two feels like discrimination.
-4. **Cognitive whiplash**: V → H → V → H → V requires 4 mental model shifts. V → H → V → V → V requires 2. The brain has limited reorientation budget — spend it wisely.
-
-### Services Gallery Details
-
-**Layout per panel:**
-```
-┌──────────────────────────────────────────────┐
-│  "Our Services"                              │
-│  Solutions that deliver                      │
-│                                              │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐     │
-│  │  01      │ │  02      │ │  03      │     │
-│  │ Website  │ │ Digital  │ │ Social   │     │
-│  │ Devel.   │ │ Marketing│ │ Media    │     │
-│  └──────────┘ └──────────┘ └──────────┘     │
-│                                              │
-│  ○ ● ○ ○ ○                                  │
-└──────────────────────────────────────────────┘
-```
-
-- **5 panels**, each 100vw wide. 3 cards per panel.
-- Cards within a panel are equal width (~33% of viewport with gaps).
-- Cards have warm off-white background (`surface-light-1`) with subtle border.
-- Each card: index (tabular, `primary` color), category (micro uppercase), title (headline), description (body-sm)
-- Hover: card border shifts to `primary` with a subtle `primary-dim` overlay
-- Progress bar at bottom: 5 dots, current highlighted
-- Background: `canvas-light` — the ONLY section that breaks the dark track
-
-**Scroll behavior:**
-- Section pins at `top top` when reached
-- Inner content translates left at 100vw per panel
-- Scrub: `0.8` (slight lag = sense of physical inertia, not too tight)
-- Ease: `none` (linear — the scroll position directly maps to horizontal position)
-- User can scroll fast through panels without forced wait
-- When last panel exits left, section unpins
-
-**Mobile ≤1024px:**
-- Horizontal deactivated
-- Cards display as a vertical grid (3-col → 2-col → 1-col)
-- Same cards, same content, no translation
-
----
-
-## Components
-
-### Spacing System — 4px Base
-
-```yaml
---space-xxs: 4px
---space-xs: 8px
---space-sm: 12px
---space-md: 16px
---space-lg: 24px
---space-xl: 32px
---space-xxl: 48px
---space-huge: 64px
---space-section: 80px
---space-section-wide: 120px
-container-max: 1400px
-container-wide: 1600px
-container-narrow: 720px
-gutter: clamp(1.5rem, 5vw, 4rem)
-```
-
-Principle: Every spatial decision references these tokens. Card padding uses `--space-xxl` (48px), section gap uses `--space-section` (80px), button padding uses `--space-xs` (8px) vertical and `--space-md` (16px) horizontal. No raw pixel values outside these tokens.
-
-### Elevation (Colorimetric — No Shadows)
-
-```yaml
-elevation-0: void                  # Ground (#080808)
-elevation-1: surface               # Cards, inputs (#121212)
-elevation-2: surface-alt           # Featured cards, metrics bar (#1A1818)
-elevation-3: elevated              # Hover states (#252222)
-```
-
-On light (gallery only):
-```yaml
-elevation-0-light: canvas-light    # Ground (#F5F0EB)
-elevation-1-light: surface-light-1 # Cards (#E5DED3)
-elevation-2-light: surface-light-2 # Hover states (#DAD0C3)
-```
-
-### Rounded Corners
-
-```yaml
---radius-none: 0    # Full-bleed tiles, photo containers
---radius-xs: 4px    # Small chips, utility tags
---radius-sm: 6px    # Badges, inline tags
---radius-md: 10px   # Form inputs
---radius-lg: 16px   # Content cards (default)
---radius-xl: 24px   # Capability cards, featured panels
---radius-xxl: 32px  # Oversized panels
---radius-pill: 9999px # CTAs, search inputs
-```
-
-Principle: Border-radius is binary — content surfaces use `--radius-lg` (16px) or `--radius-xl` (24px); actionable elements use `--radius-pill` (9999px). `--radius-none` signals full-bleed editorial surfaces. No 2px or 8px rounding in between.
-
-### Navigation (Header)
-
-```yaml
-background: rgba(8, 8, 8, 0.85)
-backdropFilter: blur(12px)
-textColor: text-primary (#F0EBE3)
-border-bottom: 1px solid border-default
-height: 72px
-```
-
-- Frosted glass — the ONLY `backdrop-filter` blur on the site
-- Nav link hover: color shifts to `primary-hover` (`#8B2A2A`)
-- Mobile: hamburger → full-screen overlay
-
-### Buttons
-
-**Primary** — Deep mahogany-red filled pill.
-- Background: `primary` (`#7A1A1A`), text: `text-primary`
-- Hover: background → `primary-hover` (`#8B2A2A`) — the red warms up, not changes color
-- Active/press: `scale(0.95)` — Apple micro-interaction, 0.1s
-- Border-radius: pill
-
-**Ghost** — Transparent with hairline border.
-- Background: transparent, text: `text-primary`
-- Border: 1px `border-strong`
-- Hover: background → `surface-1`, border → `primary`
-
-**No blue hover.** All interactive elements use `primary-hover` (`#8B2A2A`) — a warmer, slightly brighter red. The red family handles both static brand signal AND interactive feedback.
-
-### Hero Section — Complete Lifecycle
-
-```yaml
-height: 100vh (min-height: 600px)
-background: transparent (Dither BG shows through)
-```
-
-**LIFECYCLE:**
-```
-ENTRY (0s → 1.5s):
-  0.0s: Eyebrow slides in from left, accent line draws rightward
-  0.4s: "IDEAS" flies in from left (-30px → 0), "REALITY" from right (+30px → 0)
-  0.7s: Arrow "→" appears with a brief scale pulse (1 → 1.2 → 1)
-  1.0s: Subtitle fades in, accent word "intelligent" glows
-  1.2s: CTAs stagger in (ghost first, primary second)
-  1.5s: Stats strip slides up, scroll indicator fades in
-  1.5s: Spotlight blooms from transparent → full glow (radial expands from center)
-
-PRESENCE (1.5s → user scrolls past 50%):
-  Spotlight follows mouse cursor with subtle breathing pulse (0.5s cycle)
-  Stats numbers are animated counters (CSS --target, triggered by IO)
-  Title arrow "→" has a gentle shimmer (CSS animation on the text-shadow)
-  Ghost CTA has underline animation on hover
-
-EXIT (user scrolls past Hero):
-  Spotlight pulse slows and fades into Dither background
-  Title blurs slightly upward (2px blur + 10px translateY) as it scrolls out
-  Arrow "→" dissolves before the words do — the transformation is complete
-  Stats strip compresses into a thin line before disappearing
-  The Dither background absorbs all elements — no hard cutoffs
-```
-
-- CSS gradient spotlight (dusky red glow following mouse)
-  - Initial bloom: radial gradient expands from center with 1.5s animation
-  - Breathing pulse: `rgba(122, 26, 26, 0.08)` → `rgba(122, 26, 26, 0.12)` oscillation
-  - Exit: amplitude decreases over 0.8s as section scrolls up
-- Eyebrow: "DIGITAL SOLUTIONS AGENCY" + red accent line that draws rightward on entrance
-- Title: "IDEAS → REALITY" with staged entrance directions
-  - "IDEAS" flies left-to-right, "REALITY" flies right-to-left — they converge on the arrow
-  - Arrow has a scale pulse entrance, then subtle shimmer while present
-  - On exit: arrow dissolves first, words follow (asymmetry = interest)
-- Stats strip with counter animation:
-  - Numbers count from 0 to target on IO trigger (CSS `--target` or GSAP)
-  - Each number lands with a subtle text-shadow pulse (0→glow→off)
-  - Divider lines animate from 0 height to full on entrance
-- Scroll indicator: "Scroll" label + animated line
-  - Fades in at 1.5s
-  - Line height oscillates (20px → 40px → 20px, 2s cycle) — breathing, not mechanical
-
-### Narrative Section (V) — Complete Lifecycle
-
-```yaml
-background: surface-1
-cards: 3 problem cards on dark + 1 solution callout
-```
-
-**LIFECYCLE:**
-```
-ENTRY (as section scrolls into view):
-  Section top border line draws from left-to-right in `primary` (1.2s)
-  Header fades in: "THE PROBLEM" + title
-  Cards stagger in (0.12s delays) with left border already visible — slides up with red stripe
-  Solution card enters last — gradient line draws from top to bottom
-
-PRESENCE (while section is in view):
-  Cards quiet — content is being read, not watched
-  Solution line pulses gently at the bottom (subtle, 4s cycle)
-
-EXIT (user scrolls past section):
-  Bottom edge of section dissolves into the Gallery:
-    A CSS `::after` pseudo-element with gradient from `surface-1` → transparent
-    As gallery section scrolls up, this gradient peels away like a curtain
-    The warm off-white of the gallery bleeds through the dissolve
-  Problem cards fade in sequence (last card first — stacking depth)
-  Solution line fades last — it's the bridge
-  Result: "The answer to these problems dissolves into the solutions below"
-```
-
-**What changed from v1:** Cards no longer jump to white background. Everything stays on dark track surfaces:
-- Problem cards: `surface-1` background with `primary` left border (2px)
-  - Left border draws from bottom→top on entry (direction gives energy)
-- Problem card title: `text-primary`
-- Problem card description: `text-secondary`
-- Solution: `primary-dim` background with gradient line (`primary` → transparent)
-  - Gradient line draws from top→bottom as the solution enters
-- **Entry border**: A thin `primary` line at the top of the section that draws left→right on section entrance — each section gets this "chapter opening" ceremony
-
-**Why:** White cards on dark background feel like a newsletter template, not a luxury experience. Keeping everything within the dark track maintains the warm, intimate atmosphere. The cards are distinguished by surface shifts and border treatments, not by flipping to white.
-
-**The dissolve transition:** When the user scrolls from Narrative to Gallery, the Narrative's bottom edge literally dissolves — a CSS mask/gradient that peels upward. The Gallery's off-white background appears through this dissolve, making the tonal shift feel like a physical transition rather than an abrupt cut. This is the only place on the page where one section visually bleeds into the next — making the Narrative→Gallery movement feel significant.
-
-### Services Gallery (H — The Signature Moment)
-
-```yaml
-background: canvas-light (#F5F0EB) — the ONLY light section
-panels: 5 panels × 3 cards = 15 services
-card:
-  background: surface-light-1
-  border: 1px solid border-light
-  hover: border → primary
-```
-
-**LIFECYCLE:**
-```
-ENTRY (section pins at top):
-  1. Section enters from below — the dissolve from Narrative creates a "curtain reveal"
-  2. First panel slides in from right with 2deg → 0deg rotation settle (0.6s)
-  3. 3 cards within first panel stagger in (0.1s delays each) with slight scale (0.97→1)
-  4. Progress bar appears: 5 dots, dot 1 filled, remaining 4 as outlines
-  5. Panel label fades in: "Panel 01 / 05"
-
-PRESENCE (as user scrolls through all 5 panels):
-  Each panel transition:
-    - Panel exits left with slight opacity fade (1→0.85) — feels like looking back
-    - Next panel enters from right with the same 2deg→0 settle
-    - Cards within each panel stagger similarly
-    - Progress dot fills as panel passes, previous dot dims
-  Card interactions (3-state):
-    1. Rest: border border-light, quiet. Arrow invisible.
-    2. Hover: border → primary, primary-dim wash overlay, arrow fades in (right+up 3px)
-    3. Click: scale(0.98) press, smooth scroll to #contact with service param
-    Note: hover is a DELIBERATE action — no hover effects during scroll (throttled via GSAP)
-
-PROGRESSION TRACKING:
-  - 5-dot progress bar at bottom
-  - Each dot is a filled circle when active, outlined when pending, mini (0.5×) when past
-  - Panel counter: "01 / 05" — updates with each panel
-  - Dots have a subtle connecting line between them (1px, border-default)
-
-EXIT (last panel → transition to Capabilities):
-  Panel 5 is special — it's the CLOSING:
-    - First two cards: services 13 and 14 (standard cards)
-    - Third card (position 15): TRANSITION CARD — not a service
-      - Title: "All 15 services"
-      - Description: "From websites to AI. From design to marketing. From strategy to execution — we deliver end-to-end."
-      - Button: "See how we deliver →" (links to next section)
-      - Background: subtle primary-tint (primary-dim on light) — different from other cards
-  When panel 5 is fully in view:
-    - Progress bar animates: 5 dots merge into a continuous horizontal line
-    - Line extends and a small "↓" appears below it
-    - This is the signal: "Gallery complete — keep scrolling"
-  As user scrolls past:
-    - Gallery unpins
-    - Background transitions from canvas-light → canvas-dark
-    - Transition card is the last thing visible before the dark track returns
-    - The Capabilities section appears beneath
-
-  **NO abrupt end.** The gallery doesn't just stop. It announces its completion, bridges to the next section, and closes gracefully.
-```
-
-- Section pins at top when reached via vertical scroll
-- Inner track translates left: 5 panels, each 100vw
-- Each panel: header (section label + title) + 3 cards in a row
-- Cards: index number (`primary`, tabular), category (micro), title (headline), description (body-sm), arrow icon on hover
-- Card hover: border shifts to `primary`, subtle `primary-dim` overlay
-- Progress bar at bottom: 5 dots, current panel highlighted
-- Background: `canvas-light` — the tonal shift from dark to light IS part of the experience
-
-**Scroll mechanics:**
-- Lenis smooth scroll active (desktop only)
-- GSAP ScrollTrigger: pin section, scrub translation
-- Scrub value: 0.8 (slight inertia)
-- Ease: "none" (linear position mapping)
-- User can scroll fast — no forced wait at any panel
-- 5 panels = ~5 viewport-heights of scroll distance
-- Hover effects disabled during active scroll (GSAP ScrollTrigger `onScroll` event sets a flag)
-
-**Mobile fallback (≤1024px):**
-- Section is a standard vertical section
-- Cards display in responsive grid (3-col → 2-col → 1-col)
-- IntersectionObserver reveals instead of GSAP
-- Transition card appears as the last item in the grid
-
-### Capabilities (V — Vertical Bento)
-
-```yaml
-background: canvas-dark
-cards: 6 capability cards in bento grid
-  - Web Development (featured, spans 2 rows, primary-dim background)
-  - 5 other cards (surface-1 background, standard bento position)
-```
-
-**LIFECYCLE:**
-```
-ENTRY (section scrolls into view, after Gallery exits):
-  Section top border line draws left-to-right in `primary` — the "chapter open"
-  Bento grid tiles appear with staggered pop-in (scale 0.95→1, not just fade)
-    - Featured card enters first (largest, most important)
-    - Remaining 5 cards enter in reading order (left→right, top→bottom)
-    - Each card's icon spins in (Remix icon rotates -90deg→0 over 0.4s)
-  Tool marquee begins: text starts from stopped, accelerates to speed 2 over 1.5s
-    - The marquee "spools up" like a reel — it doesn't start at full speed
-
-PRESENCE (while section is in view):
-  Card hover: 3-state interaction
-    1. Rest: surface-1 (or primary-dim for featured), icon circle has border-transparent
-    2. Hover: surface → surface-2, icon background fills with primary, text shifts slightly right
-    3. Click: scale(0.98), smooth scroll to #contact
-  Tool marquee at constant speed while section is in primary view
-  Featured card gets subtle pulsing top border (1.5s cycle, primary-glow)
-  Card content is scannable — this section communicates credibility through density
-
-EXIT (user scrolls past):
-  Cards do NOT fade — they remain visible as they scroll upward (content permanence)
-  Tool marquee speed decreases over 1s (2→0), text decelerates to stop
-  The marquee stops at a natural break point between words — never mid-word
-  Last element visible: the decelerating marquee giving a sense of completion
-```
-
-- Stable, grounded layout. No scroll tricks.
-- 6 cards: 3 columns, 2 rows (featured card spans row 1-2 column 1)
-- Each card: icon (Remix icon in `primary`), title (headline), description (body-sm)
-- Featured card (Web Development): `primary-dim` background with 2px `primary` top border
-- Other cards: `surface-1` background
-- Card hover: surface shifts to `surface-2`, icon background fills with `primary`
-- Tool marquee below: CurvedLoop SVG with tool names, loops continuously
-  - Text: "REACT ✦ NEXT.JS ✦ AI & MACHINE LEARNING ✦ ..."
-  - Speed: accelerates on entry (0→2), decelerates on exit (2→0)
-  - Direction: left, interactive drag
-  - Fill: `text-muted`, font: Montserrat 4rem, transparent edge mask
-  - The marquee creates gentle motion that feels alive, not mechanical
-
-### Testimonial (V) — Complete Lifecycle
-
-```yaml
-background: surface-1
-```
-
-**LIFECYCLE:**
-```
-ENTRY (section scrolls into view):
-  Section top border line draws left-to-right in primary
-  Quote mark fades in first (0→0.3 opacity, 0.8s) — anchors the section
-  Quote text enters word-by-word with subtle opacity stagger (0.05s per word, elegant not gimmicky)
-  Accent word in quote gets a brief primary-glow pulse when it appears
-  Author avatar + name fade in as a unit (1.2s)
-  Metrics bar slides up from below (30px→0, 1.2s ease-out-expo)
-    - Metrics bar background: surface-2 (not white — stays on dark track)
-
-PRESENCE (section in view):
-  Counters animate from 0 to target value:
-    - Triggered by IntersectionObserver when metrics bar enters viewport
-    - GSAP count animation: 1.5s duration per metric
-    - Staggered: metric 1 starts → 0.3s → metric 2 → 0.3s → metric 3
-    - Each counter uses font-variant-numeric: tabular-nums (no width jitter)
-
-  ARRIVAL CEREMONY (when all 3 counters reach target):
-    - A brief collective pulse: all 3 metric values glow primary-glow for 0.3s, then settle
-    - This feels like a slot machine hitting jackpot — subtle, satisfying
-    - After the pulse, metrics remain highlighted (slightly warmer than before the count)
-
-EXIT (user scrolls past):
-  Quote mark stays visible longest — last element to scroll out
-  Metrics bar collapses downward (reverse of entry)
-  No drama — this section's exit is quiet, like the end of a conversation
-```
-
-- Large quote mark (`primary`, 8rem, 0.3 opacity) — fades in first
-- Quote in Montserrat with one word in `primary` — word-by-word staggered entry
-- Author: name + title, small avatar circle
-- Metrics bar: 3 metrics on `surface-2` background
-  - 4.9 / 2-Week / 100% — counters animate from 0
-  - Tabular figures in `text-primary`
-  - Labels in `text-muted` micro uppercase
-  - All three counters pulse briefly when the last one reaches target
-- Clean, quiet with one delightful surprise (the counter arrival)
-
-### CTA (V) — Complete Lifecycle
-
-```yaml
-background: canvas-dark
-```
-
-**LIFECYCLE:**
-```
-ENTRY (section scrolls into view):
-  Section top border line draws left-to-right in primary
-  Grid background pattern fades in (opacity 0→0.3, 2s — very slow, never attention-seeking)
-  Title fades and slides up: "Let's build something remarkable"
-  Form inputs stagger in: name → email → service → message (0.15s delays)
-  Submit button arrives last with a brief primary-glow pulse
-  Social links appear at the bottom as the last element
-
-PRESENCE (form interaction):
-  Input focus: border → primary, label shifts up (float label pattern)
-  Input filled: subtle check icon appears in the field (green → no, primary → yes)
-  Characters typed: a thin progress line under the message field grows (visual feedback)
-  Submit button hover: primary → primary-hover with a subtle magnetic effect
-
-EXIT (form submission):
-  On submit (click):
-    - Button shows loading state: text replaced by spinner (CSS-only, no spinner SVG)
-    - Form fields lock (pointer-events: none, visual opacity 0.6)
-
-    SUCCESS:
-      - Form collapses (fields fade, button fades — 0.5s total)
-      - Success state fades in:
-        - Primary checkmark icon (animated circle draw + checkmark stroke)
-        - "Thank you!" in display-md
-        - "We'll be in touch within 24 hours." in body
-        - These replace the form in the same DOM position (no layout shift)
-      - No redirect. The success state is the new permanent state for this view.
-
-    ERROR:
-      - Form does NOT collapse
-      - Button returns to original state
-      - Error message appears below the submit button in primary (animated slide down)
-      - First invalid field shakes briefly (CSS keyframe, 0.3s)
-      - No alert() — ever.
-
-EXIT (user scrolls past CTA):
-  Form stays visible as it scrolls upward (if submitted, the success message scrolls out)
-  Grid pattern fades out (opacity 0.3→0)
-  Social links are the last element visible before Footer
-```
-
-- Grid background pattern (60px CSS grid, 0.3 opacity, radial mask fading edges)
-- Title: "Let's build something remarkable"
-- Form: name, email, service, message
-  - Inputs on `surface-1`, border `border-default`, focus → `primary`
-  - Labels in `text-muted` micro uppercase, float-label behavior
-- Post-submit states:
-  - Loading: button text → spinner, fields fade
-  - Success: form replaced by checkmark + "Thank you" message
-  - Error: shake first invalid field, show error message below button
-- Social links: Instagram, TikTok, WhatsApp, Email
-  - Icon-only, circle buttons, hover → `primary-hover`
-
-### Footer
-
-```yaml
-background: canvas-dark
-border-top: 1px solid border-default
-```
-
-- 4-column link grid: Services, Company, Contact, Social
-- All links hover to `primary`
-- Status dot in `primary` with pulse animation
-- Copyright + location + availability
-
-### Dither Background — The Continuous Thread
-
-```yaml
-waveColor:
-  hero:       [0.12, 0.02, 0.02]  # Deep red — bold, confident
-  narrative:  [0.10, 0.03, 0.03]  # Slightly warmer, less intense — reading mode
-  gallery:    [0.08, 0.05, 0.04]  # Warm amber — preparing for light section
-  capabilities: [0.10, 0.03, 0.02] # Returns to deep but warmer
-  testimonial:  [0.10, 0.02, 0.02] # Deep red, settled
-  cta:          [0.08, 0.02, 0.02] # Subtle, receding — lets the form speak
-```
-
-The Dither is the **only element on the page that never ends**. It doesn't enter, it doesn't exit — it transforms. This is the solution to the biggest dead end: a static background.
-
-**How it works:**
-- A single GSAP ScrollTrigger tracks overall scroll progress (0 → 1 across the page)
-- As scroll progresses, the Dither's `waveColor` lerps between color states
-- The transition is continuous and slow — 200-300px of scroll to shift between states
-- The Dither becomes a "scroll thermometer" — the background subtly tells you where you are
-
-**Why subtle?** The color shifts are small (0.01-0.04 per channel) and slow. The user doesn't consciously notice them but subconsciously feels the page is alive. If the shifts were obvious, they'd be distracting.
-
-**Relationship to the Gallery:**
-- As the user scrolls toward the Gallery (Narrative→Gallery transition), the Dither shifts from deep red to warm amber
-- During the Gallery's horizontal scroll, the Dither is partially obscured by the light background — but what's visible at the edges still shifts
-- As the user exits the Gallery, the Dither shifts back to deep red
-- The Dither is the UNDERSCORE — it runs beneath everything, tying all sections into one continuous experience
-
----
-
-## Global Animation Integration
-
-### The Continuous Thread
-
-Every section lifecycle described above is connected. No section acts in isolation. Here's how they weave together:
-
-```
-Scroll Progress:  0%          20%         40%         60%         80%         100%
-                 |────HERO────|──NARRATIVE─|──GALLERY(H)─|─CAPABILITIES─|TEST|CTA|FT|
-                                                                                
-Dither Color:    deep red ──→ warmer ──→ amber ──→ deep red ──→ settled ──→ subtle
-                 [0.12,0.02]  [0.10,0.03] [0.08,0.05] [0.10,0.03]  [0.10,0.02] [0.08,0.02]
-                 
-Entry Borders:   ──────→→→   ─────→→→    ─────→→→    ─────→→→     ───→→→     ───→→→
-(primary line     Each section gets a top border that draws left→right on entry
- drawing across)
-
-Section Energy:  HIGH ──→ CALM ──→ CLIMAX ──→ GROUNDED ──→ TRUST ──→ WARM
-                 loud     reading   thrill    stable      quiet    invite
-```
-
-The Dither color shift is the slowest, most continuous animation on the page — taking the full scroll length to complete its transformation. Section entry borders are the fastest — discrete moments of "chapter opening." Between these two extremes, each section has its own lifecycle tempo.
-
-### How Lifecycles Feed Into Each Other
-
-| Exit From | Feeds Into | Mechanism |
-|-----------|-----------|-----------|
-| Hero spotlight fades | Narrative's calm entrance | Spotlight dissolves into Dither; Dither shifts warmer |
-| Narrative dissolves upward | Gallery appears through dissolve | CSS mask gradient on Narrative's bottom edge peels up |
-| Gallery progress bar completes | Capabilities section signaled | Dots merge into line + "↓" — visual cue to continue |
-| Tool marquee decelerates | Testimonial quiet entrance | Marquee stops → 0.5s pause → testimonial border draws |
-| Metrics arrival pulse | CTA warm invitation | The "confirmed" feeling of metrics pulsing carries into CTA |
-| CTA form submits (or not) | Footer appears | Footer is always waiting, always stable — the ground |
-
-### Dead End Checklist
-
-Every visual element is checked against this before implementation:
-
-- [ ] Does it have a defined ENTRANCE (how, when, how long)?
-- [ ] Does it have a PRESENCE behavior (what it does while visible)?
-- [ ] Does it have an EXIT (how it leaves or transforms)?
-- [ ] Does its exit feed into the next element's entrance?
-- [ ] If it never exits (like Dither), does it TRANSFORM?
-- [ ] Is there any element that appears from nowhere with no context?
-- [ ] Is there any element that disappears with no closure?
-
-**If a visual hasn't been defined through all 4 lifecycle phases (ENTRY, PRESENCE, EXIT, FEED-INTO), it's a dead end and needs to be fixed.**
-
----
-
-## Animation & Motion
-
-### Dual Engine Philosophy
-
-```yaml
-desktop (>1024px):
-  smooth-scroll: Lenis
-  horizontal-section: GSAP ScrollTrigger (pinned, scrub)
-  reveals: CSS transitions + IntersectionObserver
-  easing: ease-out-expo for reveals, linear for horizontal scrub
-
-mobile (≤1024px):
-  smooth-scroll: Native (Lenis disabled)
-  horizontal-section: Disabled (collapsed to vertical)
-  reveals: CSS transitions + IntersectionObserver (unchanged)
-  easing: ease-out-expo for reveals
-```
-
-Lenis and GSAP are **dynamically imported** only on desktop. They never load on mobile. This means:
-- Mobile users don't pay the bundle cost for features they can't use
-- No risk of Lenis fighting touch scroll (the #1 cause of "annoying" scroll)
-- Desktop users get the full experience
-- The site works perfectly without JS (standard vertical scroll)
-
-### Scroll Engine Details
-
-**Lenis config:**
-```yaml
-duration: 1.2        # Scroll duration — faster than default (1.5) for snappiness
-easing: "easeOutExpo" # Same curve as CSS reveals — cohesive feel
-orientation: "vertical"
-smoothWheel: true
-wheelMultiplier: 1     # No scroll speed modification — user's scroll is respected
-touchMultiplier: 1     # Touch = native scroll feel (Lenis touch handling disabled)
-```
-
-**GSAP ScrollTrigger for Gallery:**
-```yaml
-trigger: ".services-gallery"
-start: "top top"
-end: "+=500%"           # 5 panels × 100vh each
-pin: true
-pinSpacing: true
-invalidateOnRefresh: true
-
-timeline:
-  - translate x: 0 → -400vw (5 panels - 1)
-  - scrub: 0.8          # Slight inertia — feels physical
-  - ease: "none"        # Linear — exact scroll-to-position mapping
-```
-
-**MatchMedia (mobile deactivation):**
-```yaml
-ScrollTrigger.matchMedia():
-  "(min-width: 1025px)": activate horizontal gallery
-  "(max-width: 1024px)": deactivate horizontal gallery, show vertical
-```
-
-### Scroll-Reveal Pattern (Vertical Sections)
-
-CSS + IntersectionObserver (unchanged from v1):
-```
-observer: { threshold: 0.1, rootMargin: '-50px' }
-targets: .reveal → .visible
-CSS: opacity 0→1, translateY(30px)→0
-transition: 1.2s var(--ease-out-expo)
-```
-
-No GSAP for vertical section reveals. These are simple, lightweight, CSS-driven.
-
-### Hover States
-
-Every interactive element uses `primary-hover` (`#8B2A2A`):
-- Buttons: background color shift (no scale on hover — only on press)
-- Cards: border color shift to `primary` + `primary-dim` overlay
-- Links: color shift to `primary-hover` + underline on text links
-- Press: `transform: scale(0.95)` with 0.1s transition
-
-**No blue anywhere.** The old electric blue hover (`#0052ef`) is entirely removed. The red family handles both static brand presence and interactive feedback.
-
-### What NOT to Animate
-
-- Parallax backgrounds — causes layout thrashing, poor mobile perf
-- Word-by-word or letter-by-letter reveals — annoying, slow
-- Page transitions — single page, no routes
-- Complex keyframe sequences — the 1.2s reveal is enough
-- Scroll-driven background color shifts — disorienting
-- Decorative gradient animations — the Dither BG is the only shader
-- Content animations within horizontal cards during scroll — the scroll IS the motion
-
----
-
-## Performance Budget
-
-| Asset | Bundle | Loading Strategy |
-|-------|--------|-----------------|
-| Lenis | ~8KB gz | Dynamic import, desktop-only (>1024px) |
-| GSAP + ScrollTrigger | ~22KB gz | Dynamic import, desktop-only (>1024px) |
-| Three.js (Dither) | ~50KB gz | Dynamic import, ssr: false (existing) |
-| CSS (all) | < 50KB | Static, bundled |
-| Fonts | 2 families | Preconnect + preload |
-| **Initial JS** | **< 30KB** | No animation libs in initial bundle |
-
-### Loading Sequence
-
-```
-1. HTML renders (server)
-2. CSS paints (static, no JS needed for layout)
-3. IntersectionObserver fires for .reveal elements
-4. [If viewport > 1024px] Dynamic import: Lenis + GSAP
-5. [If viewport > 1024px] Initialize smooth scroll + horizontal gallery
-6. [Always] Dynamic import: Dither (Three.js canvas)
-
-If JS fails at step 3: All content still visible, basic vertical scroll works
-If JS fails at step 4: Vertical sections reveal, horizontal section shows as vertical grid
-If JS fails at step 5: Dither BG shows static noise pattern → plain dark
-```
-
----
-
-## Responsive Behavior
+# Remark Studio — Navbar + Hero Design Spec
+
+## 1. Visual Theme & Atmosphere
+
+**Anchor**: Warm editorial minimalism on a dark canvas. Think luxury magazine landing page — restrained, textured, intentional. The site feels like stepping into a dimly lit gallery with warm mahogany accents. Light behaves like it's passing through a smoked glass lens.
+
+The atmosphere is created through layered radial spotlights (deep red, warm amber, subtle glow) rather than gradients or decorative shapes. The canvas has a faint film-grain texture. No floating 3D objects, no animated orbs, no "particle" effects.
+
+- **Load impact**: Typography assembles in sequence (eyebrow → heading → lead → actions). Nothing moves after load.
+- **First scroll trigger**: The marquee appears already running at page bottom (no fade-in). It's a design element, not a reveal.
+- **Non-uniform moment**: The hero visual (a single refined glass card) sits asymmetrically right-of-center, creating tension with the left-aligned typography.
+
+## 2. Color Palette & Roles
+
+All colors reference CSS variables from `globals.css`. Zero hardcoded hex values.
+
+| Role | Variable | RGB Ref | Usage |
+|------|----------|---------|-------|
+| Canvas | `--canvas` | 8, 8, 8 | Page background |
+| Primary | `--primary` | 122, 26, 26 | Accent, CTAs, emphasis, hover lines |
+| Primary hover | `--primary-hover` | 139, 42, 42 | Button hover |
+| Ink | `--ink` | 240, 235, 227 | Primary text, headings |
+| Ink secondary | `--ink-secondary` | 240, 235, 227, 0.85 | Body text |
+| Ink muted | `--ink-muted` | 160, 152, 136 | Subtle text, metadata |
+| Ink dim | `--ink-dim` | 160, 152, 136, 0.4 | Placeholder |
+| Surface 1 | `--surface-1` | 20, 20, 20 | Header scrolled bg |
+| Hairline | `--hairline` | 38, 38, 38 | Borders, dividers |
+| Glass bg | `--glass-bg` | 20, 20, 20, 0.55 | Header background |
+| Glass border | `--glass-border` | 255, 255, 255, 0.08 | Header border |
+
+**Anti-cliché guard**: No blue tones anywhere. No purple-pink gradients. No `#0D1117` background. No `#c0392b` or any hardcoded warm tone — all reds use `--primary` family.
+
+## 3. Typography Rules
+
+**Font stack**: Montserrat (headings, display) + Inter (body, UI). Loaded via Google Fonts.
+
+**Scale**:
+| Token | Size | Weight | Letter-spacing | Usage |
+|-------|------|--------|----------------|-------|
+| `--display-xxl` | clamp(3rem, 10vw, 7rem) | 800 | -0.06em | Hero main heading word |
+| `--display-md` | clamp(1.5rem, 3vw, 2.5rem) | 700 | -0.02em | Within-hero emphasis |
+| `--body` | 1rem | 400 | -0.01em | Hero lead paragraph |
+| `--button` | 0.8rem | 600 | 0.05em | CTA buttons |
+| `--micro` | 0.65rem | 600 | 0.15em | Nav links, top bar, badge text |
+| `--caption` | 0.75rem | 600 | 0.10em | Eyebrow text |
+
+**Forbidden fonts**: Inter, Roboto, Arial must NOT be used for display/heading text (only body/UI). Montserrat is the only display font.
+
+**Key rule**: Hero heading uses Montserrat 800 with aggressive -0.06em tracking. No gradient text fills. No outlines. No text shadows.
+
+**Accessibility**: WCAG AAA ratio 7:1 for normal text on `--canvas` background. The primary red on dark bg passes AAA for large text only — used sparingly for emphasis, not body text.
+
+## 4. Component Stylings
+
+### Navbar
+| State | Style |
+|-------|-------|
+| Default | Glass background (--glass-bg). 1px bottom border (--glass-border). Height 64px. Logo: "REMARK" in micro with 0.2em tracking, --ink-muted. Nav links: --micro font, --ink-secondary, uppercase, 0.1em tracking. |
+| Scrolled | Background becomes --surface-1 at 0.85 opacity. Bottom border becomes --hairline-soft. Transition 0.4s ease-out. |
+| Nav link hover | Color → --ink. Pseudo-underline (2px --primary) expands from center. |
+| Nav link focus-visible | 2px --primary outline. |
+| CTA button default | --primary bg, --ink text, --radius-pill, 0.5rem 1.25rem padding. |
+| CTA button hover | --primary-hover bg. |
+| CTA button active | scale(0.97). |
+| Hamburger default | Two 18×2px lines, --ink, 5px gap. Centered in 32×32px area. |
+| Hamburger active | Top line: translateY(3.5px) rotate(45deg). Bottom: translateY(-3.5px) rotate(-45deg). |
+| Mobile panel default | Position fixed, right 0, top 64px, width 300px, --surface-1, border-left --hairline. translateX(100%) hidden. |
+| Mobile panel open | translateX(0). Transition 0.4s ease-out. |
+| Mobile link default | --heading size, --ink-secondary, border-bottom --hairline-soft. |
+| Mobile link hover | --ink color. |
+| Mobile CTA | --primary full-width pill, 0.75rem 1.5rem. |
+
+### Hero
+| State | Style |
+|-------|-------|
+| Typography entrance | Words reveal via clip-path inset(0 0 100% 0) → inset(0 0 0 0), staggered 0.2s/0.4s/0.6s, 1.2s ease-out-expo. No gradient text. |
+| Eyebrow | --micro text, --ink-muted. Badge + separator line + year. |
+| Lead paragraph | Reveals at delay-2 with standard fadeSlideUp. |
+| Actions | Reveal at delay-3. |
+| CTA primary default | --primary bg, --radius-pill, 0.85rem 2rem, 600 weight. |
+| CTA primary hover | --primary-hover bg + box-shadow glow (0 0 24px --primary-glow). |
+| CTA primary focus-visible | 2px outline offset 2px. |
+| CTA ghost default | --ink-secondary, underline via pseudo-element (1px --hairline). |
+| CTA ghost hover | --ink color, underline turns --primary. |
+| Glass card default | Glass-light background, 1px --hairline-light border, rounded --radius-lg. Contains: eyebrow (--micro, --primary), title (--display-md, --ink, Montserrat 700), description (--body-sm, --ink-secondary), CTA text. |
+| Glass card hover | Subtle translateY(-2px) — no float animation, no perpetual rotation. |
+| Marquee items | --caption text, --ink-muted, uppercase, 0.1em tracking. Constantly scrolling. |
+| Top bar | Fixed left/right at top. Status dot (6px, #22c55e, pulse animation) + "Available for projects" label + location. |
+
+**Interactive states**: Every interactive element (button, link, hamburger) includes: default, hover, focus-visible, active. Non-interactive decorative elements have no hover states.
+
+## 5. Layout Principles
+
+### Navbar
+- Full-width fixed header. Inner max-width 1400px with `clamp(1.5rem, 5vw, 4rem)` padding.
+- Three columns: Logo (left), Nav links (center), Status + CTA button (right).
+- On mobile (<1024px): nav links and right group hide, hamburger appears.
+
+### Hero
+- Full viewport (`100dvh`). Section uses flexbox.
+- Left column (55%): Typography stack — status bar, eyebrow, heading words, lead paragraph, CTA buttons.
+- Right column (45%): Single glass card (the featured service), centered vertically.
+- Vertical divider line at 55% mark — subtle hairline, 0.2 opacity.
+- Bottom: Full-width marquee bar (48px tall) — always visible, no entrance animation.
+- Container padding: `clamp(1.5rem, 5vw, 4rem)`.
+
+### Spacing gradient
+- From eyebrow to heading: 2rem
+- Heading to lead: 2rem
+- Lead to actions: 2.5rem
+- Margin between sections: var(--space-section) = 96px
+
+## 6. Depth & Elevation
+
+No box-shadows on hero elements. Depth comes from:
+- Opacity layering (glass card, grid lines, atmosphere gradient)
+- The glass backdrop-filter (saturate 180%, blur 20px)
+- The primary glow on CTA hover (`box-shadow: 0 0 24px var(--primary-glow)`)
+
+The atmosphere is created via CSS radial gradients on absolute-positioned pseudo-elements (not box-shadows):
+- `--gradient-spotlight-deep` at 30% 40%
+- `--gradient-spotlight-warm` at 70% 30%
+
+## 7. Animation & Interaction
+
+**Interaction Level**: L2 (scroll reveal + micro-interactions)
+
+### Entrance sequence (page load)
+| Time | Element | Effect |
+|------|---------|--------|
+| 0s | Hero section renders | Background, grid lines, marquee (already running) |
+| 0.2s | "IDEAS" word | clip-path inset(0 0 100% 0) → inset(0 0 0 0), 1.2s ease-out-expo |
+| 0.4s | "INTO" word | Same, 1.2s ease-out-expo |
+| 0.6s | "REALITY" word | Same, 1.2s ease-out-expo |
+| 0.8s | Eyebrow + lead | fadeSlideUp, 0.6s ease-out-expo |
+| 1.0s | Actions + glass card | fadeSlideUp, 0.6s ease-out-expo |
+
+### Micro-interactions
+- CTA buttons: hover glow, active scale(0.97)
+- Nav links: underline expand on hover
+- Glass card: subtle translateY(-2px) on hover
+- Hamburger: line transform animation
+
+### Reduced motion
+All animations reduce to 0.01ms under `prefers-reduced-motion: reduce`. The scroll marquee stops. The status dot pulse stops. Clip-path reveals become instant opacity: 1.
+
+### No-no list
+- No perpetual animations (float, pulse, shimmer, spin) on decorative elements
+- No gradient text fills
+- No emoji as icons
+- No `filter: blur()` on moving elements
+- `backdrop-filter: blur()` ≤ 14px (currently 20px in globals.css — reduce to 14px)
+
+## 8. Do's and Don'ts
+
+### Do's
+- Use CSS variables for all colors
+- Keep typography restrained — one typeface for display (Montserrat), one for body (Inter)
+- Use clip-path for word reveals — it's a subtle, intentional entrance
+- Make the glass card feel editorial, like a magazine cover line
+- Let whitespace breathe — aggressive tracking on headings, generous padding
+- Keep the marquee running at all times — it's a design signature
+- Ensure every interactive element has 3 states (hover, focus-visible, active)
+
+### Don'ts
+- Don't use gradient text fills on headings (AI cliché)
+- Don't use emoji as icons (✦, ◆, ★ — all emoji) — use inline SVGs instead
+- Don't add floating badges ("New", "AI-Powered") — they look like fabricated data
+- Don't animate decorative background elements (orbs pulsing, spheres rotating)
+- Don't stack multiple glass cards with different rotations — keep it to one refined card
+- Don't use `#c0392b` or any hardcoded warm tone — all reds must use --primary family
+- Don't add perpetual float/bounce animations on cards
+- Don't use `will-change` on elements that don't animate
+- Don't add text-shadow, drop-shadow, or outline to heading text
+
+## 9. Responsive Behavior
 
 ### Breakpoints
+| Breakpoint | Behavior |
+|------------|----------|
+| > 1024px | Full split layout. Grid line visible. Glass card in right column. |
+| 1024px | Collapse to single column. Typography on top, glass card below. Grid lines hidden. Vertical divider hidden. |
+| 768px | Reduce font sizes. Reduce padding. Marquee height → 40px. Hero min-height collapses (no longer 100vh). |
+| 480px | CTA buttons full-width. Eyebrow year hidden. Hamburger 56px header. |
 
-```yaml
-mobile: < 768px
-tablet: 768-1024px
-desktop: 1024-1440px
-wide: > 1440px
+### Touch targets
+- All interactive elements ≥ 44×44px
+- Nav links in mobile menu: full-width tap targets
+- CTA buttons: minimum 44px height
+- Hamburger: 32×32px (within 44px minimum touch area via padding)
+
+### Mobile collapse strategy
+- Right column (glass card) slides below typography
+- The glass card becomes full-width, no rotation
+- The card text scales down proportionally
+- Floating badges are removed at ≤ 1024px
+- Bottom marquee remains but text is smaller and faster (20s duration)
+
+### Accessibility
+- `prefers-reduced-motion` respected throughout
+- All CTA buttons and links have visible focus-visible outlines
+- Semantic HTML (`<header>`, `<nav>`, `<section>`, `<h1>`, `<h2>`, `<a>`)
+- `aria-label` on icon-only buttons (hamburger, social links)
+- Screen reader text for decorative elements (`aria-hidden="true"`)
+- Color contrast meets WCAG AA minimum (targeting AAA where possible)
+- `text-wrap: pretty` on paragraphs to prevent orphans
+
+---
+
+# Remark Studio — Full Site Design System (Expanded)
+
+> This document extends the Navbar + Hero spec above with shared patterns and remaining sections.
+
+## Shared Patterns
+
+### Reveal Animation System
+Every section uses the `useReveal` hook (`hooks/useReveal.ts`) — a single `IntersectionObserver` shared across all components. Elements with class `.reveal` fade + slide up (20px, 0.7s ease-out-expo) when they enter the viewport.
+
+Standard delay classes (globally defined in `app/globals.css`):
+| Class | Delay |
+|-------|-------|
+| `.reveal-delay-1` | 0.12s |
+| `.reveal-delay-2` | 0.24s |
+| `.reveal-delay-3` | 0.36s |
+| `.reveal-delay-4` | 0.48s |
+| `.reveal-delay-5` | 0.6s |
+| `.reveal-delay-6` | 0.72s |
+
+Under `prefers-reduced-motion: reduce`, all reveals become instant (opacity: 1, transform: none, transition: none).
+
+### SectionHeader Component
+Shared component at `components/SectionHeader/`. Three optional slots:
+- `eyebrow` — small uppercase label in `--primary`, 0.1em tracking
+- `title` — `<h2>` in `--display-lg` → `--heading` (responsive clamp)
+- `subtitle` — optional body copy below title
+
+Every section header follows the same vertical spacing: `eyebrow → 16px → title → 8px → subtitle → 96px section gap`.
+
+### Section Top Line Ceremony
+Each major section begins with a thin red horizontal rule that scales in on scroll. Implemented via `.section-top-line` pseudo-element: 1px height, `--primary` background, `transform: scaleX(0) → scaleX(1)` on scroll reveal.
+
+---
+
+## 10. Narrative Section (The Friction Trilogy)
+
+### Visual Philosophy
+Three acts, three visual compositions — each a distinct metaphor for the friction it addresses. The visual language evolves from **fragmented → flowing → connected**, mirroring the narrative arc from problem to resolution.
+
+- **Act 1 — "The Mosaic":** Broken geometric tiles converge into a unified grid. Represents the transition from invisible web presence to visible platform. Split-screen layout. Cool electric blue accent.
+- **Act 2 — "The Signal":** Concentric elliptical rings animate from silent to resonant. Represents AI voice agents establishing connection. Full-screen immersive layout. Warm amber accent.
+- **Act 3 — "The Network":** A hexagonal node-link system resolves from dark disconnected dots to an illuminated architecture. Represents integrated CRM/ERP. Inverted split-screen. Crimson accent.
+
+**Interaction Level**: L2 (scroll-triggered CSS reveals only)  
+**Dependencies**: CSS transitions + transforms only (no JS animation libs in this section)
+
+### Color System
+
+| Act | Background | Accent | Accent Text | Token Names |
+|-----|-----------|--------|-------------|-------------|
+| 01 | `oklch(12% 0.035 260)` deep navy | `oklch(58% 0.15 225)` electric blue | `oklch(72% 0.12 230)` | `--act-bg`, `--act-accent`, `--act-accent-text` |
+| 02 | `oklch(11% 0.025 35)` warm charcoal | `oklch(62% 0.18 60)` burnt amber | `oklch(75% 0.14 65)` | |
+| 03 | `oklch(12% 0.04 300)` violet-black | `oklch(52% 0.18 15)` deep crimson | `oklch(65% 0.14 20)` | |
+
+Each act defines `--act-accent-dim` (12% opacity) and `--act-accent-subtle` (6% opacity) for layered backgrounds and glows.
+
+### Act Structure
+
+| Act | Layout | Visual Element | Content Position | Animation |
+|-----|--------|---------------|-----------------|-----------|
+| 01 | Split-screen (55% visual / 45% content) | 20 floating tiles → 5×4 grid | Right-aligned | Tiles scatter-rotate then converge, staggered 35ms per tile, 0.8s ease-out-expo |
+| 02 | Full-screen immersive | 7 elliptical rings + core dot | Center-overlaid | Rings fade in sequence (100ms stagger), core pulses after reveal |
+| 03 | Split-screen inverted (40% content / 60% visual) | 33 nodes × ~60 edges in hex lattice | Left-aligned | Edges fade in staggered (15ms), nodes follow (20ms) |
+| Quote | Full-screen cinematic | 3-line staggered text + center rule | Center | Lines slide up 32px (200ms stagger), rule draws center-out at 1s delay |
+| Closing | Single column | None (CTA button) | Left | Standard fade-slide-up 0.7s |
+
+### Visual Specifications
+
+#### Act 1 — Mosaic Tiles
+- **Grid**: 5 columns × 4 rows, 56px tiles with 4px gap (responsive scaling)
+- **Tiles**: 20 `<div>` elements with `background: var(--act-accent-dim)`, `border: 0.5px solid var(--act-accent)`, 3px radius
+- **Initial state**: Each tile has unique `translate(x, y)` and `rotate()` values, opacity 0.03–0.20
+- **Final state**: All tiles snap to `translate(0, 0) rotate(0deg)`, opacity 1
+- **Variants**: 2 tiles span 2 columns, 1 spans 2 rows, 1 is 84×84px
+- **Transition**: 0.8s `cubic-bezier(0.16, 1, 0.3, 1)` per tile, staggered by `--i * 0.035s`
+- **Background glow**: Radial gradient behind visual, fades in over 1.5s
+- **Giant numeral**: "01" at 50vw, 3% white opacity, centered behind everything
+
+#### Act 2 — Elliptical Rings
+- **SVG**: `viewBox="0 0 500 500"`, preserves aspect ratio, max 70vh/70vw
+- **Rings**: 7 ellipses, radii 220→20 (step ~30px), `rx/ry = 1/0.72` ratio
+- **Stroke widths**: 0.8px (outer 2) → 1.2px (middle 2) → 2px (inner 3)
+- **Opacity**: 0.15 (outermost) → 0.7 (innermost), linearly scaled
+- **Reveal**: Sequence staggered by `--i * 0.1s + 0.1s`, opacity 0→0.6 on `.visible`
+- **Core dot**: Fills after 0.8s delay, then infinite pulse (r 4→5 over 3s)
+- **Background glow**: Radial gradient centered, fades in over 1.5s
+
+#### Act 3 — Hex Network
+- **SVG**: `viewBox="0 0 500 400"`, max 55vh/55vw
+- **Nodes**: 33 circles (r=3.5), positioned in staggered rows (6/5/6/5/6/5)
+- **Edges**: ~60 line segments connecting lattice neighbors (each node connects to up to 6 neighbors)
+- **Reveal order**: Edges first (opacity 0→0.2, staggered `--i * 0.015s`), nodes follow (opacity 0→0.7, staggered `--i * 0.02s + 0.3s`)
+- **Background glow**: Radial gradient on `::before` pseudo-element, right-aligned
+
+#### Pull Quote
+- Background: `oklch(10% 0.01 30)` with warm radial glow
+- Typography: Montserrat 700, `clamp(1.5rem, 4.5vw, 3.5rem)`, -0.03em tracking
+- Three lines, each animates independently with `--i * 0.2s` stagger
+- Horizontal decorative rule: 0→120px width, draws from center at 1s delay
+- Vertical rule stripes: `repeating-linear-gradient(90deg, ...)` at 60px intervals, 2% opacity
+
+#### Closing Section
+- Background: `oklch(11% 0.015 270)`
+- Standard editorial layout (max-width 580px)
+- CTA button with squared 4px radius, primary red, arrow icon hover
+
+### Content Layout
+```
+Act 1:  [Visual 55%]  |  [Content 45%]    → content right-aligned
+Act 2:  [Visual full]                        → content center-overlaid
+         [Content center]
+Act 3:  [Content 40%]  |  [Visual 60%]    → content left-aligned
 ```
 
-### Scroll Behavior by Viewport
+### Divider Between Acts
+- 64px thin divider with 48px × 1px accent-colored line at center
 
-| Viewport | Scroll Engine | Services Gallery | Capabilities |
-|----------|--------------|------------------|--------------|
-| > 1024px | Lenis smooth | Horizontal pinned (5 panels × 3 cards) | Vertical bento grid |
-| ≤ 1024px | Native | Vertical responsive grid | Vertical bento grid |
+### Responsive Behavior
 
-### Mobile Behavior
+| Breakpoint | Act 1 Visual | Act 2 Visual | Act 3 Visual | Content |
+|-----------|-------------|-------------|-------------|---------|
+| > 1024px | 56px tiles, left | 70vh rings | 55vh network | Split layout |
+| 1024px | 42px tiles | 60vw rings | 50vw network | All left-aligned |
+| 768px | Collapsed above content, 36px tiles | Background (20% opacity) | Collapsed above content, 80vw | Single column |
+| 480px | 28px tiles | Dimmed | 80vw | Full-width CTA |
 
-- No Lenis — native scroll only. Lenis fighting touch scroll is THE most annoying mobile UX pattern.
-- Horizontal gallery collapses to a vertical section with cards in a responsive grid
-- All other sections render as standard vertical sections
-- Touch targets ≥ 44×44px (WCAG AAA)
-- Section spacing compresses: 96-120px → 48-64px
-- Display type scales via `clamp()`, tracking percentage stays constant
+- `prefers-reduced-motion`: All durations → 0.01ms, all content immediately visible at final opacity/transform
+- Touch targets: CTA button ≥ 48px height, all interactive elements ≥ 44×44px
+- Decorative elements use `aria-hidden="true"`
 
-### The Horizontal Section on Mobile
-
-The mobile user sees:
-- Same section header ("Our Services / Solutions that deliver")
-- Same 15 cards in a 3-col → 2-col → 1-col grid
-- Same reveal animations (IntersectionObserver, staggered)
-- NO horizontal translation, NO pinned behavior, NO progress bar
-- The experience is complete and good — just different
-
-This is important. Mobile users shouldn't feel cheated. The vertical grid is a perfectly valid layout — it's not a "lesser" version. It's the same content, adapted to the medium.
-
----
-
-## Do's and Don'ts
-
-### Do
-
-- **Save the surprise.** One horizontal pinned section. The Services Gallery is the page's signature moment. Don't dilute it with a second one.
-- **Use red sparingly.** One red element per viewport maximum. Red is powerful because it's rare.
-- **Use warm off-white text on dark.** `#F0EBE3`, not `#ffffff`. Your users' eyes will thank you after 30 seconds.
-- **Let the horizontal section breathe.** The warm off-white background is a tonal vacation from the dark track. Don't add more light sections.
-- **Let users scroll fast.** No forced animation waits. The horizontal section should be skippable.
-- **Use `primary-hover` everywhere.** All interactive elements hover to a warmer, slightly brighter red. The red family handles both static and interactive states.
-- **Use tabular figures for stats.** Numbers should never shift width during counter animation.
-- **Mount Lenis + GSAP dynamically.** Desktop-only. Never on mobile.
-- **Keep the dark track as default.** Light sections are intentional interludes, not defaults.
-- **Use pill-shaped CTAs exclusively.** No rounded rectangles for buttons.
-- **Let the Narrative breathe.** It's the calm before the horizontal climax. Rushing it weakens the payoff.
-
-### Don't
-
-- **Don't use blue.** No blue hover states, no blue links, no blue accents. The old electric blue (`#0052ef`) is entirely removed.
-- **Don't use two horizontal sections.** The second one is boring before it loads. One signature moment, perfectly executed.
-- **Don't use pure black or pure white.** `#000000` and `#ffffff` are banned. Use warm near-black and warm off-white variants.
-- **Don't use box-shadows.** Depth comes from surface color shift, not shadows.
-- **Don't use `backdrop-filter: blur()` anywhere except the header nav.**
-- **Don't use display-level tracking on body text.** Negative tracking is for Montserrat headlines only.
-- **Don't animate content within horizontal cards during scroll.** The scroll IS the animation.
-- **Don't enable Lenis on mobile.** Native scroll only. Scrolljacking on mobile is infuriating.
-- **Don't add decorative gradients on section backgrounds.** The Dither shader is the only gradient effect.
-- **Don't add parallax scrolling, animated backgrounds, or scroll-triggered effects beyond the horizontal gallery.**
-- **Don't reduce negative letter-spacing on display sizes.** Reduce font-size instead, keep tracking percentage.
-- **Don't use uppercase for text below 18px body scale.** Uppercase is for display and micro labels only.
+### Anti-Cliché Check
+- ❌ No ghost watermarks
+- ❌ No floating badges or pills
+- ❌ No emoji as decorative elements
+- ❌ No gradient text fills
+- ❌ No `filter: blur()` on animated elements
+- ❌ No perpetual animations (only core dot pulse — stops under reduced motion)
+- ❌ No bento grid, no glass metrics, no count-up
+- ✅ All colors via CSS variables from design tokens
+- ✅ `prefers-reduced-motion` fallback included
 
 ---
 
-## Key Decisions & Rationale
+## 11. ServicesGallery (Horizontal Scroll Gallery)
 
-### Why Only One Light Section?
+### Layout
+Full-viewport pinned horizontal scroll section. Uses GSAP ScrollTrigger with pin + scrub. Dark theme background (`--canvas-light` for the gallery area with light cards, `--canvas` for the rest).
 
-The warm off-white gallery section is the ONLY break from the dark track. This exclusivity gives it weight. When the user scrolls from dark (Hero/Narrative) into light (Gallery), the shift feels significant — like entering a different room. When they scroll out back to dark (Capabilities/Testimonial), it feels like returning home.
+### Behavior
+- Section pins for ~200% viewport scroll distance
+- During scroll, the gallery track translates horizontally
+- Active panel tracked via GSAP `onUpdate` callback (progress → index)
+- Panel indicator dots at bottom of viewport update in sync
+- On desktop: horizontal drag interaction enabled (native scroll + cursor grab)
+- On mobile (< 768px): collapses to vertical list with standard reveal animation (no GSAP)
 
-If there were multiple light sections, the dark↔light alternation would become a predictable rhythm, then an annoyance. The brain habituates quickly — what was once a delightful shift becomes an expected pattern that's ignored.
+### Panel Structure (15 services, 5 panels of 3 items)
+Each panel contains:
+- 3 service cards in a row
+- Each card: index number (micro, --ink-muted), category badge (--badge-bg), title (uppercase, --display-md weight 700), description (--body-sm, --ink-light-secondary), metric (--micro, --ink-light-muted)
+- Panel CTA: "View All Services →" link at panel bottom
 
-### Why 5 Panels × 3 Cards (Not 15 Individual Slides)?
-
-- 15 individual slides = 15 scroll positions = tedious. The user feels trapped.
-- 5 panels = 5 scroll positions = manageable. The user feels in control.
-- 3 cards per panel = enough variety within a single viewport to feel rich
-- The 5-dot progress bar provides clear orientation: "I'm on panel 3 of 5. Almost there."
-- Each panel's 3 cards can be scanned quickly — the user doesn't have to "enter" each card
-
-### Why No Second Horizontal Section?
-
-The Capabilities section with its bento grid serves a different psychological purpose: stability. After the thrill of the horizontal gallery, the user needs to feel grounded. A bento grid that appears solid and complete provides:
-- Reassurance: "This is a real company with real tools"
-- Completeness: The grid is fully visible — no hidden content, nothing missed
-- Contrast: The stable grid makes the previous horizontal section feel even more dynamic in retrospect
-
-If Capabilities were also horizontal, the user would never get that grounding moment. The page would feel like a carnival ride — thrilling but exhausting.
+### Light Theme
+The gallery uses a separate light color system:
+- `--canvas-light: #F5F0EB`, `--surface-light-1: #E5DED3`
+- Text: `--ink-light`, `--ink-light-secondary`, `--ink-light-muted`
+- Hairlines: `--hairline-light`, `--hairline-light-strong`
+- Glass cards use `--glass-bg-light` (white tint)
 
 ---
 
-## Implementation Plan
+## 12. Capabilities Section (Newspaper Columns)
 
-### Phase 1: Palette Refactor
-1. Update `app/globals.css`: Replace all v1 CSS variables with v2 dusky palette
-2. Remove `accent-blue` and all blue usage
-3. Update `--gradient-spotlight` to use `#7A1A1A`
-4. Update `--accent-glow` to use `rgba(122, 26, 26, 0.3)`
-5. Delete or update `--accent-dim` to `rgba(122, 26, 26, 0.12)`
-6. Update `::selection` color to new `primary`
-7. Check and fix any inline color values in component CSS files
+### Layout
+3-column newspaper grid (`repeat(3, 1fr)`). Each column separated by a vertical hairline rule (`border-left: 1px solid var(--hairline-soft)`). Header follows standard `SectionHeader` pattern.
 
-### Phase 2: Scroll Engine
-1. `npm install lenis gsap`
-2. Create `components/SmoothScrollProvider.tsx`:
-   - Dynamic import of Lenis + GSAP
-   - Desktop-only check (>1024px)
-   - Initialize Lenis with config
-   - Connect Lenis ticker → GSAP ticker
-   - Register ScrollTrigger
-   - Resize handler (refresh ScrollTrigger)
-   - Cleanup on unmount
-3. Wrap `<main>` in `SmoothScrollProvider` in `HomePage.tsx`
-4. Create `hooks/useSmoothScroll.ts` for sections to consume
+### Entry Structure (6 entries, 2 per column)
+- **Red rule**: 28px × 2px `--primary` rule above the title (0.6 opacity)
+- **Title**: --heading, weight 700, --ink
+- **Description**: --body-sm, --ink-secondary, line-height 1.7
+- **Metric**: Inline in description text, highlighted in `--primary`, weight 600 (e.g., "Over **50+** projects delivered")
 
-### Phase 3: Services Gallery (Horizontal)
-1. Create `components/ServicesGallery.tsx` (replaces `components/Work/Work.tsx`)
-2. Structure: outer pinned wrapper → inner horizontal track → 5 panels × 3 cards
-3. Register ScrollTrigger: pin + scrub timeline
-4. Add progress bar (5 dots, GSAP-updated active state)
-5. Mobile fallback: display same cards in responsive grid
-6. Remove `components/Work/Work.tsx` and `Work.css` (or archive)
-7. Update `HomePage.tsx` import
+### Footer
+- **CTA row**: "Need a custom solution?" + "Let's talk" button (squared, --primary background)
+- **Stats row**: Three stats separated by red dots (3px, `--primary` 0.4 opacity). Each stat: value in `--primary`, label in `--ink-muted`, micro font, uppercase
+- Separated from columns by a top border (`var(--hairline-soft)`)
 
-### Phase 4: Capabilities (Vertical — No Changes to Scroll)
-1. No horizontal scroll — it stays a vertical bento grid
-2. Update colors to new palette (update `Capabilities.css`)
-3. Featured card gets `primary-dim` background + `primary` top border
-4. Tool marquee (CurvedLoop) stays — it's the section's subtle motion
+### Responsive
+| Breakpoint | Behavior |
+|------------|----------|
+| < 768px | Single column. Column rules become section dividers (`border-top` between columns). Footer stacks vertically, CTA button full-width. |
 
-### Phase 5: Narrative Color Fix
-1. Update `Narrative.css`: Remove white card backgrounds, use `surface-1` with `primary` left border
-2. Cards transition from dark bg to warm dark bg — not from white
+---
 
-### Phase 6: Polish & QA
-1. Update Hero CSS spotlight to use new `primary-glow`
-2. Update Button CSS hover states from electric blue to `primary-hover`
-3. Update Testimonial CSS — metrics bar on dark surface instead of white
-4. Update CTA form inputs on dark surface
-5. Test Lenis/GSAP load and behavior on desktop
-6. Verify no Lenis/GSAP on mobile (check network tab)
-7. Verify horizontal gallery collapses on ≤1024px
-8. Test fast scrolling through gallery (no forced pauses)
-9. Check all hover states use red, not blue
-10. Verify warm off-white text on dark (no pure white anywhere)
+## 13. Testimonial Section (Editorial Pull-Quote)
+
+### Layout
+Centered single-column layout (max-width 720px). Designed as a magazine pull-quote — no decorative quote marks, no emoji, no glass box.
+
+### Structure (top to bottom)
+1. **Red rule**: 48px × 2px centered rule in `--primary` (0.5 opacity)
+2. **Quote**: `--heading` → `--display-lg`, weight 700, -0.02em tracking, --ink. No italic, no giant decorative quote marks.
+3. **Attribution**: Author (--caption, uppercase, --ink, weight 600) + dot divider + Role (--caption, uppercase, --ink-muted)
+4. **Center rule**: 32px × 1px hairline divider
+5. **Stats row**: Three stats in a horizontal row. Each: value (--display-md, weight 700, --ink) + label (--micro, uppercase, --ink-muted)
+
+### Constraints
+- No star emoji (★★★★★) — use numeric rating "4.9" instead
+- No badge tags (SaaS, Enterprise, Startup)
+- No glass box — stats are inline text, not cards
+
+### Responsive
+| Breakpoint | Behavior |
+|------------|----------|
+| < 768px | Left-aligned (no centered). Attribution stacks vertically. Stats row aligns left. |
+| < 480px | Stats column (vertical stack). |
+
+---
+
+## 14. CTA Section (Contact)
+
+### Layout
+Two-column grid (`1.2fr 1fr`). Left: heading + contact info. Right: office + CTA + socials. No brutalist box, no glass card, no left accent bar.
+
+### Left Column
+- Eyebrow: "Get in Touch" in --primary, --caption font
+- Heading: "Let's work together" in --display-lg
+- Description: --body, --ink-secondary, max-width 400px
+- Email: large link (`clamp(1.25rem, 2.5vw, --heading)`, weight 700, --primary). Underline animates from left on hover (`scaleX(0) → 1`, 0.5s ease-out-expo).
+- Phone: --body, --ink-muted
+
+### Right Column
+- Office: Label (--micro, uppercase, --ink-muted) + Address (--body, --ink-secondary)
+- CTA Button: "Start your project" — squared button, --primary background, --button font, arrow icon
+- Socials: Text links separated by `/` dividers. Font: --caption, uppercase, --ink-muted → --primary on hover.
+
+### Responsive
+| Breakpoint | Behavior |
+|------------|----------|
+| < 1024px | Single column, side section moves below |
+| < 480px | Button full-width, socials wrap |
+
+---
+
+## 15. Footer
+
+### Layout
+4-column grid (`1.5fr 1fr 1fr 1fr`). Gradient spotlight overlay (`--gradient-spotlight-warm` at 0.3 opacity). No watermark, no emoji, no "↑ Top" link.
+
+### Columns
+1. **Brand**: "Remark Studio" (--heading, weight 700) + tagline "Digital Solutions Agency" (--micro, uppercase, --ink-muted) + copyright
+2. **Services**: 5 links (Website Dev, Voice AI, Chat Bots, CRM, Marketing)
+3. **Company**: 4 links (Process, Capabilities, Contact, Blog)
+4. **Connect**: Social links as column-stacked text links (no badge pills, no icon)
+
+### Newsletter
+- Row between grid and bottom bar. Top/bottom hairline borders.
+- Heading: "Get insights delivered to your inbox" (--body, weight 600)
+- Form: inline input + "Subscribe" button. No glass card. Input has bottom border, button is text-style.
+- No submit handler wired yet (visual placeholder)
+
+### Bottom Bar
+- Email + phone on left (--micro, --ink-muted)
+- "Available for projects" status on right with small red dot (5px, `--primary`, border-radius 50%)
+- No "↑ Top" link. No ✦ emoji.
+
+### Responsive
+| Breakpoint | Behavior |
+|------------|----------|
+| < 1024px | 2-column grid (brand spans full width) |
+| < 768px | Single column grid. Bottom bar stacks center. Footer socials move to row layout. |
+
+---
+
+## 16. Page Types & Shared Conventions
+
+### Page Shell
+Every page follows the same structure:
+```tsx
+<div className="page-wrapper">
+  <Header />
+  <main>
+    {/* section-top-line sections */}
+  </main>
+  <Footer />
+</div>
+```
+
+All page-level containers use `'use client'` for reveal animations. Pages use `useReveal(0.1)` for the wrapper ref.
+
+### Page-Specific Sections
+
+| Page | Sections | Status |
+|------|----------|--------|
+| `/` (Home) | Header, Hero, Narrative, ServicesGallery, Capabilities, Testimonial, CTA, Footer | ✅ Redesigned |
+| `/services` | ServicesHero, ServicesGrid, ServicesCTA | 🔄 Extract inline code to components |
+| `/process` | ProcessHero, ProcessTimeline, ProcessStats, ProcessCTA | 🔄 Extract inline code to components |
+| `/about` | AboutHero, StorySection, ServicesList, TeamSection, ValuesSection, CTASection | 📅 Day 3-4 |
+| `/career` | CareerHero, OpeningsList, JobDetail, PerksSection, CultureGallery | 📅 Day 4-5 |
+| `/contact` | ContactHero, ContactForm, OfficeInfo | 📅 Day 5 |
+
+### Data Files
+Centralized in `data/`:
+- `data/services.ts`: `services[]` (15 items for services page), `workItems[]` (15 items for gallery), `categories[]`
+- `data/careers.ts`: `jobOpenings[]` (6 positions), `departments[]`, `perks[]` (6 items)
+
+All section-specific data should be imported from `data/`, not defined inline in components.
+
+---
+
+## 17. Performance Budget (Non-Negotiable)
+
+| Metric | Target |
+|--------|--------|
+| LCP | < 2.5s |
+| CLS | < 0.1 |
+| INP | < 200ms |
+| Max WebGL instances | 1 per page (Dither canvas) |
+| `backdrop-filter: blur()` | ≤ 14px |
+| `filter: blur()` on moving elements | ❌ Forbidden |
+| ScrollTrigger pins | Max 2 per page |
+| `pointermove` handlers | Must rAF throttle |
+| Images | Lazy load below fold, `loading="lazy"`, responsive `sizes` |
+
+---
+
+## 18. Anti-Cliché Audit Checklist
+
+Every section is checked against:
+- [x] No purple-pink-blue gradients
+- [x] No `#0D1117` background
+- [x] No gradient text fills on headings
+- [x] No emoji as icons (✦, ◆, ★) — inline SVGs only
+- [x] No floating badges ("New", "AI-Powered")
+- [x] No CSS silhouette placeholders for products
+- [x] No left-border accent cards
+- [x] No rounded card + left-border accent combo
+- [x] No perpetual float/bounce animations
+- [x] No bento grid (Capabilities uses newspaper columns)
+- [x] No count-up number animations
+- [x] No glass metrics boxes (Testimonial uses inline stats)
+- [x] No giant decorative quote marks
+- [x] No transparent watermark text
+- [x] No star emoji ratings — use numeric values
+- [x] No social badge pills — use text links with `/` dividers

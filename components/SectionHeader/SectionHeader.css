@@ -1,0 +1,26 @@
+.section-header {
+  margin-bottom: var(--space-section);
+  max-width: 640px;
+}
+
+.section-header-eyebrow {
+  font-size: var(--caption);
+  letter-spacing: var(--caption-ls);
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: var(--space-md);
+}
+
+.section-header-title {
+  color: var(--ink);
+  margin: 0;
+}
+
+.section-header-subtitle {
+  font-size: var(--body);
+  color: var(--ink-secondary);
+  line-height: 1.7;
+  margin-top: var(--space-sm);
+}

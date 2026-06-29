@@ -1,104 +1,50 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useReveal } from '@/hooks/useReveal';
 import './CTA.css';
-import Button from '../Button/Button';
 
 function CTA() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.reveal');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useReveal(0.2);
 
   return (
-    <section id="contact" className="cta" ref={sectionRef}>
-      <div className="cta-grid-bg"></div>
+    <section id="contact" className="cta section-top-line" ref={sectionRef}>
       <div className="container">
-        <div className="cta-content reveal">
-          <span className="section-label">Ready to scale?</span>
-          <h2 className="cta-title">
-            Let&apos;s build something<br />
-            <span className="text-muted">remarkable.</span>
-          </h2>
-          <p className="cta-subtitle">
-            Tell us about your project and we&apos;ll show you what&apos;s possible.
-          </p>
-        </div>
+        <div className="cta-layout">
+          {/* Left */}
+          <div className="cta-main reveal">
+            <span className="cta-eyebrow">Get in Touch</span>
+            <h2 className="cta-heading">Let&apos;s work together</h2>
+            <p className="cta-desc">
+              From strategy to execution&mdash;we build digital ecosystems that scale.
+            </p>
+            <a href="mailto:hello@remarkstudio.agency" className="cta-email">
+              hello@remarkstudio.agency
+            </a>
+            <span className="cta-phone">+92-3268450001</span>
+          </div>
 
-        <div className="cta-form-section reveal reveal-delay-1">
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label" htmlFor="cta-name">Name</label>
-                <input id="cta-name" type="text" placeholder="Your name" />
-              </div>
-              <div className="form-group">
-                <label className="form-label" htmlFor="cta-email">Email</label>
-                <input id="cta-email" type="email" placeholder="your@email.com" />
-              </div>
+          {/* Right */}
+          <div className="cta-side reveal reveal-delay-1">
+            <div className="cta-office">
+              <span className="cta-office-label">Office</span>
+              <span className="cta-office-address">Embassy Gardens, Islamabad</span>
             </div>
-
-            <div className="form-group" style={{ marginBottom: 'var(--space-md)' }}>
-              <label className="form-label" htmlFor="cta-service">Service</label>
-              <select id="cta-service">
-                <option value="">Select a service</option>
-                <option value="web">Web Development</option>
-                <option value="voice">Voice Agents</option>
-                <option value="crm">CRM & Automation</option>
-                <option value="other">Other</option>
-              </select>
+            <a className="cta-button btn btn-primary" href="mailto:hello@remarkstudio.agency">
+              Start your project
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+            <div className="cta-socials">
+              <a href="https://instagram.com/remark_studios" target="_blank" rel="noopener noreferrer" className="cta-social-link">Instagram</a>
+              <span className="cta-social-divider" aria-hidden="true">/</span>
+              <a href="https://tiktok.com/@remark.studio" target="_blank" rel="noopener noreferrer" className="cta-social-link">TikTok</a>
+              <span className="cta-social-divider" aria-hidden="true">/</span>
+              <a href="https://wa.me/923268450001" target="_blank" rel="noopener noreferrer" className="cta-social-link">WhatsApp</a>
+              <span className="cta-social-divider" aria-hidden="true">/</span>
+              <a href="mailto:hello@remarkstudio.agency" className="cta-social-link">Email</a>
             </div>
-
-            <div className="form-group" style={{ marginBottom: 'var(--space-lg)' }}>
-              <label className="form-label" htmlFor="cta-message">Message</label>
-              <textarea id="cta-message" placeholder="Tell us about your project..." />
-            </div>
-
-            <div className="form-actions">
-              <Button type="submit" variant="primary">
-                Send Message <i className="ri-arrow-right-line"></i>
-              </Button>
-              <span className="form-note">
-                or email directly: <a href="mailto:hello@remarkstudio.agency">hello@remarkstudio.agency</a>
-              </span>
-            </div>
-          </form>
-        </div>
-
-        <div className="cta-contact-info reveal reveal-delay-2">
-          <span><i className="ri-phone-line"></i> <a href="tel:+923268450001">+92-3268450001</a></span>
-          <span><i className="ri-phone-line"></i> <a href="tel:+923268450002">+92-3268450002</a></span>
-          <span><i className="ri-map-pin-line"></i> Office#104, Mezzanine Floor, Embassy Gardens, Sector C1, Bahria Enclave, Islamabad</span>
-        </div>
-
-        <div className="cta-links reveal reveal-delay-3">
-          <a href="https://www.instagram.com/remark_studios" target="_blank" rel="noopener noreferrer" className="cta-link">
-            <i className="ri-instagram-line"></i>
-            <span>Instagram</span>
-          </a>
-          <a href="https://www.tiktok.com/@remark.studio" target="_blank" rel="noopener noreferrer" className="cta-link">
-            <i className="ri-tiktok-line"></i>
-            <span>TikTok</span>
-          </a>
-          <a href="https://wa.me/923268450001" target="_blank" rel="noopener noreferrer" className="cta-link">
-            <i className="ri-whatsapp-line"></i>
-            <span>WhatsApp</span>
-          </a>
+          </div>
         </div>
       </div>
     </section>

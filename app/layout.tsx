@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "../components/Button/Button.css";
 
 export const viewport: Viewport = {
   themeColor: "#0a0a0a",

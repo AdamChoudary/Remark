@@ -1,65 +1,41 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useReveal } from '@/hooks/useReveal';
 import './Testimonial.css';
 
 function Testimonial() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.reveal');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useReveal(0.2);
 
   return (
-    <section className="testimonial" ref={sectionRef}>
+    <section className="testimonial section-top-line" ref={sectionRef}>
       <div className="container">
-        <div className="testimonial-content">
-          <div className="quote-mark reveal">&quot;</div>
-
-          <blockquote className="testimonial-quote reveal reveal-delay-1">
-            Remark Studio didn&apos;t just build us a website—they built us a
-            <em> complete digital ecosystem</em>.
-            Voice agents, chatbots, CRM — everything works seamlessly together.
+        <div className="testimonial-layout reveal">
+          <div className="testimonial-rule" aria-hidden="true" />
+          <blockquote className="testimonial-quote">
+            <p className="testimonial-text">
+              Remark Studio didn&apos;t just build us a website&mdash;they built us a
+              complete digital ecosystem. Voice agents, chatbots, CRM&mdash;everything
+              works seamlessly together.
+            </p>
           </blockquote>
-
-          <div className="testimonial-author reveal reveal-delay-2">
-            <div className="author-avatar">
-              <i className="ri-user-3-line"></i>
-            </div>
-            <div className="author-info">
-              <span className="author-name">Enterprise Client</span>
-              <span className="author-title">SaaS Startup • Series A</span>
-            </div>
+          <div className="testimonial-attribution reveal reveal-delay-1">
+            <span className="testimonial-author">Enterprise Client</span>
+            <span className="testimonial-divider" aria-hidden="true" />
+            <span className="testimonial-role">SaaS Startup</span>
           </div>
-
-          <div className="metrics-bar reveal reveal-delay-3">
-            <div className="metric-item">
-              <span className="metric-value">4.9</span>
-              <span className="metric-label">Avg. Rating</span>
+          <div className="testimonial-divider-rule" aria-hidden="true" />
+          <div className="testimonial-stats reveal reveal-delay-2">
+            <div className="testimonial-stat">
+              <span className="testimonial-stat-value">4.9</span>
+              <span className="testimonial-stat-label">Client Rating</span>
             </div>
-            <div className="metric-divider"></div>
-            <div className="metric-item">
-              <span className="metric-value">2 Wk</span>
-              <span className="metric-label">Avg. Delivery</span>
+            <div className="testimonial-stat">
+              <span className="testimonial-stat-value">2 Weeks</span>
+              <span className="testimonial-stat-label">Average Delivery</span>
             </div>
-            <div className="metric-divider"></div>
-            <div className="metric-item">
-              <span className="metric-value">100%</span>
-              <span className="metric-label">Client Satisfaction</span>
+            <div className="testimonial-stat">
+              <span className="testimonial-stat-value">100%</span>
+              <span className="testimonial-stat-label">Satisfaction</span>
             </div>
           </div>
         </div>

@@ -1,87 +1,86 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useReveal } from '@/hooks/useReveal';
 import './Capabilities.css';
-import CurvedLoop from '../CurvedLoop';
-import Button from '../Button/Button';
 
-const capabilities = [
-  { icon: 'ri-code-s-slash-line', title: 'Web Development', description: 'Property sites, portfolios, business websites & SaaS platforms. Modern, responsive, and SEO-optimized.' },
-  { icon: 'ri-customer-service-2-line', title: 'Voice Agents', description: 'AI-powered voice agents for customer support, call handling, helplines, and marketing campaigns.' },
-  { icon: 'ri-robot-2-line', title: 'Chat Bots', description: 'Intelligent conversational bots for customer support, handling, and user guidance across platforms.' },
-  { icon: 'ri-database-2-line', title: 'CRM & ERP', description: 'End-to-end CRM & ERP solutions to streamline your business operations and boost efficiency.' },
-  { icon: 'ri-shield-check-line', title: 'Scalable & Secure', description: 'Enterprise-grade security and infrastructure built to scale with your growing business.' },
-  { icon: 'ri-line-chart-line', title: 'Full-Spectrum Digital', description: 'From strategy to execution — we handle every layer of your digital ecosystem. Websites, AI agents, chatbots, CRM, analytics, performance marketing, and beyond.', featured: true },
+const columns = [
+  {
+    entries: [
+      { title: 'Web Development', desc: 'Property sites, portfolios, SaaS platforms. Modern, responsive, SEO-optimized. Over', metric: '50+', metricLabel: 'projects delivered' },
+      { title: 'CRM & ERP', desc: 'End-to-end business system implementation and management across your entire operation. Over', metric: '30+', metricLabel: 'integrations' },
+    ],
+  },
+  {
+    entries: [
+      { title: 'AI Voice Agents', desc: 'Intelligent voice agents for customer support, call handling, and helpline routing. Over', metric: '200+', metricLabel: 'active deployments' },
+      { title: 'Security & Scale', desc: 'Enterprise-grade security posture and infrastructure built to scale with your growth. Over', metric: '40+', metricLabel: 'secured platforms' },
+    ],
+  },
+  {
+    entries: [
+      { title: 'Chat Bots', desc: 'Conversational bots for 24/7 support, guidance, and lead capture across platforms. Over', metric: '100+', metricLabel: 'chat interfaces' },
+      { title: 'Full-Spectrum Digital', desc: 'Strategy to execution across every layer of your digital ecosystem. Over', metric: '60+', metricLabel: 'end-to-end projects' },
+    ],
+  },
 ];
 
-const tools = ['REACT', 'NEXT.JS', 'AI & MACHINE LEARNING', 'OPENAI', 'FIGMA', 'ADOBE CREATIVE SUITE', 'DAVINCI RESOLVE', 'META ADS', 'GOOGLE ANALYTICS', 'SALESFORCE', 'NODE.JS', 'PYTHON'];
-
 function Capabilities() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '-50px' }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.reveal');
-    elements?.forEach((el) => observer.observe(el));
-
-    const section = sectionRef.current;
-    if (section?.classList.contains('section-top-line')) {
-      observer.observe(section);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useReveal(0.1);
 
   return (
     <section id="capabilities" className="capabilities section-top-line" ref={sectionRef}>
       <div className="container">
-        <div className="capabilities-header reveal">
-          <h2 className="capabilities-title">
-            Our Capabilities
-          </h2>
+        <div className="cap-header reveal">
+          <div className="cap-eyebrow-row">
+            <span className="cap-eyebrow">Expertise</span>
+            <span className="cap-count">06 Services</span>
+          </div>
+          <h2 className="cap-title">Capabilities</h2>
         </div>
 
-        <div className="cap-grid">
-          {capabilities.map((cap, index) => (
-            <div
-              className={`cap-card ${cap.featured ? 'featured' : ''} reveal reveal-delay-${(index % 3) + 1}`}
-              key={index}
-            >
-              <div className="cap-icon">
-                <i className={cap.icon}></i>
-              </div>
-              <h3 className="cap-title">{cap.title}</h3>
-              <p className="cap-desc">{cap.description}</p>
-              {cap.featured && (
-                <div className="cap-cta">
-                  <Button href="#contact" variant="primary">
-                    Start your project <i className="ri-arrow-right-up-line"></i>
-                  </Button>
+        <div className="cap-columns">
+          {columns.map((col, ci) => (
+            <div className="cap-column" key={ci}>
+              {col.entries.map((entry, ei) => (
+                <div className={`cap-entry reveal reveal-delay-${ci * 2 + ei + 1}`} key={ei}>
+                  <span className="cap-entry-rule" aria-hidden="true" />
+                  <h3 className="cap-entry-title">{entry.title}</h3>
+                  <p className="cap-entry-desc">
+                    {entry.desc}{' '}
+                    <span className="cap-entry-metric">{entry.metric}</span>{' '}
+                    {entry.metricLabel}.
+                  </p>
                 </div>
-              )}
+              ))}
             </div>
           ))}
         </div>
 
-        <div className="reveal">
-          <CurvedLoop
-            marqueeText={tools.join(' ✦ ') + ' ✦ '}
-            speed={2}
-            curveAmount={80}
-            direction="left"
-            interactive
-            className="capabilities-loop-text"
-          />
+        <div className="cap-footer reveal">
+          <div className="cap-footer-cta">
+            <p className="cap-footer-cta-text">
+              Need a custom solution?
+            </p>
+            <a className="cap-footer-link btn btn-primary" href="#contact">
+              Let&rsquo;s talk
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+          <div className="cap-footer-stats">
+            <span className="cap-footer-stat">
+              <span className="cap-footer-stat-value">50+</span> Web Projects
+            </span>
+            <span className="cap-footer-stat-divider" aria-hidden="true" />
+            <span className="cap-footer-stat">
+              <span className="cap-footer-stat-value">200+</span> AI Deployments
+            </span>
+            <span className="cap-footer-stat-divider" aria-hidden="true" />
+            <span className="cap-footer-stat">
+              <span className="cap-footer-stat-value">99.9%</span> Uptime
+            </span>
+          </div>
         </div>
       </div>
     </section>
