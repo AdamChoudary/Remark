@@ -1,5 +1,0 @@
-{
-  "installCommand": "npm ci",
-  "framework": "nextjs",
-  "buildCommand": "npm run build"
-}
