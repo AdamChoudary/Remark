@@ -1,0 +1,63 @@
+Skill assignments
+
+Subagent 1 — Creative Director (aesthetic anchor + anti-slop)
+
+Skill: taste-skill (--skill design-taste-frontend) + a DESIGN.md family from rohitg00/awesome-claude-design
+Install: npx skills add https://github.com/Leonxlnx/taste-skill --skill design-taste-frontend
+Job: Sets the overall vibe and the three dials (DESIGN_VARIANCE ~6, MOTION_INTENSITY ~5, VISUAL_DENSITY ~3). Bans generic AI defaults. This is the "neat-yet-creative" governor.
+
+
+Subagent 2 — Interface Architect (IA + section/component division)
+
+Skill: Owl-Listener/designer-skills (/design-screen, visual-hierarchy) or ui-ux-pro-max
+Install: /plugin marketplace add Owl-Listener/designer-skills
+Job: Decides section order and how components divide within each section. Enforces "≥4 layout families per long page, no repeated section layouts." Fixes your "no proper architecture" complaint.
+
+
+Subagent 3 — Layout & Spacing Engineer
+
+Skill: zeke/swiss-design-skill + impeccable /layout
+Install: npx skills add zeke/swiss-design-skill
+Job: Grid (12-col, 8px base), generous spacing (py-24 min), opacity-for-hierarchy, alignment/positioning. Fixes "no proper positioning, things look congested."
+
+
+Subagent 4 — Typographer
+
+Skill: impeccable /typeset (+ taste/Anthropic anti-font rules)
+Install: npx impeccable install
+Job: Picks a distinctive display + refined body pairing, sets type scale. Bans Inter/Roboto/Space Grotesk as defaults.
+
+
+Subagent 5 — Color Specialist
+
+Skill: impeccable /colorize + jakubkrehel/oklch-skill
+Install: npx skills add jakubkrehel/oklch-skill
+Job: Restrained palette, one or two intentional accents, CSS-variable tokens. (Recall oryzo.ai is literally just near-black + one orange.)
+
+
+Subagent 6 — Imagery & Visual Treatment (your core fix)
+
+Skill: taste-skill §4.8/§9.F imagery rules + impeccable spatial rules; optional CloudAI-X/threejs-skills for 3D atmosphere
+Install (optional 3D): npx skills add https://github.com/cloudai-x/threejs-skills --skill threejs-fundamentals
+Job: Forces real full-bleed atmospheric/background imagery with dark wash. No images-in-cards, no pills overlaid on photos, no fake div-screenshots. This is the exact rule set for your complaint.
+
+
+Subagent 7 — Motion & Micro-interaction Designer
+
+Skill: emilkowalski/skills (emil-design-eng) + jakubkrehel/make-interfaces-feel-better
+Install: npx skills add emilkowalski/skill then npx skills add jakubkrehel/make-interfaces-feel-better
+Job: Tasteful motion (custom easing, <300ms, transform+opacity, scroll reveals) + compounding polish (concentric radius, press states, optical alignment).
+
+
+Subagent 8 — QA / Design Auditor
+
+Skill: vercel-labs/agent-skills web-design-guidelines + impeccable /critique + emilkowalski review-animations
+Install: npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines
+Job: Final gate — accessibility, spacing, hierarchy, motion violations in file:line format. Iterate until clean.
+
+
+Subagent 9 (only if shadcn) — Component Correctness
+
+Skill: official shadcn/ui skill (free)
+Install: npx skills add shadcn/ui
+Job: Reads your components.json so the aesthetic skills don't generate code that breaks your component library. (Skip the paid shadcn.io Pro MCP.)
