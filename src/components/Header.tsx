@@ -136,7 +136,7 @@ export function Header() {
               key={link.label}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-display text-3xl font-light tracking-wide text-fg
+              className="font-display text-3xl font-semibold tracking-wide text-fg
                 transition-[opacity,transform] duration-300 ease-out-expo hover:text-accent
                 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
               style={{

@@ -13,7 +13,7 @@ export function ContactForm() {
   if (sent) {
     return (
       <div className="flex min-h-[300px] flex-col items-center justify-center rounded-sm border border-accent/20 bg-accent-subtle">
-        <p className="font-display text-xl font-light text-fg">Message sent.</p>
+        <p className="font-display text-xl font-medium text-fg">Message sent.</p>
         <p className="mt-2 text-sm text-muted">We&rsquo;ll get back to you within 24 hours.</p>
       </div>
     );

@@ -17,7 +17,7 @@ export function Footer() {
           />
           <p className="mt-4 text-sm text-muted">Digital Solutions Agency &middot; Islamabad</p>
           <div className="mt-3 flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-dot" />
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             <p className="text-sm text-muted">Available for projects</p>
           </div>
         </div>

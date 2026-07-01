@@ -1,7 +1,6 @@
 "use client";
 
 import { MarkedWord } from "./MarkedWord";
-import { DotPattern, AccentGlow } from "./SvgPatterns";
 
 const workItems = [
   { name: "AI Voice Agents", category: "Conversational AI", tagline: "Intelligent voice agents for automated customer support." },
@@ -11,81 +10,77 @@ const workItems = [
   { name: "Branding & Identity", category: "Design", tagline: "Core visual assets and unified design systems." },
 ];
 
-// One accent only — every tile is the brand red (hue ~29), varied in focal
-// position and brightness for rhythm. No second hue.
-const tileGradients = [
-  'radial-gradient(ellipse at 30% 20%, oklch(0.26 0.10 29) 0%, oklch(0.12 0.04 29) 38%, oklch(0.07 0.012 29) 100%)',
-  'radial-gradient(ellipse at 75% 35%, oklch(0.21 0.075 29) 0%, oklch(0.11 0.035 29) 38%, oklch(0.07 0.012 29) 100%)',
-  'radial-gradient(ellipse at 45% 78%, oklch(0.27 0.11 29) 0%, oklch(0.12 0.04 29) 38%, oklch(0.07 0.012 29) 100%)',
-  'radial-gradient(ellipse at 20% 55%, oklch(0.23 0.085 29) 0%, oklch(0.11 0.035 29) 38%, oklch(0.07 0.012 29) 100%)',
-  'radial-gradient(ellipse at 62% 28%, oklch(0.25 0.10 29) 0%, oklch(0.12 0.04 29) 38%, oklch(0.07 0.012 29) 100%)',
-];
-
 export function WorkPreview() {
   return (
     <section id="work" className="section bg-section-4 overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
-        <p className="mono mb-4 text-xs tracking-[0.25em] text-muted uppercase">
-          Selected Work
-        </p>
-        <p className="mb-12 max-w-md text-sm leading-relaxed text-subtle">
-          A curated selection of projects across our core capabilities.
-        </p>
+        <div className="flex items-end justify-between gap-6">
+          <div>
+            <p className="mono mb-4 text-xs tracking-[0.25em] text-muted uppercase">
+              Selected Work
+            </p>
+            <p className="max-w-md text-sm leading-relaxed text-subtle">
+              A curated selection of projects across our core capabilities.
+            </p>
+          </div>
+          <span className="mono hidden shrink-0 text-[11px] tracking-[0.2em] text-subtle/70 uppercase md:inline">
+            Drag &rarr;
+          </span>
+        </div>
       </div>
 
-      <div className="flex gap-6 overflow-x-auto px-4 pb-6 md:px-8 snap-x snap-mandatory scrollbar-hide">
+      <div className="mt-14 flex gap-5 overflow-x-auto px-4 pb-6 md:mt-20 md:px-8 snap-x snap-mandatory scrollbar-hide">
         {workItems.map((item, i) => (
-          <div
+          <article
             key={item.name}
-            className="group relative flex min-w-[300px] max-w-[400px] snap-start flex-col justify-end overflow-hidden rounded-sm
-              md:min-w-[400px] transition-transform duration-500 ease-out-expo hover:scale-[1.02]
-              focus-within:ring-2 focus-within:ring-accent"
+            className="group relative flex aspect-[3/4] min-w-[280px] max-w-[340px] snap-start flex-col justify-between
+              overflow-hidden rounded-sm border border-border-subtle bg-bg-light/40 p-7
+              transition-[transform,border-color,background-color] duration-500 ease-out-expo
+              hover:-translate-y-1.5 hover:border-accent/40 hover:bg-bg-light/70
+              focus-within:ring-2 focus-within:ring-accent md:min-w-[340px]"
           >
-            <div
-              className="relative aspect-[4/3] w-full overflow-hidden"
-              style={{ background: tileGradients[i % tileGradients.length] }}
+            {/* Oversized index watermark — the energy is in the type, not a photo */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -right-3 -top-6 font-display text-[8.5rem] font-bold leading-none text-fg/[0.04]
+                transition-[color,transform] duration-500 ease-out-expo group-hover:text-accent/15 group-hover:-translate-y-1"
             >
-              <DotPattern size={20} opacity={0.06} />
-              <AccentGlow position="center" size="70%" className="opacity-50" />
+              {String(i + 1).padStart(2, "0")}
+            </span>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-void/90 via-void/30 to-transparent" />
-
-              {/* Category */}
-              <div className="absolute top-5 left-6">
-                <span className="mono text-[10px] tracking-[0.18em] text-muted uppercase">
-                  {item.category}
-                </span>
-              </div>
-
-              <div className="absolute bottom-6 left-6 right-6">
-                {item.name === "AI Voice Agents" ? (
-                  <>
-                    <h3 className="font-display text-2xl font-medium text-fg">
-                      <MarkedWord word="AI" /> Voice Agents
-                    </h3>
-                    <p className="mt-2 max-w-[220px] text-xs leading-relaxed text-muted">{item.tagline}</p>
-                  </>
-                ) : (
-                  <>
-                    <h3 className="font-display text-2xl font-medium text-fg">{item.name}</h3>
-                    <p className="mt-2 max-w-[220px] text-xs leading-relaxed text-muted">{item.tagline}</p>
-                  </>
-                )}
-              </div>
-
-              {/* Hover accent bar */}
-              <div className="absolute bottom-0 left-0 h-0.5 w-full bg-accent transition-[transform] duration-500 ease-out-expo origin-left scale-x-0 group-hover:scale-x-100" />
+            {/* Top: category tag */}
+            <div className="relative flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent/70 transition-transform duration-500 ease-out-expo group-hover:scale-150" />
+              <span className="mono text-[10px] tracking-[0.18em] text-muted uppercase">
+                {item.category}
+              </span>
             </div>
-          </div>
+
+            {/* Bottom: title + tagline */}
+            <div className="relative">
+              <h3 className="font-display text-3xl font-semibold leading-[1.02] tracking-[-0.01em] text-fg">
+                {item.name === "AI Voice Agents" ? (
+                  <><MarkedWord word="AI" /> Voice Agents</>
+                ) : (
+                  item.name
+                )}
+              </h3>
+              <p className="mt-3 max-w-[230px] text-xs leading-relaxed text-muted">{item.tagline}</p>
+
+              {/* Accent line sweeps in on hover */}
+              <div className="mt-5 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out-expo group-hover:scale-x-100" />
+            </div>
+          </article>
         ))}
 
         <a
           href="/work"
-          className="flex min-w-[140px] snap-start items-center justify-center text-sm tracking-wide text-muted
-            transition-all duration-300 ease-out-expo hover:text-fg hover:translate-x-1
+          className="group flex min-w-[160px] snap-start flex-col items-start justify-end gap-3 p-7 text-sm tracking-wide text-muted
+            transition-colors duration-300 ease-out-expo hover:text-fg
             focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
         >
-          View all work &rarr;
+          <span className="font-display text-2xl font-semibold leading-tight text-fg">View<br />all work</span>
+          <span className="text-accent transition-transform duration-300 ease-out-expo group-hover:translate-x-1.5">&rarr;</span>
         </a>
       </div>
     </section>

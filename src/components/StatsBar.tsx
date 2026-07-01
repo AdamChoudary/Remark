@@ -8,12 +8,16 @@ export function StatsBar() {
   return (
     <section className="bg-bg-med border-y border-border-subtle">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
-        <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-6 py-8">
-          {stats.map((s, i) => (
-            <div key={s.label} className="flex items-center gap-4">
-              {i > 0 && <span className="hidden h-8 w-px bg-border-subtle md:block" aria-hidden="true" />}
-              <p className="font-display text-2xl font-light text-fg tabular-nums">{s.value}</p>
-              <p className="text-[10px] tracking-[0.15em] text-subtle uppercase">{s.label}</p>
+        <div className="grid grid-cols-3 divide-x divide-border-subtle py-12 md:py-16">
+          {stats.map((s) => (
+            <div key={s.label} className="group flex flex-col items-center px-2 text-center">
+              <p className="font-display text-[clamp(2.25rem,6vw,4rem)] font-semibold leading-none tracking-[-0.02em] text-fg tabular-nums
+                transition-colors duration-300 ease-out-expo group-hover:text-accent">
+                {s.value}
+              </p>
+              <p className="mt-3 text-[10px] tracking-[0.18em] text-subtle uppercase md:text-[11px]">
+                {s.label}
+              </p>
             </div>
           ))}
         </div>

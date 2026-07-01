@@ -14,7 +14,7 @@ export function Contact() {
         <div className="grid grid-cols-1 gap-16 md:grid-cols-12">
           {/* CTA side */}
           <div className="md:col-span-6">
-            <h2 className="mb-10 font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.1] tracking-[-0.02em] text-fg">
+            <h2 className="mb-10 font-display text-[clamp(2.2rem,5vw,4rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-fg">
               Ready to <MarkedWord word="scale" /> your digital future.
             </h2>
             <a
