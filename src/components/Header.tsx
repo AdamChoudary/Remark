@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { GridPattern, GrainOverlay } from "./SvgPatterns";
+import { useState, useEffect } from "react";
 
 const navLinks = [
   { label: "Services", href: "/#capabilities" },
@@ -13,19 +12,6 @@ const navLinks = [
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setScrolled(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -34,30 +20,15 @@ export function Header() {
 
   return (
     <>
-      <div ref={sentinelRef} className="absolute top-0 left-0 right-0 h-px pointer-events-none" />
-      {/* Top scrim — keeps the nav readable over any hero (dark left or bright red right).
-          Fades to nothing by ~8rem; the hero below stays untouched. */}
-      <div
-        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-gradient-to-b from-void/90 via-void/45 to-transparent transition-opacity duration-500 ${
-          scrolled ? "opacity-0" : "opacity-100"
-        }`}
-      />
-      <header
-        className={`fixed left-1/2 top-0 z-50 w-full max-w-7xl -translate-x-1/2 transition-all duration-500 ease-out-expo px-4 md:px-8
-          ${scrolled ? "pt-4" : "pt-6 md:pt-8"}`}
-      >
-        <div
-          className={`relative flex items-center justify-between transition-all duration-500 ease-out-expo
-            ${scrolled ? "rounded-full border border-border-subtle/50 bg-void/75 px-6 py-3 backdrop-blur-xl shadow-2xl shadow-black/60" : "rounded-full border border-transparent bg-transparent px-2 py-2"}`}
-        >
-          <div
-            className={`pointer-events-none absolute inset-0 overflow-hidden rounded-full transition-opacity duration-500 ${scrolled ? "opacity-100" : "opacity-0"}`}
-          >
-            <GridPattern size={40} opacity={0.05} />
-            <GrainOverlay />
-          </div>
+      {/* Flush top bar, sitting directly on the page — no floating card, no blur, no corner
+          chrome. The scrim has to hold up over BOTH registers now that sections genuinely
+          alternate light/dark (not just a safety net for one dark hero) — strong enough
+          through the actual nav row's height, not just at the very top edge. */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-40 h-36 bg-gradient-to-b from-void/85 via-void/60 to-transparent" />
 
-          <a href="/" className="relative z-10 flex items-center gap-2 group">
+      <header className="fixed inset-x-0 top-0 z-50 px-6 py-5 md:px-8 md:py-6">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
+          <a href="/" className="flex items-center gap-2 group">
             <img
               src="/rs logo.png"
               alt="Remark Studio"
@@ -66,57 +37,58 @@ export function Header() {
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden relative z-10 items-center gap-10 md:flex">
-          {navLinks.map((link) => (
+          <nav className="hidden items-center gap-10 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="relative text-sm tracking-wide text-fg/85 transition-colors duration-200 hover:text-fg
+                  after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent
+                  after:transition-transform after:duration-300 after:ease-out-expo hover:after:scale-x-100
+                  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded"
+              >
+                {link.label}
+              </a>
+            ))}
+            <span className="pl-6 text-[11px] tracking-[0.18em] text-fg/70 uppercase select-none">
+              Available for projects
+            </span>
             <a
-              key={link.label}
-              href={link.href}
-              className="relative text-sm tracking-wide text-fg/85 transition-colors duration-200 hover:text-fg
-                after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-accent
-                after:transition-all after:duration-300 after:ease-out-expo hover:after:w-full
-                focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded"
+              href="/contact"
+              className="rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg
+                transition-[transform,background-color] duration-200 ease-out-expo
+                hover:bg-accent-bright active:scale-[0.96]
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
-              {link.label}
+              Connect
             </a>
-          ))}
-          <span className="pl-6 text-[11px] tracking-[0.18em] text-fg/70 uppercase select-none">
-            Available for projects
-          </span>
-          <a
-            href="/contact"
-            className="rounded bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg
-              transition-[transform,background-color] duration-200 ease-out-expo
-              hover:bg-accent-bright active:scale-[0.96]
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          >
-            Connect
-          </a>
-        </nav>
+          </nav>
 
-        {/* Hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden
-            focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-        >
-          <span aria-hidden="true"
-            className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${
-              menuOpen ? "translate-y-[6.5px] rotate-45" : ""
-            }`}
-          />
-          <span aria-hidden="true"
-            className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${
-              menuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span aria-hidden="true"
-            className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${
-              menuOpen ? "-translate-y-[6.5px] -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </div>
+          {/* Hamburger */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden
+              focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            <span aria-hidden="true"
+              className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${
+                menuOpen ? "translate-y-[6.5px] rotate-45" : ""
+              }`}
+            />
+            <span aria-hidden="true"
+              className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${
+                menuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span aria-hidden="true"
+              className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${
+                menuOpen ? "-translate-y-[6.5px] -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
+      </header>
 
       {/* Mobile drawer */}
       <div
@@ -127,9 +99,6 @@ export function Header() {
             : "pointer-events-none opacity-0 translate-y-6"
           }`}
       >
-        <div className="absolute inset-0">
-          <GridPattern size={40} opacity={0.04} />
-        </div>
         <nav className="relative flex flex-1 flex-col items-center justify-center gap-12">
           {navLinks.map((link, i) => (
             <a
@@ -153,7 +122,7 @@ export function Header() {
           <a
             href="/contact"
             onClick={() => setMenuOpen(false)}
-            className="block w-full rounded bg-accent py-4 text-center text-lg font-medium text-accent-fg
+            className="block w-full rounded-full bg-accent py-4 text-center text-lg font-medium text-accent-fg
               transition-[transform,background-color] duration-200 ease-out-expo
               hover:bg-accent-bright active:scale-[0.96]"
           >
@@ -161,7 +130,6 @@ export function Header() {
           </a>
         </div>
       </div>
-    </header>
     </>
   );
 }

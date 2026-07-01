@@ -1,253 +1,230 @@
-# Remark Studio — Design Direction
+---
+name: Remark Studio
+description: A digital solutions studio turning ideas into reality — engineered with the same precision as the products it builds.
+colors:
+  paper: "#fdf3ef"
+  paper-2: "#f4e8e4"
+  ink: "#1a1210"
+  ink-muted: "#4e4544"
+  ink-subtle: "#786f6d"
+  void: "#090706"
+  bg: "#110e0c"
+  bg-med: "#1a1614"
+  bg-light: "#25211e"
+  fg: "#f6f3ef"
+  muted: "#c4bcb6"
+  red-dusky: "#f6d9d9"
+  red-brick: "#e58b8c"
+  red-primary: "#b91319"
+  red-bright: "#ac0000"
+  red-deep: "#5f000b"
+  red-oxblood: "#2c0005"
+typography:
+  display:
+    fontFamily: "Syne, sans-serif"
+    fontSize: "clamp(2.75rem, 8vw, 7.5rem)"
+    fontWeight: 700
+    lineHeight: 0.95
+    letterSpacing: "-0.02em"
+  body:
+    fontFamily: "Manrope, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.6
+    letterSpacing: "normal"
+  label:
+    fontFamily: "JetBrains Mono, monospace"
+    fontSize: "0.6875rem"
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: "0.2em"
+rounded:
+  sm: "2px"
+  md: "8px"
+  full: "9999px"
+spacing:
+  xs: "8px"
+  sm: "16px"
+  md: "24px"
+  lg: "40px"
+  xl: "64px"
+  2xl: "96px"
+components:
+  button-primary:
+    backgroundColor: "{colors.red-primary}"
+    textColor: "{colors.fg}"
+    rounded: "{rounded.full}"
+    padding: "14px 28px"
+  button-primary-hover:
+    backgroundColor: "{colors.red-bright}"
+  button-outline:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.full}"
+    padding: "14px 28px"
+  button-outline-hover:
+    backgroundColor: "{colors.red-primary}"
+    textColor: "{colors.fg}"
+---
 
-> The design agents in `~/.claude/agents/` treat this file as canonical for
-> *direction*. Page **copy lives in `CONTENT.md`** — pull wording from there.
-> Design here is built FRESH from the brief, the skills, and the logo.
-> Nothing is carried over from the `main` branch (main's colors/fonts/theme/
-> layout are NOT inputs — content only was taken from it).
+# Design System: Remark Studio
 
-## Vibe (one line) — LOCKED
-Cinematic dark editorial: a near-black gallery, off-white type, and **one
-deep-red mark** that lands like punctuation. Confident and precise, quietly
-expensive. Not loud, not templated.
+> Follows the DESIGN.md format spec. Tokens above are normative; prose below explains where and why. Strategic questions (audience, purpose, brand voice, anti-references) live in `PRODUCT.md`; this file is strictly visual. Page copy lives in `CONTENT.md`.
 
-## Concept / motif — LOCKED
-**The Remark = the mark.** A *remark* is both a mark left behind and something
-worth remarking on. The red is never decoration — it is a deliberate **editor's
-mark** (underline, circle, or strike) that hits exactly ONE word per section and
-animates as if being drawn by hand. This is the brand signature; reuse it as the
-through-line across every page. It already lives in the copy
-("~~good enough~~ → scalable digital solutions").
+## 1. Overview
 
-## Theme — LOCKED: dark, single-mode
-Dark is canonical (not auto-switching). Why: the logo's "Remark" wordmark is
-white — built for dark; near-black + one red is maximally legible and lets the
-red mark be the only color on the page. Off-black base (no pure `#000`),
-off-white text (no pure `#fff`). Light mode is out of scope unless the client
-asks.
+**Creative North Star: "The Foundry."**
 
-## The three dials — LOCKED (your chosen "neat-yet-creative" governor)
-- **DESIGN_VARIANCE: 6** — offset/asymmetric, editorial, still legible. Not
-  masonry chaos.
-- **MOTION_INTENSITY: 5** — fluid CSS + tasteful scroll reveals; the red mark
-  "draws itself" on reveal (motion that is *motivated* — the mark being made).
-  Reduced-motion aware.
-- **VISUAL_DENSITY: 3** — airy, gallery spacing (`py-24`+), few elements per view.
+Remark Studio is a digital solutions studio — web, voice AI, chatbots, CRM/ERP, growth. The Foundry treats red not as a brand accent but as a *material*: the molten substance the studio is built from, the way a foundry is defined by the metal it pours. Every section either sits in the studio's dark cinematic register (near-black, off-white type, red glimpsed as a precise mark) or in a light register where the material itself — a real image, a saturated red mass — dominates the frame. These are not two themes bolted together; they are one brand alternating between its quiet register and its loud one, the way a foundry floor is dim except where the pour happens.
 
-## Accent usage — LOCKED
-- ONE accent: the deep wine-red from the logo. `color-specialist` derives the
-  full OKLCH ramp from it. Locked across the WHOLE page — no second hue, no
-  blue/purple anything, no glows or gradients.
-- The red appears as: (1) the recurring drawn **mark** on one word per section,
-  (2) the single primary CTA fill, (3) rare semantic highlights. Everywhere
-  else is near-black + off-white.
+This system explicitly rejects: purple/blue SaaS gradients, glassmorphism, generic default fonts, centered-everything layouts, and — the mistake this rewrite corrects — decorative chrome (empty placeholder frames, coordinate captions, corner registration ticks) standing in for content that doesn't exist yet. A section with no real image is a section that isn't done, not a section wearing a costume of one.
 
-## Direction — concrete do's
-1. Near-black canvas, off-white text, ONE deep-red accent used as a mark.
-2. The drawn red mark is the brand signature — one word per section, animating
-   in as if being annotated.
-3. Asymmetric editorial layouts; ≥4 layout families on landing, no repeats.
-4. Real full-bleed imagery with a dark wash where used; never images-in-cards,
-   never fake `<div>` screenshots, never pills on photos.
-5. Sans display (NOT serif — the script lives in the logo only); restrained
-   motion; the red CTA is the one loud element on the page.
+**Key Characteristics:**
+- One accent hue (red), expressed as a full tonal ramp, never a second color
+- Alternating light/dark sections, unified by the same red running through both
+- One dominant, load-bearing gesture per section — never an assembly of small decorated parts
+- Real imagery fills whole sections when the brief calls for it; imagery is never boxed into a small illustration slot standing in for the real subject
+- The drawn red "mark" (underline, circle, strike) is the recurring brand signature — one per section, never more
 
-## Brand input
-- Logo: `public/rs logo.png` — white "Remark" wordmark + deep-red script
-  "Studio". Source of the accent red and the mark motif. Fonts decided fresh by
-  `typographer` (ban Inter/Roboto/Space Grotesk as defaults).
+## 2. Colors
 
-## Pages
-**Landing · Work · About · Contact.** Build section by section, in depth.
-Section copy → `CONTENT.md`. The `interface-architect` decides section order and
-layout families. Hard rule for long pages: **≥4 distinct layout families, no two
-adjacent sections sharing one.**
+The palette is genuinely one hue (red, ~27° in OKLCH) expressed as two neutral registers — a warm paper/ink pair for light sections, a near-black/off-white pair for dark sections — plus a six-step red ramp shared by both. Neutrals in both registers are tinted a few thousandths of chroma toward the red hue; there is no true 0-chroma gray anywhere in the system.
 
-## Banned (anti-slop)
-- Purple/blue SaaS gradients, glow blobs, generic "AI startup" look.
-- Centered hero + 3 identical feature cards repeated down the page.
-- Images inside rounded cards; pills/badges floating on photos; fake `<div>`
-  dashboard "screenshots"; unsplash filler thumbnails.
-- Emoji icons. Shadows on everything. More than two hues.
-- Generic default fonts (Inter, Roboto, Space Grotesk, Open Sans) unless
-  explicitly justified.
+### Primary
+- **Foundry Crimson** (`#b91319` / `oklch(0.5 0.195 27)`): the one accent. Used as a dominant material in light sections (a saturated field, a hero object) and as a precise mark in dark sections (underline, CTA fill, focus ring). Never a second hue anywhere.
+- **Foundry Bright** (`#ac0000` / `oklch(0.445 0.215 26)`): hover/active state for the primary red — brighter, not lighter.
+- **Foundry Deep / Oxblood** (`#5f000b`, `#2c0005`): the dark end of the ramp — shadow-side of the material, deep accents on dark surfaces.
+- **Dusky Rose / Brick** (`#f6d9d9`, `#e58b8c`): the light end of the ramp — tints, washes, the material seen at its coolest.
 
-## The design team (agents)
-1. `creative-director` — vibe + dials governor (run first / on drift)
-2. `interface-architect` — section order + layout families
-3. `layout-spacing-engineer` — grid, spacing, alignment
-4. `typographer` — fonts, type scale
-5. `color-specialist` — palette + tokens (from the logo)
-6. `imagery-visual-treatment` — full-bleed imagery, washes, 3D
-7. `motion-designer` — motion + micro-interactions
-8. `design-qa-auditor` — final gate (run last, iterate to PASS)
-9. `component-correctness` — shadcn guard (only if `components.json` exists)
+### Neutral — Light register (Paper)
+- **Warm Paper** (`#fdf3ef`): base surface for light sections. Never pure white — tinted toward the red hue at very low chroma.
+- **Paper Deep** (`#f4e8e4`): second surface, panel backgrounds, cards.
+- **Foundry Ink** (`#1a1210`): primary text on paper. Never pure black.
+- **Ink Muted / Subtle** (`#4e4544`, `#786f6d`): secondary text, captions, decorative labels on paper.
 
-Typical flow per section: **director → architect → (layout · type · color ·
-imagery · motion in parallel) → qa-auditor → fix → re-audit.**
+### Neutral — Dark register (Void)
+- **Void** (`#090706`): base surface for dark sections. Off-black, tinted warm.
+- **Bg / Bg-Med / Bg-Light** (`#110e0c`, `#1a1614`, `#25211e`): a three-step elevation scale — higher surfaces are *lighter*, never darker, per dark-mode convention.
+- **Foundry Fog** (`#f6f3ef`): primary text on dark. Off-white, never pure white.
+- **Muted** (`#c4bcb6`): secondary text on dark.
+
+### Named Rules
+
+**The One Hue Rule.** Every color in this system shares one hue family. If a second hue is ever needed (a semantic error/success state, for instance), it must be proposed and approved explicitly — it does not default in.
+
+**The Material Rule.** In light sections, red is never a hairline. If red appears, it occupies a real, visible mass — a saturated field, a bleeding object, a filled button — never a 1px underline doing all the work of representing the brand. Hairline red is a dark-section move (the drawn mark); light sections commit.
+
+**The Alternation Rule.** Sections alternate between the paper register and the void register down the page. Two adjacent sections never share a register unless a real compositional reason (documented in Components) requires it. *(Revised 2026-07-01: Hero itself is dark/void — see Components — reopening which section anchors the alternation. Narrative, immediately after Hero, should move to paper when it gets its own pass, so the two sections adjacent to each other still alternate.)*
+
+**The No-Empty-Frame Rule.** A bordered box, a corner tick mark, a coordinate caption, or a grid-pattern backdrop is never placed where a real image is still pending. If the image isn't built yet, the section waits — it does not ship wearing gift-wrap around an empty box.
+
+## 3. Typography
+
+**Display Font:** Syne (with sans-serif fallback) — geometric, confident, already the studio's committed identity (not a fresh pick; identity-preservation applies).
+**Body Font:** Manrope (with sans-serif fallback) — a quiet, legible workhorse that doesn't compete with Syne's geometry.
+**Label/Mono Font:** JetBrains Mono — eyebrows, captions, technical annotations.
+
+**Character:** Syne carries the studio's confidence at poster scale; Manrope stays out of the way in body copy; JetBrains Mono marks anything that reads as precise or technical (labels, captions, real data like coordinates or specs — never decorative filler).
+
+### Hierarchy
+- **Display** (700, `clamp(2.75rem, 8vw, 7.5rem)`, line-height 0.95): hero and section headlines. One weight, one massive scale — the studio's single decisive gesture, not a two-tone split.
+- **Headline** (700, `clamp(2rem, 4vw, 3.5rem)`, line-height 1.0): sub-section statements (e.g. Narrative's problem/solution beats).
+- **Title** (600, `1.5rem`, line-height 1.2): capability names, work-tile titles.
+- **Body** (400, `1rem`–`1.125rem`, line-height 1.6, max 65ch): subtitles, descriptions, quotes.
+- **Label** (500, `0.6875rem`, line-height 1.4, letter-spacing `0.2em`, uppercase): eyebrows, captions, mono annotations. Used sparingly — see the Eyebrow Rule in Components.
+
+### Named Rules
+
+**The Poster Rule.** Hero and section-level headlines commit to one weight (700) and push scale as far as the viewport allows (`clamp` ceiling ~7.5rem). No two-weight split-emphasis headlines (e.g. a muted first word next to a bold second word) — that reads as timid, not editorial. Emphasis comes from the drawn red mark, not from a second type weight.
+
+**The One-Mark Rule.** Exactly one word per section may carry the drawn red mark (underline, circle, or strike). It is typeset in the same weight as the rest of the headline — the mark itself carries the emphasis, not a font change.
+
+## 4. Elevation
+
+Flat by default, on both registers. Depth comes from surface lightness (dark register: each elevation step is lighter, never darker) and from real material presence (a red field, a real image), not from shadow.
+
+### Shadow Vocabulary
+- **Hairline** (`0 0 0 1px oklch(30% 0.01 27 / 0.06)`): the only border treatment. Used instead of a drop shadow wherever a boundary needs marking — a panel edge, a hover card.
+- **Whisper** (`0 1px 2px oklch(20% 0.01 27 / 0.05)`): the only permitted drop shadow, for hovering interactive elements only (a lifted button, a raised nav bar). Never stacked, never used for decoration.
+
+### Named Rules
+
+**The Flat-by-Default Rule.** Surfaces are flat at rest. Shadow appears only as a response to state (hover, focus) — never as ambient decoration under a static element.
+
+## 5. Components
+
+### Buttons
+- **Shape:** fully rounded (`{rounded.full}`), consistent across both registers.
+- **Primary (filled):** `{colors.red-primary}` background, `{colors.fg}` text, hover → `{colors.red-bright}`. Used where the button is the persistent, always-visible action (Header's "Connect").
+- **Outline:** transparent background, `{colors.red-primary}` border, ink/fg text depending on register, hover fills to `{colors.red-primary}` with fg text. Used where the button is a first, calmer impression rather than a persistent control (Hero's "Start a project").
+- **Voice split is deliberate, not drift:** persistent nav CTA = filled (urgency, always visible); in-page hero/section CTA = outline (refined, first impression). Both registers share this logic; do not force one voice everywhere.
+
+### Navigation (Header) *(corrected 2026-07-01 — was a floating glass-pill card, exactly the banned nav shape)*
+Fixed overlay, present on every route. Logo (`public/rs logo.png` — white wordmark + red-script "Studio"), nav links (Services · Process · Capabilities · Work · Contact), plain status text "Available for projects" (no pill, no badge), "Connect" button (filled primary, `{rounded.full}`, rightmost). Sits **flush on the page** — no rounded card, no border, no backdrop blur, no corner registration ticks — matching how Dynamite Studio, Helious, and Neo Mirai all treat their nav bars: text and logo sitting directly over the hero, not boxed in a floating island. A thin top-down scrim (gradient, not a filled bar) keeps it legible as a safety net; since the studio is dark by default now, this rarely has to do much work. Mobile: hamburger → full-screen drawer, nav links stacked large, CTA pinned at drawer bottom. Structural only — the drawn-mark motif and eyebrows never appear here.
+
+### Hero *(register reverted to dark 2026-07-01, after reviewing Dynamite Studio / Helious / Nexora references; image shipped same day)*
+Purpose: land the brand proposition in one breath — "this is serious and different from every agency site," with the same cinematic weight as a game-studio or design-conference hero, not a SaaS landing page. Full-bleed real image fills the entire section (viewport height), dark/atmospheric register (void). Typography is **integrated with the image, not segregated beside it**: the headline sits low in the frame, large enough to feel inevitable (poster scale, single weight, off-white/fg color, `IDEAS → REALITY`). No added chrome (no pagination arrows, no numbered progress indicators, no side rail) — those are literal UI from portfolio/case-study sites with real pagination; Remark's hero has none of that to paginate, so borrowing the decoration without the function would itself be slop.
+
+**Image shipped 2026-07-01:** `public/hero_images/Single Continuous Form Jul 01 2026.jpeg` — a single continuous form caught transforming: one end rendered as thin glowing crimson wireframe (the idea, translucent, unresolved), the other end solid matte-black material with the same crimson now glowing as real internal light (the reality it became), dust and fragments marking the transition zone between the two states. The headline is composited directly against this — "IDEAS" sits over the wireframe half, "REALITY" over the solid half, the arrow glyph landing in the transformation zone itself. Headline and image are the same idea stated twice, not two separate elements. `GrainOverlay` stays over it as an established texture technique; a vertical + horizontal scrim keep the type legible without dulling the image. Mark word: **REALITY**, red drawn underline, animates on initial load. Eyebrow: none. Mobile: same bottom-anchored composition, headline scales down.
+
+**Rejected directions (2026-07-01), kept here so they aren't re-proposed:** an isolated monumental sculpture (read as product photography, not a studio); a blacksmith forge mid-strike (read as a metalworking company, no digital/tech signal); long-exposure light-painting calligraphy (too disconnected from the brand's actual services); an editor's-desk mark-up scene (too generic "stock editorial" imagery); a calm painterly Islamabad cityscape (borrowed Neo Mirai's specific technique without being ours); a smooth abstract product-photography form (same "product, not studio" failure as the sculpture); a studio-interior workspace scene (correct instinct, wrong execution — read as generic coworking stock photography). The wireframe-to-solid concept won because it visualizes the headline itself rather than needing a scene or metaphor to explain it.
+
+### Narrative — sticky-scroll pattern
+Purpose: make the visitor feel their pain understood, then relieved by the solution. Sticky left panel ("The Problem" → crossfades to "The Solution" at scroll midpoint); right column scrolls three problem statements into view, each a single large editorial statement, no subhead. Resolution beat: `~~good enough~~` (strikethrough draws itself in red) → "scalable digital solutions" fades in — the literal brand copyline. Mark word: **scalable**, red drawn underline. Register: **paper** (moves to light per the revised Alternation Rule — Hero is now dark, so the section immediately after it goes light). Eyebrow: none.
+
+### Capabilities — stacked index pattern
+Purpose: establish authority by naming exactly what's built. Six capabilities (Web Development, Voice Agents, Chat Bots, CRM & ERP, Analytics & Insights, Scalable & Secure — from `CONTENT.md`) as numbered editorial rows, hairline rule between each, unequal row heights for natural rhythm — no cards, no equal-width columns. Mark word: **Voice**, red drawn circle (distinct gesture from Hero's underline) on row 02 "AI Voice Agents." Register: void (dark), alternating back from Narrative's paper. Eyebrow: none.
+
+### Work / Services preview — horizontal scroll pattern
+Purpose: show range and quality fast. 5 curated services (AI Voice Agents, Web Development, Digital Marketing, Media Production, Branding & Identity) as large tiles in a draggable horizontal track. **Each tile's full-bleed image IS the tile surface** — the image fills the entire tile, service name and category overlaid directly on it, never placed inside a card border around a small illustration. First tile image shipped 2026-07-01: `public/work_ai_voice_agents.png` — a hand-cast brass-and-obsidian listening instrument clamped in a bench vise, a craftsman's hand adjusting it, warm workbench lamp, a furnace glowing in the background — real workshop-craft imagery, not abstract renders. Remaining four tile images generating; same workshop world, hands visibly making something at bench-scale for each service. Mark word: **AI**, red drawn underline on the first tile. Register: dark. Eyebrow: "Selected Work" permitted here only (section 4, gap of 3 since Hero) — second and final eyebrow on the page if used.
+
+### Testimonial — collage pattern
+Purpose: one authoritative voice, not a carousel. One large pull-quote, no avatar/headshot/card container. Three metrics positioned asymmetrically, one overlapping the quote's bottom edge. Mark word: **Satisfaction**, red drawn underline. Register: dark. Eyebrow: none.
+
+### Contact / CTA — asymmetric split pattern
+Purpose: close the conversion. Left 60%: display headline "Ready to scale your digital future.", filled primary CTA (third and final "Start a project" appearance). Right 40%: address, phone (`tel:` links), social icons. Mark word: **scale**, red drawn underline. Register: dark. Eyebrow: none.
+
+### Footer — editorial single-column pattern
+Purpose: close the page, zero conversion pressure. Hairline rule, logo, status text, four-column link grid, copyright. No mark word, no eyebrow — purely structural, like Header.
+
+### Layout-family diversity
+Seven distinct layout families across the page (fixed overlay, Hero's image-integrated pattern, sticky-scroll, stacked index, horizontal scroll, collage, asymmetric split, editorial single-column) — no two adjacent sections share a family. Verify this table whenever a section's pattern changes; a changed Hero pattern must be re-checked against Narrative's pattern for accidental collision.
+
+## 6. Do's and Don'ts
+
+### Do:
+- **Do** treat red as a material in light sections — a real mass (field, object, filled button), never a hairline.
+- **Do** let a whole section's background be a real image when the content calls for it (Work preview tiles, Hero's image zone) — small boxed illustration slots are not an acceptable substitute for the real subject.
+- **Do** give every section exactly one dominant, load-bearing gesture.
+- **Do** use the drawn red mark (underline / circle / strike) exactly once per section, varying the gesture so the motif doesn't feel mechanical.
+- **Do** alternate light (paper) and dark (void) registers section to section, tied together by the one red hue.
+- **Do** use `{rounded.full}` buttons consistently: filled for persistent nav actions, outline for first-impression in-page CTAs.
+- **Do** keep neutrals tinted toward the red hue at low chroma in both registers — never a true 0-chroma gray.
+- **Do** ground every image concept in what Remark actually is (a digital/tech agency) and in the studio's own craft, not a borrowed aesthetic from a reference site — extract the *technique* (depth, lighting, composition), never the subject matter wholesale.
+
+### Don't:
+- **Don't** use purple/blue SaaS gradients, glassmorphism, or generic "AI startup" gradients anywhere.
+- **Don't** use Inter, Roboto, Space Grotesk, or Open Sans as defaults — Syne / Manrope / JetBrains Mono are locked.
+- **Don't** ship a placeholder frame (dashed border, corner registration ticks, coordinate caption, grid-pattern backdrop) standing in for a real image that hasn't been built yet. Wait for the real asset, or fill the space with an honest solid/gradient crimson field instead.
+- **Don't** assemble a hero (or any section) from many small timid elements — a rail, an eyebrow, a two-tone headline, an arrow glyph, a subtitle, and a button all competing quietly. One dominant gesture per section.
+- **Don't** use a floating rounded glass-pill nav with backdrop blur and decorative corner flourishes — the most recognizable 2024-25 AI nav shape. Header's flush treatment solves the real legibility problem (white-only logo, dark-by-default sections) without reaching for that shape.
+- **Don't** repeat a layout family on two adjacent sections.
+- **Don't** add more than one eyebrow per three sections; most sections carry none.
+- **Don't** let "Start a project" / "Connect" appear more than three times on the landing page (Header, Hero, Contact).
+- **Don't** introduce a second accent hue for any reason without an explicit, documented exception.
+- **Don't** let hero/tile imagery read as isolated product photography (a single dramatic object on a void background) — it must feel like the studio's actual work or craft, not a trophy shot.
 
 ---
 
-## Landing — Architecture
+## Process note
 
-> Binding constraints carried through: dark single-mode, one deep-red drawn mark
-> per section (animates on scroll-reveal), one CTA intent, VARIANCE 6 / MOTION 5 /
-> DENSITY 3, max 1 eyebrow per 3 sections, no scroll cues, no decorative dots,
-> no 3 equal-width cards, no images inside card containers.
+Sections are built **one at a time, reviewed live in the browser before the next starts.** Before picking a new section's layout family, check this file's Components section (for the layout-family diversity table) alongside Hallmark's own rotation log at `.hallmark/log.json`, so no two sections repeat a macrostructure. The installed design skills (Hallmark for DNA-extraction/macrostructure picks, `design-taste-frontend`, `impeccable` for craft/QA and this file's own format) inform each pass — not ad hoc edits.
 
-### Primary conversion path
-Header "Connect" → Hero "Start a project" → CTA/Contact "Start a project".
-Single CTA label used throughout: **"Start a project"** (red fill, three placements only).
-"Connect" in the nav is the same intent on a different surface — same red fill, smaller.
+## Revision history
 
----
+- **2026-07-01 (image round):** Hero's final image shipped (wireframe-to-solid transformation, composited directly with the headline). First Work-tile image shipped (craftsman's workshop, listening instrument). Several rejected image directions logged under Hero so they aren't re-proposed. Header corrected from a floating glass-pill card (self-contradicting this file's own Do's/Don'ts) to a flush bar matching the actual reference sites reviewed.
+- **2026-07-01 (this rewrite):** Converted to the actual Impeccable/DESIGN.md spec format (YAML frontmatter + six fixed sections), following a full read of every Impeccable reference doc. Incorporates the creative-director diagnosis that the prior Hero/Header pass was structurally slop (decorative chrome standing in for missing content, red reduced to a hairline against the locked "bold vibrant" identity, a floating-glass-pill nav). Folds the section-by-section page architecture (previously a bespoke "Landing — Architecture" doc) into Components, where the DESIGN.md spec actually accommodates it.
+- **2026-07-01 (earlier same day):** Light/dark alternation direction adopted, Neo Mirai DNA extracted via Hallmark, Hero rebuilt as Split Studio diptych. Superseded by this rewrite's correction that the diptych execution used decorative chrome instead of real content.
+- **2026-06-30:** Dial intensity increase (VARIANCE 6→8, MOTION 5→6), SVG pattern system introduced, multi-page architecture established.
 
-### 0. Header / Nav — fixed overlay
-
-- **Purpose:** orient, persist the single CTA, and signal availability without consuming scroll space.
-- **Components:** logo (`public/rs logo.png`, white wordmark + red-script "Studio"), nav links (Services · Process · Capabilities · Work · Contact), plain status text "Available for projects" (no pill, no badge, no border), "Connect" button (red fill, small, rightmost).
-- **Mobile reflow:** hamburger icon (top-right); opens full-screen drawer overlay; nav links stack vertically at large type; "Connect" CTA pinned at drawer bottom.
-- **Mark word:** none — header is structural; the drawn-mark motif does not appear here.
-- **Eyebrow:** none.
-
----
-
-### 1. Hero — full-bleed hero
-
-- **Purpose:** land the brand proposition in one breath; visitor should feel "this is serious and different from every agency site."
-- **Components:** eyebrow "Digital Solutions Agency" (this section's single allocated eyebrow — counts as 1 of max 1-per-3), split display headline **IDEAS → REALITY** (two typographic weights, the arrow as a motion beat), subtitle line "intelligent digital solutions" (subdued scale, generous tracking), auto-scrolling trust ticker strip (Web Development · Brand Identity · Conversational AI · Creative Production · Digital Marketing — horizontal marquee, not a static row of pills), stats row (Happy Clients / Projects Delivered / Support Available — three raw numbers with labels, sparse horizontal layout, not inside cards or equal boxes), "Start a project" CTA (red fill, the page's primary button).
-- **Full-bleed treatment:** near-black canvas; either a dark-washed cinematic still (architectural, city, or abstract — no faces, no generic stock) or a pure near-black textured surface. The image is the background, never boxed.
-- **Mobile reflow:** headline wraps to two lines; trust ticker continues auto-scrolling at same speed; stats collapse to a 2+1 arrangement; CTA stretches full-width.
-- **Mark word:** **REALITY** — red drawn underline animates in under "REALITY" on initial load (this is the one instance where the mark appears on load rather than scroll-reveal, as it anchors the concept immediately).
-
----
-
-### 2. Narrative — sticky-scroll narrative
-
-- **Purpose:** make the visitor feel their specific pain is understood, then feel relief at the solution — building emotional readiness to convert.
-- **Components:** sticky left panel (positioned fixed within the section's scroll container) holds a vertical label that reads "The Problem" in small muted caps, crossfades to "The Solution" at the midpoint of the scroll; right column scrolls three problem statements sequentially into view — each is a single large editorial statement with no subhead or eyebrow (Missed calls / Manual processes / No web presence, each as a standalone sentence in display scale); resolution beat at section end: `~~good enough~~` (the word "good enough" rendered with a visible strikethrough that "draws itself" in red) followed by "scalable digital solutions" fading in below — this is the literal brand copyline from CONTENT.md.
-- **Mobile reflow:** sticky panel becomes a small fixed label at top of viewport (12px, muted); problem statements become full-width sequential scroll blocks with generous padding between them; resolution beat renders the same but without the sticky context.
-- **Mark word:** **scalable** — red drawn underline on "scalable" in the resolution beat, arriving as the definitive editor's correction after the strikethrough.
-- **Eyebrow:** none. (Hero used the budget; next eligible section is 4.)
-
----
-
-### 3. Capabilities — stacked index list
-
-- **Purpose:** establish authority by naming exactly what is built — visitor thinks "they do this specifically, not generically."
-- **Components:** six capabilities as numbered editorial rows (01 through 06); each row contains: index number (small, muted, left-aligned), capability name in large display type (center or left), brief one-line descriptor either right-aligned on the same row or revealed below on interaction; a full-width hairline rule divides each row; rows expand inline on hover/focus to reveal the full descriptor — no separate cards, no equal-width columns, no bounding boxes; row height is intentionally unequal (some capabilities have longer names, creating natural visual rhythm).
-- **Mobile reflow:** rows become full-width tap-to-expand accordions; index number stays as visible row prefix; expanded state shows descriptor below the capability name.
-- **Mark word:** **Voice** — red drawn circle lands on "Voice" in row 02 "AI Voice Agents" (the most differentiated capability; a circle rather than underline distinguishes it from the Hero's underline — each section uses a distinct mark gesture).
-- **Eyebrow:** none.
-
----
-
-### 4. Work / Services preview — horizontal scroll
-
-- **Purpose:** show range and quality without a wall of text; visitor should feel "they've done this before and at scale" and want to see more.
-- **Components:** 4–5 curated services as large landscape editorial tiles in a freely draggable horizontal track (recommended: AI Voice Agents, Web Development, Digital Marketing, Media Production, Branding & Identity); each tile uses a full-bleed dark-washed image as the tile itself (the image IS the surface, not placed inside a card border or rounded box), with service name in display type overlaid at bottom-left, category label in small caps at top-left, and a one-line descriptor at the bottom edge; "View all services →" as the final item in the track (type-only, no tile background); a subtle horizontal drag affordance (position indicator — e.g., a thin progress line, not dots).
-- **Mobile reflow:** tiles snap-scroll horizontally at approximately 85vw width per tile; standard touch momentum scroll; no visible drag cursor.
-- **Mark word:** **AI** — red drawn underline on "AI" in the first tile "AI Voice Agents."
-- **Eyebrow:** "Selected Work" is permissible here as this is section 4 (gap of 3 since Hero). Use it only if the spatial transition from Capabilities needs a heading; omit if the section is self-evident from context. Counts as the second and final eyebrow on the page if used.
-
----
-
-### 5. Testimonial — overlap / collage
-
-- **Purpose:** provide social proof through a single authoritative voice; visitor feels trust — not a curated carousel of five-star reviews.
-- **Components:** one large pull-quote occupying the majority of the section (no avatar, no headshot, no portrait image, no card container); attribution line "Enterprise Client — SaaS Startup · Series A" in small muted type below the quote; three metrics (2 Wk Avg. Delivery / Avg. Rating / Client Satisfaction) positioned asymmetrically — two metrics at lower-left, one metric large and offset to the right, intentionally overlapping the quote's bottom edge to create the collage tension; a large opening quotation mark in off-white at very low opacity sits behind the text as a structural element, not a decorative flourish.
-- **Mobile reflow:** quote full-width; metrics stack below in a 2-column grid then a single row; the overlap is removed on mobile (metrics sit cleanly below the quote).
-- **Mark word:** **Satisfaction** — red drawn underline on "Satisfaction" in the Client Satisfaction metric label.
-- **Eyebrow:** none.
-
----
-
-### 6. CTA / Contact — asymmetric split 60/40
-
-- **Purpose:** close the conversion; visitor should feel urgency and have all the information needed to act without hunting for it.
-- **Components:** left 60%: large display headline "Ready to scale your digital future." (multiline, full editorial weight — this is a statement, not a question), "Start a project" CTA immediately below (red fill, the recurring primary button — third and final appearance); right 40%: contact block — address (Office #104, Mezzanine Floor, Embassy Gardens, Sector C1, Bahria Enclave, Islamabad), phones (+92 326 8450001 and +92 326 8450002 as tappable `tel:` links), social icon row (Instagram · TikTok · WhatsApp · Facebook · Email) as minimal SVG icon links — no floating labels on desktop, but `aria-label` on each.
-- **Mobile reflow:** single column — headline and CTA first, full-width; contact address and phones below; social icons get visible text labels beneath them on mobile to meet touch accessibility requirements.
-- **Mark word:** **scale** — red drawn underline on "scale" in the headline.
-- **Eyebrow:** none.
-
----
-
-### 7. Footer — editorial single-column
-
-- **Purpose:** close the page with brand clarity and navigation utility; zero conversion pressure.
-- **Components:** full-width hairline rule at top; logo left-aligned; "Digital Solutions Agency · Islamabad" and "Available for projects" as plain inline text (same status copy as header, reinforcing consistency); four-column link grid (Navigation / Services / Connect / Contact) in small type; copyright line at base.
-- **Mobile reflow:** link grid collapses to 2-column, then single-column stack; logo stays left-aligned.
-- **Mark word:** none — footer is structural; the drawn-mark motif does not appear here.
-- **Eyebrow:** none.
-
----
-
-### Layout family assignment — adjacency audit
-
-| # | Section | Layout family | Adjacent conflict |
-|---|---------|---------------|-------------------|
-| 0 | Header | fixed overlay | — |
-| 1 | Hero | full-bleed hero | — |
-| 2 | Narrative | sticky-scroll narrative | differs from full-bleed hero ✓ |
-| 3 | Capabilities | stacked index list | differs from sticky-scroll narrative ✓ |
-| 4 | Work preview | horizontal scroll | differs from stacked index list ✓ |
-| 5 | Testimonial | overlap / collage | differs from horizontal scroll ✓ |
-| 6 | CTA / Contact | asymmetric split 60/40 | differs from overlap / collage ✓ |
-| 7 | Footer | editorial single-column | differs from asymmetric split ✓ |
-
-**Distinct layout families used: 7** (requirement: ≥ 4). No two adjacent content sections share a family.
-
----
-
-### Repetition risks — flagged for downstream agents
-
-**RISK 1 — Mobile reflow similarity (sections 2 and 3).**
-Sticky-scroll narrative and stacked index list both reflow to full-width vertical stacks on mobile. They are visually distinct on desktop (split sticky panel vs. ruled rows) but the `layout-spacing-engineer` must enforce a clear visual break between them on small screens — different type scale, different background lightness treatment (section 2 slightly lighter or section 3 with a full-width rule to open it), or a section-gap large enough that the transition reads as intentional.
-
-**RISK 2 — Eyebrow budget.**
-Hero (section 1) uses the only mandatory eyebrow. Work preview (section 4) may use a second one ("Selected Work") — that is 2 eyebrows across 7 content sections (ratio: 1-per-3.5). Within budget. No other section should receive an eyebrow under any circumstance.
-
-**RISK 3 — CTA over-recurrence.**
-"Start a project" (red fill) appears in: Header ("Connect" equivalent), Hero, and CTA/Contact. Any additional placement — such as a "get started" link at the end of Capabilities or Work preview — would violate the one-loud-element rule and must be rejected by the `design-qa-auditor`. Secondary text links ("See all services →") are acceptable and do not count as CTA recurrences.
-
-**RISK 4 — Mark gesture monotony.**
-Seven sections means seven drawn marks. The `motion-designer` must vary the mark gesture across sections to prevent the motif from feeling mechanical: underline (Hero), underline (Narrative), circle (Capabilities), underline (Work), underline (Testimonial), underline (CTA) — that is five underlines and one circle. The motion specialist should introduce at least one additional gesture variant (strike, bracket, or partial arc) to maintain the "hand-drawn editor" feeling across the full scroll.
-
----
-
-## Evolved Direction — 2026-06-30 (client: more intensity)
-
-### Dial update
-| Dial | Previous | New | Rationale |
-|------|----------|-----|-----------|
-| VARIANCE | 6 | **8** | More asymmetric, offset, editorial tension |
-| MOTION | 5 | **6** | Somewhere between tasteful and expressive |
-| DENSITY | 3 | **3** | Keep airy — dark editorial needs breathing room |
-
-### What changed
-- **Atmosphere**: Richer background composition — layered grain + geometric SVG patterns + architectural grids + accent glows per section, not just a single radial gradient.
-- **SVG pattern system**: Reusable `GridPattern`, `DotPattern`, `DiagonalLines`, `ArchitecturalGrid`, `EdgeGeometry`, `AccentGlow`, `GrainOverlay` components applied per-section.
-- **Page architecture**: Single page → multi-page (`/`, `/work`, `/about`, `/contact`).
-- **Component extraction**: All section components moved from monolithic `page.tsx` to `src/components/` directory.
-- **Motion**: Stagger delays reduced from 200ms → 80ms per item. `ease-out-expo` throughout. IntersectionObserver-driven reveals (no scroll listeners).
-- **Skills applied per component**: Design-taste-frontend, emil-design-eng, make-interfaces-feel-better, oklch-skill, swiss-design, review-animations, impeccable.
-
-### Resolved violations (from previous audit)
-All 9 items from the 2026-06-30 audit have been resolved:
-1. No `window.addEventListener("scroll")` — all IntersectionObserver
-2. No scroll cue — removed
-3. "good enough" uses red drawn strike via MarkedWord
-4. Marks animate on scroll-reveal (IntersectionObserver in MarkedWord)
-5. Work tiles use rich radial OKLCH gradients + DotPattern + AccentGlow
-6. Only one MarkedWord per section
-7. Fonts: Barlow Condensed (display) + DM Sans (body) — authoritative contrast
-8. "Selected Work" kept as sole eyebrow (2 total across 6 sections — within limit)
-9. Em-dashes replaced throughout
-
-### Pages
-| Route | Status | Layout families |
-|-------|--------|-----------------|
-| `/` | Enhanced | 7 distinct families |
-| `/work` | New | Portfolio hero + metrics strip + 2-col category grid |
-| `/about` | Planned | — |
-| `/contact` | Planned | — |
+*(Note: this file was briefly reverted to its pre-2026-07-01 state by an external `git checkout`/restore action partway through today's session; this version reconstructs everything from conversation history. Nothing after this point has been committed to git yet.)*

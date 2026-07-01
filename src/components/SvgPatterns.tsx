@@ -166,7 +166,7 @@ export function AccentGlow({
     <div
       className={`pointer-events-none absolute inset-0 ${className}`}
       style={{
-        background: `radial-gradient(${positions[position]}, oklch(0.435 0.1785 29.23 / 0.04) 0%, transparent ${size})`,
+        background: `radial-gradient(${positions[position]}, oklch(0.5 0.195 27 / 0.04) 0%, transparent ${size})`,
       }}
       aria-hidden="true"
     />

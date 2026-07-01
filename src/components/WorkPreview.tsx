@@ -3,11 +3,11 @@
 import { MarkedWord } from "./MarkedWord";
 
 const workItems = [
-  { name: "AI Voice Agents", category: "Conversational AI", tagline: "Intelligent voice agents for automated customer support." },
-  { name: "Web Development", category: "Engineering", tagline: "Custom-built, high-conversion websites." },
-  { name: "Digital Marketing", category: "Growth", tagline: "Data-driven performance marketing campaigns." },
-  { name: "Media Production", category: "Cinematic", tagline: "Professional film, color grading & VFX." },
-  { name: "Branding & Identity", category: "Design", tagline: "Core visual assets and unified design systems." },
+  { name: "AI Voice Agents", category: "Conversational AI", tagline: "Intelligent voice agents for automated customer support.", image: "/work_ai_voice_agents.png" },
+  { name: "Web Development", category: "Engineering", tagline: "Custom-built, high-conversion websites.", image: "/work_web_development.png" },
+  { name: "Digital Marketing", category: "Growth", tagline: "Data-driven performance marketing campaigns.", image: "/work_digital_marketing.png" },
+  { name: "Media Production", category: "Cinematic", tagline: "Professional film, color grading & VFX.", image: "/work_media_production.png" },
+  { name: "Branding & Identity", category: "Design", tagline: "Core visual assets and unified design systems.", image: "/work_branding_identity.png" },
 ];
 
 export function WorkPreview() {
@@ -34,22 +34,23 @@ export function WorkPreview() {
           <article
             key={item.name}
             className="group relative flex aspect-[3/4] min-w-[280px] max-w-[340px] snap-start flex-col justify-between
-              overflow-hidden rounded-sm border border-border-subtle bg-bg-light/40 p-7
-              transition-[transform,border-color,background-color] duration-500 ease-out-expo
-              hover:-translate-y-1.5 hover:border-accent/40 hover:bg-bg-light/70
+              overflow-hidden rounded-sm border border-border-subtle bg-void p-7
+              transition-[transform,border-color] duration-500 ease-out-expo
+              hover:-translate-y-1.5 hover:border-accent/40
               focus-within:ring-2 focus-within:ring-accent md:min-w-[340px]"
           >
-            {/* Oversized index watermark — the energy is in the type, not a photo */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -right-3 -top-6 font-display text-[8.5rem] font-bold leading-none text-fg/[0.04]
-                transition-[color,transform] duration-500 ease-out-expo group-hover:text-accent/15 group-hover:-translate-y-1"
-            >
-              {String(i + 1).padStart(2, "0")}
-            </span>
+            {/* Full-bleed background image */}
+            <img
+              src={item.image}
+              alt=""
+              className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-50 transition-all duration-700 ease-out-expo group-hover:scale-105 group-hover:opacity-75"
+            />
+
+            {/* Dark Scrim */}
+            <div className="absolute inset-0 z-10 bg-gradient-to-t from-void via-void/45 to-transparent transition-opacity duration-500" />
 
             {/* Top: category tag */}
-            <div className="relative flex items-center gap-2">
+            <div className="relative z-20 flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-accent/70 transition-transform duration-500 ease-out-expo group-hover:scale-150" />
               <span className="mono text-[10px] tracking-[0.18em] text-muted uppercase">
                 {item.category}
@@ -57,7 +58,7 @@ export function WorkPreview() {
             </div>
 
             {/* Bottom: title + tagline */}
-            <div className="relative">
+            <div className="relative z-20">
               <h3 className="font-display text-3xl font-semibold leading-[1.02] tracking-[-0.01em] text-fg">
                 {item.name === "AI Voice Agents" ? (
                   <><MarkedWord word="AI" /> Voice Agents</>
