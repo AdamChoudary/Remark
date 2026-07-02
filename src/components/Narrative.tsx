@@ -21,42 +21,50 @@ const problems = [
 
 export function Narrative() {
   const containerRef = useRef<HTMLElement>(null);
+  const solutionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [phase, setPhase] = useState<"problem" | "solution">("problem");
   const [progress, setProgress] = useState(0);
+  const [solutionProgress, setSolutionProgress] = useState(0);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         const rect = entry.boundingClientRect;
         const viewportHeight = window.innerHeight;
         const scrollable = rect.height - viewportHeight;
-        
+
         if (scrollable <= 0) return;
-        
+
         // Calculate progress based on how far the section has scrolled past the viewport top
         const scrolled = -rect.top;
         const p = Math.max(0, Math.min(1, scrolled / scrollable));
-        
-        setProgress(p);
 
-        // Solution starts at 88% so only a brief settle-pause of scroll remains after
-        // it appears, not a dead zone before the section ends. The three problem beats
-        // share the remaining 0.88 evenly, so the "Solution" label and the layout that
-        // backs it up flip at the exact same scroll fraction.
-        const SOLUTION_START = 0.88;
-        const idx = Math.min(2, Math.floor(p / (SOLUTION_START / problems.length)));
-        setActiveIndex(idx);
-        setPhase(p >= SOLUTION_START ? "solution" : "problem");
+        setProgress(p);
+        setActiveIndex(Math.min(problems.length - 1, Math.floor(p * problems.length)));
+
+        // Read the solution block's actual position instead of guessing a scroll
+        // fraction — the label reflects what's really on screen, not an estimate,
+        // and stays correct no matter how the content's height changes later.
+        const solutionTop = solutionRef.current?.getBoundingClientRect().top;
+        setPhase(solutionTop !== undefined && solutionTop < viewportHeight * 0.75 ? "solution" : "problem");
+
+        // Same real-position read, expressed as a 0-1 reveal used to draw the
+        // corner geometry in as the solution block actually arrives on screen.
+        if (solutionTop !== undefined) {
+          const revealStart = viewportHeight * 0.95;
+          const revealEnd = viewportHeight * 0.35;
+          setSolutionProgress(Math.max(0, Math.min(1, (revealStart - solutionTop) / (revealStart - revealEnd))));
+        }
       },
       {
         threshold: Array.from({ length: 100 }, (_, i) => i / 100)
       }
     );
-    
+
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -65,9 +73,9 @@ export function Narrative() {
     <section
       ref={containerRef}
       id="process"
-      className="section relative min-h-[200vh] bg-paper"
+      className="section relative min-h-[150vh] bg-paper"
     >
-      <AccentGlow position="center" size="50%" />
+      <AccentGlow position="center" size="50%" progress={progress} />
 
       <div className="relative mx-auto max-w-6xl px-4 md:px-8">
         {/* phase indicator */}
@@ -136,8 +144,8 @@ export function Narrative() {
             ))}
 
             {/* Solution beat — the bold payoff, with real visual weight, not just a bigger font */}
-            <div className="relative border-t border-ink/10 pt-16">
-              <EdgeGeometry side="right" lines={4} className="top-0 right-0 text-ink/25" />
+            <div ref={solutionRef} className="relative border-t border-ink/10 pt-16">
+              <EdgeGeometry side="right" lines={4} className="top-0 right-0 text-ink/25" progress={solutionProgress} />
               <p className="mb-5 font-display text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-ink-subtle">
                 <MarkedWord word="good enough" gesture="strike" />
               </p>

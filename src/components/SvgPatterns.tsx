@@ -103,10 +103,13 @@ export function EdgeGeometry({
   className = "",
   lines = 5,
   side = "right",
+  progress,
 }: {
   className?: string;
   lines?: number;
   side?: "left" | "right" | "top" | "bottom";
+  /** 0-1. When set, lines draw in one by one (stroke-dashoffset) instead of sitting static. */
+  progress?: number;
 }) {
   const lineLength = 24;
   const gap = 16;
@@ -139,9 +142,20 @@ export function EdgeGeometry({
       style={{ opacity: 0.15 }}
       aria-hidden="true"
     >
-      {paths.map((d, i) => (
-        <path key={i} d={d} />
-      ))}
+      {paths.map((d, i) => {
+        if (progress === undefined) return <path key={i} d={d} />;
+        // Each line has its own slice of the progress range, so they draw in a
+        // staggered sweep rather than all at once.
+        const local = Math.max(0, Math.min(1, progress * lines - i));
+        return (
+          <path
+            key={i}
+            d={d}
+            strokeDasharray={lineLength}
+            strokeDashoffset={lineLength * (1 - local)}
+          />
+        );
+      })}
     </svg>
   );
 }
@@ -150,10 +164,13 @@ export function AccentGlow({
   className = "",
   size = "60%",
   position = "right",
+  progress,
 }: {
   className?: string;
   size?: string;
   position?: "center" | "right" | "left" | "top";
+  /** 0-1 scroll progress. When set, the glow drifts slowly along the section (parallax), transform-only so it stays GPU-composited. */
+  progress?: number;
 }) {
   const positions: Record<string, string> = {
     center: "ellipse_at_center",
@@ -167,6 +184,7 @@ export function AccentGlow({
       className={`pointer-events-none absolute inset-0 ${className}`}
       style={{
         background: `radial-gradient(${positions[position]}, oklch(0.5 0.195 27 / 0.04) 0%, transparent ${size})`,
+        transform: progress !== undefined ? `translate3d(0, ${(progress - 0.5) * -48}px, 0)` : undefined,
       }}
       aria-hidden="true"
     />

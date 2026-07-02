@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MarkedWord } from "./MarkedWord";
+import { AccentGlow, EdgeGeometry } from "./SvgPatterns";
 
 const capabilities = [
   { name: "Web Development", desc: "Property sites, portfolios, business websites & SaaS platforms. Modern, responsive, and SEO-optimized." },
@@ -30,10 +31,40 @@ function CapabilityName({ name }: { name: string }) {
 
 export function Capabilities() {
   const [open, setOpen] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [entryProgress, setEntryProgress] = useState(0);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const rect = entry.boundingClientRect;
+        const viewportHeight = window.innerHeight;
+        const scrollable = rect.height - viewportHeight;
+        setProgress(scrollable <= 0 ? entry.intersectionRatio : Math.max(0, Math.min(1, -rect.top / scrollable)));
+
+        // Pinned to the section's top edge, so its reveal has to track pixels
+        // scrolled past that edge directly — not a fraction of the whole
+        // section's height, which would still be climbing long after this
+        // corner has scrolled off the top of the viewport.
+        setEntryProgress(Math.max(0, Math.min(1, -rect.top / 320)));
+      },
+      { threshold: Array.from({ length: 50 }, (_, i) => i / 50) }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="capabilities" className="section bg-section-3 overflow-hidden">
-      <div className="mx-auto max-w-6xl px-4 md:px-8">
+    <section ref={sectionRef} id="capabilities" className="section relative bg-section-3 overflow-hidden">
+      <AccentGlow position="left" size="55%" progress={progress} />
+      <EdgeGeometry side="top" lines={5} className="right-8 top-0 text-fg/20" progress={entryProgress} />
+
+      <div className="relative mx-auto max-w-6xl px-4 md:px-8">
         <h2 className="font-display text-[clamp(2rem,5vw,3.75rem)] font-semibold uppercase leading-[0.95] tracking-[-0.02em] text-fg">
           What we build
         </h2>
