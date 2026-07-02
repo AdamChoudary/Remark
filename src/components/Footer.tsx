@@ -4,7 +4,7 @@ import { GridPattern } from "./SvgPatterns";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-border-subtle bg-void overflow-hidden">
+    <footer className="relative bg-void overflow-hidden">
       <GridPattern size={80} opacity={0.015} />
 
       <div className="relative mx-auto max-w-6xl px-4 py-16 md:px-8">

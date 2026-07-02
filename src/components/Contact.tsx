@@ -54,48 +54,59 @@ export function Contact() {
             </ScrollReveal>
           </div>
 
-          {/* Contact details */}
+          {/* Contact details — grouped as distinct blocks with a shared visual
+              language but no literal card borders. Each group gets a subtle left
+              accent line that reads as "the mark" reaching out. */}
           <div className="md:col-span-5 md:col-start-8">
             <div className="space-y-10">
               <ScrollReveal delay={200}>
-                <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Address</p>
-                <p className="text-sm leading-relaxed text-muted">
-                  Office #104, Mezzanine Floor<br />
-                  Embassy Gardens, Sector C1<br />
-                  Bahria Enclave, Islamabad
-                </p>
+                <div className="relative pl-5">
+                  <span className="absolute left-0 top-0.5 h-5 w-0.5 bg-accent/60" />
+                  <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Address</p>
+                  <p className="text-sm leading-relaxed text-muted">
+                    Office #104, Mezzanine Floor<br />
+                    Embassy Gardens, Sector C1<br />
+                    Bahria Enclave, Islamabad
+                  </p>
+                </div>
               </ScrollReveal>
               <ScrollReveal delay={280}>
-                <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Phone</p>
-                <a
-                  href="tel:+923268450001"
-                  className="block text-sm text-muted transition-colors duration-200 hover:text-fg
-                    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
-                >
-                  +92 326 8450001
-                </a>
-                <a
-                  href="tel:+923268450002"
-                  className="mt-1 block text-sm text-muted transition-colors duration-200 hover:text-fg
-                    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
-                >
-                  +92 326 8450002
-                </a>
+                <div className="relative pl-5">
+                  <span className="absolute left-0 top-0.5 h-5 w-0.5 bg-accent/60" />
+                  <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Phone</p>
+                  <a
+                    href="tel:+923268450001"
+                    className="block text-sm text-muted transition-colors duration-200 hover:text-fg
+                      focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                  >
+                    +92 326 8450001
+                  </a>
+                  <a
+                    href="tel:+923268450002"
+                    className="mt-1 block text-sm text-muted transition-colors duration-200 hover:text-fg
+                      focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                  >
+                    +92 326 8450002
+                  </a>
+                </div>
               </ScrollReveal>
               <ScrollReveal delay={360}>
-                <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Social</p>
-                <div className="flex flex-wrap gap-6">
-                  {["Instagram", "TikTok", "WhatsApp", "Facebook", "Email"].map((s) => (
-                    <a
-                      key={s}
-                      href={s === "Email" ? "mailto:hello@remarkstudio.co" : "#"}
-                      aria-label={s}
-                      className="text-sm text-muted transition-colors duration-200 hover:text-accent
-                        focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded"
-                    >
-                      {s}
-                    </a>
-                  ))}
+                <div className="relative pl-5">
+                  <span className="absolute left-0 top-0.5 h-5 w-0.5 bg-accent/60" />
+                  <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Social</p>
+                  <div className="flex flex-wrap gap-6">
+                    {["Instagram", "TikTok", "WhatsApp", "Facebook", "Email"].map((s) => (
+                      <a
+                        key={s}
+                        href={s === "Email" ? "mailto:hello@remarkstudio.co" : "#"}
+                        aria-label={s}
+                        className="text-sm text-muted transition-colors duration-200 hover:text-accent
+                          focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded"
+                      >
+                        {s}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </ScrollReveal>
             </div>
