@@ -35,6 +35,7 @@ export function Capabilities() {
   const headingRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [entryProgress, setEntryProgress] = useState(0);
+  const [rowsVisible, setRowsVisible] = useState(false);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -57,6 +58,8 @@ export function Capabilities() {
           const revealStart = viewportHeight * 0.9;
           const revealEnd = 160;
           setEntryProgress(Math.max(0, Math.min(1, (revealStart - headingTop) / (revealStart - revealEnd))));
+          // Rows stagger in once the heading is properly on screen.
+          if (headingTop < viewportHeight * 0.8) setRowsVisible(true);
         }
       },
       { threshold: Array.from({ length: 50 }, (_, i) => i / 50) }
@@ -80,17 +83,25 @@ export function Capabilities() {
           {capabilities.map((c, i) => {
             const isOpen = open === i;
             return (
-              <li key={c.name}>
+              <li
+                key={c.name}
+                className="transition-[opacity,transform] duration-700 ease-out-expo"
+                style={{
+                  opacity: rowsVisible ? 1 : 0,
+                  transform: rowsVisible ? "translateY(0)" : "translateY(24px)",
+                  transitionDelay: rowsVisible ? `${i * 70}ms` : "0ms",
+                }}
+              >
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
                   className="group block w-full cursor-pointer border-t border-border-subtle py-7 text-left
                     transition-colors duration-300 ease-out-expo last:border-b
-                    focus-visible:outline-none focus-visible:bg-accent-subtle md:py-9"
+                    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent focus-visible:ring-inset md:py-9"
                 >
                   <div className="flex items-baseline gap-5 md:gap-10">
-                    <span className="mono shrink-0 text-sm tabular-nums text-subtle transition-colors duration-300 ease-out-expo group-hover:text-accent">
+                    <span className={`mono shrink-0 text-sm tabular-nums transition-colors duration-300 ease-out-expo group-hover:text-accent ${isOpen ? "text-accent" : "text-subtle"}`}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
 
@@ -102,18 +113,21 @@ export function Capabilities() {
 
                     <span
                       aria-hidden
-                      className={`shrink-0 self-center font-display text-2xl leading-none text-subtle
+                      className={`shrink-0 self-center font-display text-2xl leading-none
                         transition-[transform,color] duration-300 ease-out-expo
-                        group-hover:text-accent ${isOpen ? "rotate-45 text-accent" : ""} lg:group-hover:rotate-45`}
+                        group-hover:text-accent ${isOpen ? "rotate-45 text-accent" : "text-subtle"}`}
                     >
                       +
                     </span>
                   </div>
 
+                  {/* Expansion is click-only. The previous hover-expand animated the
+                      accordion open under the cursor, reflowing every row below on
+                      each mouse move across the list — hover feedback must never
+                      cause layout shift. Hover keeps color + the title nudge. */}
                   <div
                     className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out-expo
-                      ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}
-                      lg:group-hover:grid-rows-[1fr] lg:group-hover:opacity-100`}
+                      ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                   >
                     <div className="overflow-hidden">
                       <p className="ml-[calc(0.875rem+1.25rem)] mt-4 max-w-xl text-pretty text-sm leading-relaxed text-muted md:ml-[calc(0.875rem+2.5rem)] md:text-base">

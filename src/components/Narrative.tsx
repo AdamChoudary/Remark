@@ -22,51 +22,93 @@ const problems = [
 export function Narrative() {
   const containerRef = useRef<HTMLElement>(null);
   const solutionRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const trackFillRef = useRef<HTMLDivElement>(null);
+  const trackDotRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [phase, setPhase] = useState<"problem" | "solution">("problem");
-  const [progress, setProgress] = useState(0);
   const [solutionProgress, setSolutionProgress] = useState(0);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
+    // Scroll engine. IntersectionObserver thresholds physically cannot fire
+    // while a taller-than-viewport section fills the viewport — the ratio sits
+    // constant, so every threshold-driven update stalls mid-scroll and then
+    // jumps at the exit edge. The observer here is ONLY an on/off gate; the
+    // actual reads run in a passive scroll listener throttled to one
+    // rAF per frame, from real DOM positions.
+    let active = false;
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const scrollable = rect.height - vh;
+      if (scrollable <= 0) return;
+
+      // Continuous values are written straight to the DOM — re-rendering the
+      // whole section (three blur-filtered blocks) every frame is jank fuel.
+      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
+      if (trackFillRef.current) trackFillRef.current.style.transform = `scaleY(${p})`;
+      if (trackDotRef.current) trackDotRef.current.style.transform = `translateY(${p * 128}px)`;
+
+      // Per-item focus, scrubbed continuously from each item's real distance to
+      // the viewport's reading band and written as inline styles every frame.
+      // Not class swaps + CSS transitions: a transition that gets interrupted or
+      // paused freezes at its interpolated value and the class change never
+      // lands visually — the exact stuck-dim state this section kept showing.
+      // Direct writes have no in-between machinery to stick.
+      let idx = 0;
+      let best = -1;
+      itemRefs.current.forEach((item, i) => {
+        if (!item) return;
+        const r = item.getBoundingClientRect();
+        const center = r.top + r.height / 2;
+        // 0 at viewport middle, 1 at viewport edge
+        const dist = Math.abs(center - vh * 0.5) / (vh * 0.5);
+        // full focus in the middle band, falling off toward the edges
+        const focus = Math.max(0, Math.min(1, 1.5 - dist * 1.9));
+        item.style.opacity = String(0.12 + focus * 0.88);
+        item.style.filter = focus > 0.95 ? "none" : `blur(${((1 - focus) * 1.5).toFixed(2)}px)`;
+        if (focus > best) { best = focus; idx = i; }
+      });
+      setActiveIndex(idx);
+
+      const solutionTop = solutionRef.current?.getBoundingClientRect().top;
+      if (solutionTop !== undefined) {
+        setPhase(solutionTop < vh * 0.75 ? "solution" : "problem");
+        const revealStart = vh * 0.95;
+        const revealEnd = vh * 0.35;
+        const sp = Math.max(0, Math.min(1, (revealStart - solutionTop) / (revealStart - revealEnd)));
+        // Quantized so the corner-geometry re-render happens ~20 times across
+        // the reveal, not once per frame.
+        setSolutionProgress(Math.round(sp * 20) / 20);
+      }
+    };
+
+    const onScroll = () => {
+      if (!active || ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const rect = entry.boundingClientRect;
-        const viewportHeight = window.innerHeight;
-        const scrollable = rect.height - viewportHeight;
-
-        if (scrollable <= 0) return;
-
-        // Calculate progress based on how far the section has scrolled past the viewport top
-        const scrolled = -rect.top;
-        const p = Math.max(0, Math.min(1, scrolled / scrollable));
-
-        setProgress(p);
-        setActiveIndex(Math.min(problems.length - 1, Math.floor(p * problems.length)));
-
-        // Read the solution block's actual position instead of guessing a scroll
-        // fraction — the label reflects what's really on screen, not an estimate,
-        // and stays correct no matter how the content's height changes later.
-        const solutionTop = solutionRef.current?.getBoundingClientRect().top;
-        setPhase(solutionTop !== undefined && solutionTop < viewportHeight * 0.75 ? "solution" : "problem");
-
-        // Same real-position read, expressed as a 0-1 reveal used to draw the
-        // corner geometry in as the solution block actually arrives on screen.
-        if (solutionTop !== undefined) {
-          const revealStart = viewportHeight * 0.95;
-          const revealEnd = viewportHeight * 0.35;
-          setSolutionProgress(Math.max(0, Math.min(1, (revealStart - solutionTop) / (revealStart - revealEnd))));
-        }
+        active = entry.isIntersecting;
+        if (active) update();
       },
-      {
-        threshold: Array.from({ length: 100 }, (_, i) => i / 100)
-      }
+      { threshold: 0 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
@@ -75,7 +117,7 @@ export function Narrative() {
       id="process"
       className="section relative min-h-[150vh] bg-paper"
     >
-      <AccentGlow position="center" size="50%" progress={progress} />
+      <AccentGlow position="center" size="50%" />
 
       <div className="relative mx-auto max-w-6xl px-4 md:px-8">
         {/* phase indicator */}
@@ -113,21 +155,18 @@ export function Narrative() {
                 </p>
               )}
               {/* Progress indicator — a lit tip at the current position, not just a static track.
-                  Track height is h-32 (128px); the dot moves via transform, never `top`, so the
-                  browser can composite it on the GPU instead of relayouting every frame.
-                  No transition on either element: they're scroll-scrubbed (driven by scroll
-                  position, not a one-shot reveal), so they must snap exactly to the current
-                  value. A duration here would fight every incoming scroll update, restarting
-                  a new easing from wherever the last one had gotten to — the dot chasing the
-                  scroll late and rubber-banding instead of tracking it 1:1. */}
+                  Track height is h-32 (128px); both pieces move via transform written directly
+                  from the rAF handler (no React state, no CSS transition) so they track the
+                  scroll 1:1 with zero lag and zero per-frame re-renders. */}
               <div className="relative mt-6 hidden h-32 w-px bg-ink/10 md:block">
                 <div
+                  ref={trackFillRef}
                   className="h-full w-px origin-top bg-accent"
-                  style={{ transform: `scaleY(${Math.min(1, progress)})` }}
+                  style={{ transform: "scaleY(0)" }}
                 />
                 <div
+                  ref={trackDotRef}
                   className="absolute left-1/2 top-0 h-2 w-2 -ml-1 -mt-1 rounded-full bg-accent shadow-[0_0_8px_2px_var(--color-accent-subtle)]"
-                  style={{ transform: `translateY(${Math.min(1, progress) * 128}px)` }}
                 />
               </div>
             </div>
@@ -138,13 +177,9 @@ export function Narrative() {
             {problems.map((p, i) => (
               <div
                 key={i}
-                className={`group relative mb-24 transition-[opacity,transform,filter] duration-700 ease-out-expo ${
-                  activeIndex === i
-                    ? "translate-y-0 opacity-100 blur-none"
-                    : activeIndex > i
-                      ? "translate-y-0 opacity-25 blur-none hover:opacity-50"
-                      : "translate-y-6 opacity-10 blur-[2px]"
-                }`}
+                ref={(node) => { itemRefs.current[i] = node; }}
+                className="relative mb-24"
+                style={{ opacity: i === 0 ? 1 : 0.12, filter: i === 0 ? "none" : "blur(1.5px)" }}
               >
                 <p className="mb-4 font-display text-[clamp(2.25rem,5vw,4rem)] font-normal leading-[1.08] tracking-[-0.015em] text-ink text-balance">
                   {p.text}
