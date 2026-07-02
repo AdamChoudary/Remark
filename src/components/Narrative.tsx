@@ -93,9 +93,16 @@ export function Narrative() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-12">
-          {/* Sticky left label — a real ordinal (genuine 3-item sequence, earns the numeral) */}
-          <div className="md:col-span-4 md:sticky md:top-1/3 md:self-start">
+        <div className="flex flex-col gap-16 md:grid md:grid-cols-12">
+          {/* Sticky left label — a real ordinal (genuine 3-item sequence, earns the numeral).
+              Mobile deliberately stays `flex-col`, not `grid-cols-1`: in a single-column grid,
+              the label and content would auto-place into separate rows (the label's own row
+              sized to its own short content), leaving `sticky` nothing tall to stick within —
+              it would just sit at rest, never tracking. As plain flex-col siblings, the label's
+              containing block for sticky purposes is the shared flex parent, which is exactly
+              as tall as label + content combined — the same room sticky already gets from the
+              grid row on desktop. */}
+          <div className="self-start sticky top-24 md:col-span-4 md:top-1/3">
             <div className="relative">
               <p className="mono text-xs tracking-[0.2em] text-ink-muted uppercase">
                 The {phase === "problem" ? "Problem" : "Solution"}
@@ -107,14 +114,19 @@ export function Narrative() {
               )}
               {/* Progress indicator — a lit tip at the current position, not just a static track.
                   Track height is h-32 (128px); the dot moves via transform, never `top`, so the
-                  browser can composite it on the GPU instead of relayouting every frame. */}
+                  browser can composite it on the GPU instead of relayouting every frame.
+                  No transition on either element: they're scroll-scrubbed (driven by scroll
+                  position, not a one-shot reveal), so they must snap exactly to the current
+                  value. A duration here would fight every incoming scroll update, restarting
+                  a new easing from wherever the last one had gotten to — the dot chasing the
+                  scroll late and rubber-banding instead of tracking it 1:1. */}
               <div className="relative mt-6 hidden h-32 w-px bg-ink/10 md:block">
                 <div
-                  className="h-full w-px origin-top bg-accent transition-transform duration-500 ease-out-expo"
+                  className="h-full w-px origin-top bg-accent"
                   style={{ transform: `scaleY(${Math.min(1, progress)})` }}
                 />
                 <div
-                  className="absolute left-1/2 top-0 h-2 w-2 -ml-1 -mt-1 rounded-full bg-accent shadow-[0_0_8px_2px_var(--color-accent-subtle)] transition-transform duration-500 ease-out-expo"
+                  className="absolute left-1/2 top-0 h-2 w-2 -ml-1 -mt-1 rounded-full bg-accent shadow-[0_0_8px_2px_var(--color-accent-subtle)]"
                   style={{ transform: `translateY(${Math.min(1, progress) * 128}px)` }}
                 />
               </div>

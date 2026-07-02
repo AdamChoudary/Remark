@@ -1,5 +1,42 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
+/** A vertical red thread crossing a section boundary — half in the section above,
+    half in the one below — drawn downward on scroll. The brand's mark used
+    structurally: it stitches two registers together so a seam reads as sewn,
+    not cut. Place as a zero-height sibling BETWEEN two sections (page level),
+    never inside one — sections with overflow-hidden would clip its upper half. */
+export function SeamStitch({ className = "" }: { className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "-10% 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} aria-hidden="true" className={`relative z-10 h-0 ${className}`}>
+      <span
+        className="absolute left-1/2 top-0 -ml-px block h-24 w-0.5 origin-top bg-accent transition-transform duration-700 ease-out-expo md:h-32"
+        style={{ transform: `translateY(-50%) scaleY(${visible ? 1 : 0})` }}
+      />
+    </div>
+  );
+}
+
 export function GridPattern({
   className = "",
   size = 60,

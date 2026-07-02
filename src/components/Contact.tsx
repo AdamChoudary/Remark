@@ -5,12 +5,26 @@ import { EdgeGeometry, AccentGlow } from "./SvgPatterns";
 
 export function Contact() {
   return (
-    <section id="contact" className="section relative bg-section-2 overflow-hidden">
+    <section id="contact" className="relative bg-section-2 overflow-hidden pt-14 pb-20 md:pt-16 md:pb-28 lg:pt-20 lg:pb-36 scroll-mt-24">
       <AccentGlow position="left" size="40%" />
-      <EdgeGeometry side="right" lines={6} className="top-1/4 right-0" />
-      <EdgeGeometry side="left" lines={4} className="bottom-1/4 left-0" />
 
-      <div className="relative mx-auto max-w-6xl px-4 md:px-8">
+      {/* Right side backdrop image that melts into the background */}
+      <div className="absolute right-0 inset-y-0 w-full md:w-1/2 pointer-events-none z-0">
+        <img
+          src="/contact_workshop_door.png"
+          alt=""
+          className="h-full w-full object-cover object-center opacity-30 md:opacity-45"
+        />
+        {/* Scrims to melt the image edges into the background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/40 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-bg to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-bg to-transparent" />
+      </div>
+
+      <EdgeGeometry side="right" lines={6} className="top-1/4 right-0 z-10" />
+      <EdgeGeometry side="left" lines={4} className="bottom-1/4 left-0 z-10" />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-8">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-12">
           {/* CTA side */}
           <div className="md:col-span-6">
@@ -19,7 +33,7 @@ export function Contact() {
             </h2>
             <a
               href="/contact"
-              className="group relative inline-flex items-center gap-3 rounded bg-accent px-10 py-4 text-base font-medium text-accent-fg
+              className="group relative inline-flex items-center gap-3 rounded-full bg-accent px-10 py-4 text-base font-medium text-accent-fg
                 transition-[transform,background-color] duration-200 ease-out-expo
                 hover:bg-accent-bright active:scale-[0.96]
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent overflow-hidden"

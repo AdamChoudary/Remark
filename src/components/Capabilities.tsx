@@ -32,6 +32,7 @@ function CapabilityName({ name }: { name: string }) {
 export function Capabilities() {
   const [open, setOpen] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [entryProgress, setEntryProgress] = useState(0);
 
@@ -46,11 +47,17 @@ export function Capabilities() {
         const scrollable = rect.height - viewportHeight;
         setProgress(scrollable <= 0 ? entry.intersectionRatio : Math.max(0, Math.min(1, -rect.top / scrollable)));
 
-        // Pinned to the section's top edge, so its reveal has to track pixels
-        // scrolled past that edge directly — not a fraction of the whole
-        // section's height, which would still be climbing long after this
-        // corner has scrolled off the top of the viewport.
-        setEntryProgress(Math.max(0, Math.min(1, -rect.top / 320)));
+        // Read the heading's own position rather than the (much taller)
+        // section's — a mark pinned to the section's literal top edge would
+        // sit behind the fixed header for nearly its whole scroll life and
+        // only ever be visible for a few px. The heading actually spends a
+        // real stretch of scroll on screen, in the clear below the header.
+        const headingTop = headingRef.current?.getBoundingClientRect().top;
+        if (headingTop !== undefined) {
+          const revealStart = viewportHeight * 0.9;
+          const revealEnd = 160;
+          setEntryProgress(Math.max(0, Math.min(1, (revealStart - headingTop) / (revealStart - revealEnd))));
+        }
       },
       { threshold: Array.from({ length: 50 }, (_, i) => i / 50) }
     );
@@ -62,9 +69,9 @@ export function Capabilities() {
   return (
     <section ref={sectionRef} id="capabilities" className="section relative bg-section-3 overflow-hidden">
       <AccentGlow position="left" size="55%" progress={progress} />
-      <EdgeGeometry side="top" lines={5} className="right-8 top-0 text-fg/20" progress={entryProgress} />
 
-      <div className="relative mx-auto max-w-6xl px-4 md:px-8">
+      <div ref={headingRef} className="relative mx-auto max-w-6xl px-4 md:px-8">
+        <EdgeGeometry side="top" lines={5} className="right-4 -top-2 text-fg/20 md:right-8" progress={entryProgress} />
         <h2 className="font-display text-[clamp(2rem,5vw,3.75rem)] font-semibold uppercase leading-[0.95] tracking-[-0.02em] text-fg">
           What we build
         </h2>

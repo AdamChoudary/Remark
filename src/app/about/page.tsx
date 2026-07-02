@@ -106,9 +106,9 @@ export default function AboutPage() {
         {/* Full-bleed visual break */}
         <section className="relative h-[55dvh] w-full overflow-hidden">
           <img
-            src="/studio_workspace.png"
+            src="/about_studio_floor.png"
             alt="Remark Studio workspace"
-            className="h-full w-full object-cover opacity-80 mix-blend-luminosity brightness-75 contrast-125"
+            className="h-full w-full object-cover opacity-75 brightness-90 contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-void/40 via-transparent to-void" />
         </section>

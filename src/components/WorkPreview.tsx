@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { MarkedWord } from "./MarkedWord";
 
 const workItems = [
@@ -11,6 +12,25 @@ const workItems = [
 ];
 
 export function WorkPreview() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="work" className="section bg-section-4 overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
@@ -29,21 +49,24 @@ export function WorkPreview() {
         </div>
       </div>
 
-      <div className="mt-14 flex gap-5 overflow-x-auto px-4 pb-6 md:mt-20 md:px-8 snap-x snap-mandatory scrollbar-hide">
+      <div ref={trackRef} className="mt-14 flex gap-5 overflow-x-auto px-4 pb-6 md:mt-20 md:px-8 snap-x snap-mandatory scrollbar-hide">
         {workItems.map((item, i) => (
           <article
             key={item.name}
-            className="group relative flex aspect-[3/4] min-w-[280px] max-w-[340px] snap-start flex-col justify-between
+            className={`group relative flex aspect-[3/4] min-w-[280px] max-w-[340px] snap-start flex-col justify-between
               overflow-hidden rounded-sm border border-border-subtle bg-void p-7
-              transition-[transform,border-color] duration-500 ease-out-expo
+              transition-[transform,opacity,border-color] duration-700 ease-out-expo
               hover:-translate-y-1.5 hover:border-accent/40
-              focus-within:ring-2 focus-within:ring-accent md:min-w-[340px]"
+              focus-within:ring-2 focus-within:ring-accent md:min-w-[340px]
+              ${visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+            style={{ transitionDelay: visible ? `${i * 90}ms` : "0ms" }}
           >
-            {/* Full-bleed background image */}
+            {/* Full-bleed background image — real workshop photography, meant to carry
+                real visual weight, not sit dimmed to a watermark under the copy */}
             <img
               src={item.image}
               alt=""
-              className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-50 transition-all duration-700 ease-out-expo group-hover:scale-105 group-hover:opacity-75"
+              className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-65 transition-all duration-700 ease-out-expo group-hover:scale-105 group-hover:opacity-90"
             />
 
             {/* Dark Scrim */}

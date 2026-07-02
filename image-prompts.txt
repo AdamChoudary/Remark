@@ -1,0 +1,75 @@
+REMARK STUDIO — IMAGE PROMPTS
+=============================================================
+Visual world (LOCKED, every image must live in it):
+A craftsman's workshop / foundry. Warm dark wood, aged brass, matte black
+material. One warm workbench lamp as key light. The studio's crimson red
+(#b91319) appears as REAL light or REAL material in the scene — molten metal,
+a glowing lens, an illuminated element — never as a color-grade filter.
+Photographic, shallow depth of field, film grain, no text, no logos,
+no UI screenshots, no isolated "product shot on black void" trophy objects.
+Aspect: portrait 3:4 for tiles, wide 16:9 for full-bleed backgrounds.
+
+STATUS — ALREADY SHIPPED (do not regenerate):
+  [x] Hero .............. public/hero_images/Single Continuous Form Jul 01 2026.jpeg
+  [x] Work tile 1 ....... public/work_ai_voice_agents.png
+  [x] Work tile 2 ....... public/work_web_development.png
+  [x] Work tile 3 ....... public/work_digital_marketing.png
+  [x] Work tile 4 ....... public/work_media_production.png
+  [x] Work tile 5 ....... public/work_branding_identity.png
+
+INTENTIONALLY IMAGELESS (by DESIGN.md, do not add):
+  - Narrative (Problem→Solution) — pure typography section
+  - Capabilities (What we build) — stacked index, text only
+  - Footer — structural
+
+=============================================================
+STILL NEEDED
+=============================================================
+
+1. CONTACT SECTION — landing page closer (16:9, dark, atmospheric)
+   File: public/contact_workshop_door.png
+   Use: right side / backdrop of the "Ready to scale your digital future" section.
+   PROMPT:
+   "A heavy workshop door left ajar at night, seen from a dark hallway.
+   Through the gap, a craftsman's studio glows: warm lamplight over a
+   workbench, and a single strong line of crimson-red light (#b91319)
+   spilling through the door gap across the dark floor toward the viewer,
+   like a red thread inviting you inside. Aged wood, brass door hardware,
+   dust motes in the light beam. Cinematic photography, shallow depth of
+   field, film grain, very dark edges so the frame melts into a near-black
+   (#090706) page background. No people's faces, no text, no signage.
+   16:9, moody, quiet, inviting."
+
+2. ABOUT PAGE HERO — the studio itself (16:9, dark)
+   File: public/about_studio_floor.png
+   Use: about page top. (studio_workspace.png exists but predates the
+   locked Foundry direction — this replaces it.)
+   PROMPT:
+   "Wide cinematic shot of a craftsman's studio at night, seen from
+   slightly above bench height. Several workstations in a row, each pooled
+   in its own warm lamp light, dark between them. On the central bench a
+   piece of matte-black material is being worked, glowing crimson red
+   (#b91319) from within at its seams, casting red light on nearby tools
+   and two working hands. Brass instruments, wood shavings, coiled wire.
+   The rest of the room falls off into near-black (#090706). Film grain,
+   shallow depth of field, no faces, no text. 16:9."
+
+3. TESTIMONIAL BACKDROP — optional, only if the section feels bare after review
+   File: public/testimonial_atmosphere.png
+   Use: very low opacity (~12%) full-bleed behind the quote. Skip if the
+   typography carries the section — do not force it.
+   PROMPT:
+   "Extreme close-up macro of dark forged metal surface, matte black with
+   a single thin vein of cooling molten crimson red (#b91319) running
+   diagonally, like a signature being sealed into the material. Almost
+   abstract, 90% shadow, the red vein is the only light source. Film
+   grain, no text. 16:9, very dark, quiet."
+
+=============================================================
+GENERATION NOTES
+- Reuse the exact seed/style of work_ai_voice_agents.png if the tool
+  supports style reference — all six shipped images share that world.
+- Reject any output where red reads as a filter/color-grade instead of a
+  physical light source or material in the scene.
+- Reject any output that reads as stock photography (posed people,
+  clean coworking space, laptop-on-desk).

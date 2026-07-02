@@ -5,15 +5,21 @@ import { AccentGlow } from "./SvgPatterns";
 
 export function Testimonial() {
   return (
-    <section className="section relative bg-void overflow-hidden">
-      <AccentGlow position="right" size="45%" />
+    <section className="relative bg-void overflow-hidden pt-20 pb-14 md:pt-28 md:pb-16 lg:pt-36 lg:pb-20">
+      {/* Testimonial backdrop atmosphere image */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-0 opacity-12 bg-cover bg-center mix-blend-screen"
+        style={{ backgroundImage: `url('/testimonial_atmosphere.png')` }}
+      />
+
+      <AccentGlow position="right" size="45%" className="z-10" />
 
       {/* Giant decorative quote mark */}
-      <span className="pointer-events-none absolute left-4 top-4 select-none font-display text-[clamp(8rem,25vw,20rem)] font-semibold leading-none text-accent/[0.05] md:left-8 md:top-8">
+      <span className="pointer-events-none absolute left-4 top-4 select-none font-display text-[clamp(8rem,25vw,20rem)] font-semibold leading-none text-accent/[0.05] md:left-8 md:top-8 z-10">
         &ldquo;
       </span>
 
-      <div className="relative mx-auto max-w-6xl px-4 md:px-8">
+      <div className="relative mx-auto max-w-6xl px-4 md:px-8 z-10">
         <div className="relative grid grid-cols-1 gap-12 md:grid-cols-12">
           {/* Quote side */}
           <div className="md:col-span-9">
