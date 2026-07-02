@@ -7,10 +7,16 @@ import { ScrollReveal } from "./ScrollReveal";
 export function Testimonial() {
   return (
     <section className="relative bg-void overflow-hidden pt-20 pb-14 md:pt-28 md:pb-16 lg:pt-36 lg:pb-20">
-      {/* Testimonial backdrop atmosphere image */}
-      <div 
-        className="pointer-events-none absolute inset-0 z-0 opacity-12 bg-cover bg-center mix-blend-screen"
-        style={{ backgroundImage: `url('/testimonial_atmosphere.png')` }}
+      {/* Testimonial backdrop atmosphere image.
+          Used as a warm texture wash, not a distinct picture — subtle enough
+          to stay atmospheric, not so strong it competes with the quote text. */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url('/testimonial_atmosphere.png')`,
+          opacity: 0.08,
+          maskImage: "radial-gradient(ellipse at 30% 50%, black 0%, transparent 70%)",
+        }}
       />
 
       <AccentGlow position="right" size="45%" className="z-10" />

@@ -79,6 +79,16 @@ export function Capabilities() {
           What we build
         </h2>
 
+        {/* Read-progress bar — a thin line that visualizes how much of the
+            capability list the visitor has seen. It fills as the section scrolls
+            into view, giving the list a sense of forward momentum and completeness. */}
+        <div className="mt-8 h-px w-full bg-border-subtle/40 overflow-hidden">
+          <div
+            className="h-full bg-accent origin-left transition-transform duration-500 ease-out-expo"
+            style={{ transform: `scaleX(${entryProgress})` }}
+          />
+        </div>
+
         <ul className="mt-14 md:mt-20">
           {capabilities.map((c, i) => {
             const isOpen = open === i;
@@ -96,9 +106,10 @@ export function Capabilities() {
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="group block w-full cursor-pointer border-t border-border-subtle py-7 text-left
-                    transition-colors duration-300 ease-out-expo last:border-b
-                    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent focus-visible:ring-inset md:py-9"
+                  className="group relative block w-full cursor-pointer border-t border-border-subtle py-7 text-left
+                    transition-[color,background-color] duration-300 ease-out-expo last:border-b
+                    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent focus-visible:ring-inset md:py-9
+                    hover:bg-fg/[0.02]"
                 >
                   <div className="flex items-baseline gap-5 md:gap-10">
                     <span className={`mono shrink-0 text-sm tabular-nums transition-colors duration-300 ease-out-expo group-hover:text-accent ${isOpen ? "text-accent" : "text-subtle"}`}>
@@ -142,8 +153,10 @@ export function Capabilities() {
         </ul>
       </div>
 
-      {/* Tech marquee — the page's single allotted marquee */}
-      <div className="mt-16 flex border-y border-border-subtle py-5 md:mt-24" aria-hidden>
+      {/* Tech marquee — a continuous surface, not a divided band.
+          No border-y: that would read as a separator between sections.
+          Instead, a gentle surface shift (subtle bg tint) carries it */}
+      <div className="mt-16 flex bg-fg/[0.02] py-5 md:mt-24" aria-hidden>
         <div className="flex shrink-0 animate-marquee items-center gap-16 pr-16 whitespace-nowrap">
           {[...tech, ...tech].map((t, i) => (
             <span key={i} className="mono text-xs uppercase tracking-[0.18em] text-subtle/70 select-none">

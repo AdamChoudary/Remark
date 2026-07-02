@@ -179,7 +179,6 @@ export function Narrative() {
                 key={i}
                 ref={(node) => { itemRefs.current[i] = node; }}
                 className="relative mb-24"
-                style={{ opacity: i === 0 ? 1 : 0.12, filter: i === 0 ? "none" : "blur(1.5px)" }}
               >
                 <p className="mb-4 font-display text-[clamp(2.25rem,5vw,4rem)] font-normal leading-[1.08] tracking-[-0.015em] text-ink text-balance">
                   {p.text}
