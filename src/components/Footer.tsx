@@ -1,6 +1,7 @@
 "use client";
 
 import { GridPattern } from "./SvgPatterns";
+import { SOCIALS, EMAIL, PHONE_PRIMARY } from "@/data/social";
 
 export function Footer() {
   return (
@@ -27,10 +28,9 @@ export function Footer() {
             <p className="mono mb-5 text-[10px] tracking-[0.2em] text-subtle uppercase">Navigation</p>
             <div className="space-y-3.5">
               {[
-                { label: "Services", href: "/#capabilities" },
-                { label: "Process", href: "/#process" },
                 { label: "Capabilities", href: "/#capabilities" },
                 { label: "Work", href: "/work" },
+                { label: "About", href: "/about" },
                 { label: "Contact", href: "/contact" },
               ].map((link) => (
                 <a
@@ -55,14 +55,16 @@ export function Footer() {
           <div>
             <p className="mono mb-5 text-[10px] tracking-[0.2em] text-subtle uppercase">Connect</p>
             <div className="space-y-3.5">
-              {["Instagram", "TikTok", "WhatsApp", "Facebook", "Email"].map((s) => (
+              {[...SOCIALS, { label: "Email", href: `mailto:${EMAIL}` }].map((s) => (
                 <a
-                  key={s}
-                  href={s === "Email" ? "mailto:hello@remarkstudio.co" : "#"}
+                  key={s.label}
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="block text-sm text-muted transition-colors duration-200 hover:text-fg
                     focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                 >
-                  {s}
+                  {s.label}
                 </a>
               ))}
             </div>
@@ -72,11 +74,11 @@ export function Footer() {
             <div className="space-y-3.5 text-sm text-muted">
               <p>Islamabad</p>
               <a
-                href="tel:+923268450001"
+                href={PHONE_PRIMARY.href}
                 className="block transition-colors duration-200 hover:text-fg
                   focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
               >
-                +92 326 8450001
+                {PHONE_PRIMARY.display}
               </a>
             </div>
           </div>

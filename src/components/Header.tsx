@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 const navLinks = [
   { label: "Services", href: "/#capabilities" },
   { label: "Process", href: "/#process" },
-  { label: "Capabilities", href: "/#capabilities" },
   { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -15,7 +15,13 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
   }, [menuOpen]);
 
   return (
@@ -92,6 +98,8 @@ export function Header() {
 
       {/* Mobile drawer */}
       <div
+        inert={!menuOpen}
+        aria-hidden={!menuOpen}
         className={`fixed inset-0 z-40 flex flex-col bg-void/98 backdrop-blur-xl
           transition-[opacity,transform] duration-400 ease-out-expo md:hidden overscroll-contain
           ${menuOpen

@@ -3,6 +3,7 @@
 import { MarkedWord } from "./MarkedWord";
 import { EdgeGeometry, AccentGlow } from "./SvgPatterns";
 import { ScrollReveal } from "./ScrollReveal";
+import { SOCIALS, EMAIL } from "@/data/social";
 
 export function Contact() {
   return (
@@ -95,15 +96,17 @@ export function Contact() {
                   <span className="absolute left-0 top-0.5 h-5 w-0.5 bg-accent/60" />
                   <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Social</p>
                   <div className="flex flex-wrap gap-6">
-                    {["Instagram", "TikTok", "WhatsApp", "Facebook", "Email"].map((s) => (
+                    {[...SOCIALS, { label: "Email", href: `mailto:${EMAIL}` }].map((s) => (
                       <a
-                        key={s}
-                        href={s === "Email" ? "mailto:hello@remarkstudio.co" : "#"}
-                        aria-label={s}
+                        key={s.label}
+                        href={s.href}
+                        target={s.href.startsWith("http") ? "_blank" : undefined}
+                        rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        aria-label={s.label}
                         className="text-sm text-muted transition-colors duration-200 hover:text-accent
                           focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded"
                       >
-                        {s}
+                        {s.label}
                       </a>
                     ))}
                   </div>

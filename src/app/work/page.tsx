@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GridPattern, DotPattern, AccentGlow, GrainOverlay } from "@/components/SvgPatterns";
 import { MarkedWord } from "@/components/MarkedWord";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 const workCategories = [
   {
@@ -118,7 +119,7 @@ export default function WorkPage() {
                   </div>
                   
                   {/* Items list */}
-                  <div className="md:col-span-7 md:col-start-6 space-y-8">
+                  <ScrollReveal className="md:col-span-7 md:col-start-6 space-y-8">
                     {cat.items.map((item, idx) => (
                       <div key={item} className="group relative">
                         <div className="flex items-start gap-4">
@@ -133,7 +134,7 @@ export default function WorkPage() {
                         </div>
                       </div>
                     ))}
-                  </div>
+                  </ScrollReveal>
                 </div>
               ))}
             </div>
@@ -144,7 +145,7 @@ export default function WorkPage() {
         <section className="relative bg-section-2 py-24 overflow-hidden">
           <DotPattern size={30} opacity={0.03} />
           <AccentGlow position="center" size="50%" />
-          <div className="relative mx-auto max-w-6xl px-4 md:px-8 text-center">
+          <ScrollReveal className="relative mx-auto max-w-6xl px-4 md:px-8 text-center">
             <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-light leading-[1.1] text-fg">
               Ready to build something <MarkedWord word="remarkable" />?
             </h2>
@@ -157,7 +158,7 @@ export default function WorkPage() {
             >
               Start a project
             </a>
-          </div>
+          </ScrollReveal>
         </section>
       </main>
       <Footer />

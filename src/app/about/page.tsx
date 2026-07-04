@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ArchitecturalGrid, AccentGlow, GrainOverlay, EdgeGeometry, DotPattern } from "@/components/SvgPatterns";
 import { MarkedWord } from "@/components/MarkedWord";
+import { ScrollReveal, StaggerReveal } from "@/components/ScrollReveal";
 
 const values = [
   {
@@ -51,7 +52,7 @@ export default function AboutPage() {
               </div>
               <div className="md:col-span-4 md:col-start-9 md:self-end">
                 <p className="text-base leading-relaxed text-muted max-w-[40ch]">
-                  Remark Studio is a Islamabad-based digital solutions agency. We combine
+                  Remark Studio is an Islamabad-based digital solutions agency. We combine
                   engineering discipline with creative ambition to deliver products that
                   perform.
                 </p>
@@ -90,15 +91,15 @@ export default function AboutPage() {
               </div>
 
               {/* Right Column - Scrollable Values stack */}
-              <div className="md:col-span-6 md:col-start-7 space-y-12">
+              <StaggerReveal className="md:col-span-6 md:col-start-7 space-y-12" staggerDelay={90}>
                 {values.map((v, i) => (
-                  <div key={v.title} className="border-t border-border-subtle pt-8 first:border-t-0 first:pt-0">
+                  <div key={v.title} className={i === 0 ? "" : "border-t border-border-subtle pt-8"}>
                     <span className="mono text-[11px] text-accent">0{i + 1}</span>
                     <h3 className="font-display text-2xl font-light text-fg mt-2">{v.title}</h3>
                     <p className="mt-4 text-sm leading-relaxed text-muted max-w-[45ch]">{v.desc}</p>
                   </div>
                 ))}
-              </div>
+              </StaggerReveal>
             </div>
           </div>
         </section>
@@ -123,7 +124,7 @@ export default function AboutPage() {
               The people behind the work.
             </h2>
 
-            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+            <StaggerReveal className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={90}>
               {team.map((m) => (
                 <div key={m.name} className="group">
                   <div className="aspect-[3/4] w-full rounded-sm bg-bg-med flex items-end overflow-hidden relative">
@@ -137,7 +138,7 @@ export default function AboutPage() {
                   </div>
                 </div>
               ))}
-            </div>
+            </StaggerReveal>
           </div>
         </section>
 
@@ -145,7 +146,7 @@ export default function AboutPage() {
         <section className="relative bg-section-2 py-24 overflow-hidden">
           <AccentGlow position="center" size="50%" />
           <EdgeGeometry side="left" lines={5} className="bottom-1/4 left-0" />
-          <div className="relative mx-auto max-w-6xl px-4 md:px-8 text-center">
+          <ScrollReveal className="relative mx-auto max-w-6xl px-4 md:px-8 text-center">
             <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-light leading-[1.1] text-fg">
               Let&rsquo;s build something <MarkedWord word="remarkable" gesture="circle" /> together.
             </h2>
@@ -158,7 +159,7 @@ export default function AboutPage() {
             >
               Start a project
             </a>
-          </div>
+          </ScrollReveal>
         </section>
       </main>
       <Footer />

@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { ContactForm } from "@/components/ContactForm";
 import { GridPattern, AccentGlow, GrainOverlay, EdgeGeometry, DotPattern } from "@/components/SvgPatterns";
 import { MarkedWord } from "@/components/MarkedWord";
+import { SOCIALS } from "@/data/social";
 
 export default function ContactPage() {
   return (
@@ -94,15 +95,17 @@ export default function ContactPage() {
                   <div>
                     <p className="mono mb-3 text-[10px] tracking-[0.2em] text-subtle uppercase">Social</p>
                     <div className="flex flex-wrap gap-5">
-                      {["Instagram", "TikTok", "WhatsApp", "Facebook"].map((s) => (
+                      {SOCIALS.map((s) => (
                         <a
-                          key={s}
-                          href="#"
-                          aria-label={s}
+                          key={s.label}
+                          href={s.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={s.label}
                           className="text-sm text-muted transition-colors duration-200 hover:text-accent
                             focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                         >
-                          {s}
+                          {s.label}
                         </a>
                       ))}
                     </div>

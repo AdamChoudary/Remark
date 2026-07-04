@@ -28,7 +28,9 @@ export default function Home() {
         <Capabilities />
         <WorkPreview />
         <Testimonial />
-        <SeamStitch />
+        {/* No seam Testimonial→Contact: both are dark surfaces, so there's no
+            register change to sew — a stitch here reads as a stray red tick in a
+            dark field, not craft. Seams stay only on the two real dark↔light edges. */}
         <Contact />
       </main>
       <Footer />

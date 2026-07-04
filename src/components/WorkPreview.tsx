@@ -51,13 +51,15 @@ export function WorkPreview() {
 
       <div ref={trackRef} className="mt-14 flex gap-5 overflow-x-auto px-4 pb-6 md:mt-20 md:px-8 snap-x snap-mandatory scrollbar-hide">
         {workItems.map((item, i) => (
-          <article
+          <a
             key={item.name}
+            href="/work"
+            aria-label={`${item.name} — ${item.category}`}
             className={`group relative flex aspect-[3/4] min-w-[280px] max-w-[340px] snap-start flex-col justify-between
               overflow-hidden rounded-sm border border-border-subtle bg-void p-7
               transition-[transform,opacity,border-color] duration-700 ease-out-expo
               hover:-translate-y-1.5 hover:border-accent/40
-              focus-within:ring-2 focus-within:ring-accent md:min-w-[340px]
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:min-w-[340px]
               ${visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
             style={{ transitionDelay: visible ? `${i * 90}ms` : "0ms" }}
           >
@@ -92,9 +94,9 @@ export function WorkPreview() {
               <p className="mt-3 max-w-[230px] text-xs leading-relaxed text-muted">{item.tagline}</p>
 
               {/* Accent line sweeps in on hover */}
-              <div className="mt-5 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out-expo group-hover:scale-x-100" />
+              <div className="mt-5 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out-expo group-hover:scale-x-100 group-focus-visible:scale-x-100" />
             </div>
-          </article>
+          </a>
         ))}
 
         <a

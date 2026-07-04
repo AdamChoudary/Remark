@@ -21,6 +21,10 @@ function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            el.textContent = `${value}${suffix}`;
+            return;
+          }
           const duration = 1800;
           const startTime = performance.now();
           let rafId: number;

@@ -20,6 +20,12 @@ export function Hero() {
 
       {/* Content — bottom-anchored, integrated with the image, not a separate column */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-32 md:px-8 md:pb-20">
+        <div className="mb-6 flex items-center gap-3 animate-fade-in-up">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent animate-pulse-dot" />
+          <span className="mono text-[11px] tracking-[0.25em] text-subtle uppercase">
+            Digital Solutions Agency &mdash; Islamabad
+          </span>
+        </div>
         <h1 className="font-display text-[clamp(3rem,9vw,8.5rem)] font-bold uppercase leading-[0.92] tracking-[-0.02em] text-fg">
           <span className="block animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
             Ideas <span className="text-accent">→</span>
@@ -39,7 +45,7 @@ export function Hero() {
             className="group inline-flex shrink-0 items-center gap-3 rounded-full border border-accent/60 px-7 py-3.5 text-sm font-medium tracking-wide text-fg transition-colors duration-300 ease-out-expo hover:bg-accent hover:text-accent-fg active:scale-[0.98]"
           >
             Start a project
-            <span className="text-accent transition-transform duration-300 ease-out-expo group-hover:translate-x-1 group-hover:text-accent-fg">
+            <span aria-hidden="true" className="text-accent transition-transform duration-300 ease-out-expo group-hover:translate-x-1 group-hover:text-accent-fg">
               →
             </span>
           </a>
