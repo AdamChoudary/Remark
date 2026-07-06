@@ -16,7 +16,7 @@ export function Footer() {
             className="h-9 w-auto md:h-11 img-outline"
             loading="lazy"
           />
-          <p className="mt-4 text-sm text-muted">Digital Solutions Agency &middot; Islamabad</p>
+          <p className="mt-4 text-sm text-muted">Digital Solutions Agency · Islamabad</p>
           <div className="mt-3 flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             <p className="text-sm text-muted">Available for projects</p>

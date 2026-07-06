@@ -5,10 +5,6 @@ import { MarkedWord } from "./MarkedWord";
 import { AccentGlow } from "./SvgPatterns";
 import { ScrollReveal } from "./ScrollReveal";
 
-/**
- * Animated counter that counts from 0 to target when it enters the viewport.
- * Cubic ease-out for a natural settling feel.
- */
 function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const hasAnimated = useRef(false);
@@ -60,15 +56,6 @@ function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
 export function Testimonial() {
   return (
     <section className="relative bg-void overflow-hidden pt-20 pb-14 md:pt-28 md:pb-16 lg:pt-36 lg:pb-20">
-      <div
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('/testimonial_atmosphere.png')`,
-          opacity: 0.08,
-          maskImage: "radial-gradient(ellipse at 30% 50%, black 0%, transparent 70%)",
-        }}
-      />
-
       <AccentGlow position="right" size="45%" className="z-10" />
 
       <span className="pointer-events-none absolute left-4 top-4 select-none font-display text-[clamp(8rem,25vw,20rem)] font-semibold leading-none text-accent/[0.05] md:left-8 md:top-8 z-10">

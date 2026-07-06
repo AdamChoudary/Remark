@@ -48,17 +48,11 @@ export function Capabilities() {
         const scrollable = rect.height - viewportHeight;
         setProgress(scrollable <= 0 ? entry.intersectionRatio : Math.max(0, Math.min(1, -rect.top / scrollable)));
 
-        // Read the heading's own position rather than the (much taller)
-        // section's — a mark pinned to the section's literal top edge would
-        // sit behind the fixed header for nearly its whole scroll life and
-        // only ever be visible for a few px. The heading actually spends a
-        // real stretch of scroll on screen, in the clear below the header.
         const headingTop = headingRef.current?.getBoundingClientRect().top;
         if (headingTop !== undefined) {
           const revealStart = viewportHeight * 0.9;
           const revealEnd = 160;
           setEntryProgress(Math.max(0, Math.min(1, (revealStart - headingTop) / (revealStart - revealEnd))));
-          // Rows stagger in once the heading is properly on screen.
           if (headingTop < viewportHeight * 0.8) setRowsVisible(true);
         }
       },
@@ -79,9 +73,6 @@ export function Capabilities() {
           What we build
         </h2>
 
-        {/* Read-progress bar — a thin line that visualizes how much of the
-            capability list the visitor has seen. It fills as the section scrolls
-            into view, giving the list a sense of forward momentum and completeness. */}
         <div className="mt-8 h-px w-full bg-border-subtle/40 overflow-hidden">
           <div
             className="h-full bg-accent origin-left transition-transform duration-500 ease-out-expo"
@@ -132,10 +123,6 @@ export function Capabilities() {
                     </span>
                   </div>
 
-                  {/* Expansion is click-only. The previous hover-expand animated the
-                      accordion open under the cursor, reflowing every row below on
-                      each mouse move across the list — hover feedback must never
-                      cause layout shift. Hover keeps color + the title nudge. */}
                   <div
                     className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out-expo
                       ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
@@ -153,9 +140,6 @@ export function Capabilities() {
         </ul>
       </div>
 
-      {/* Tech marquee — a continuous surface, not a divided band.
-          No border-y: that would read as a separator between sections.
-          Instead, a gentle surface shift (subtle bg tint) carries it */}
       <div className="mt-16 flex bg-fg/[0.02] py-5 md:mt-24" aria-hidden>
         <div className="flex shrink-0 animate-marquee items-center gap-16 pr-16 whitespace-nowrap">
           {[...tech, ...tech].map((t, i) => (

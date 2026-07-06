@@ -6,8 +6,6 @@ import { GrainOverlay } from "./SvgPatterns";
 export function Hero() {
   return (
     <section className="relative flex min-h-[100dvh] w-full flex-col justify-end overflow-hidden bg-void">
-      {/* Full-bleed image — a single continuous form transforming from crimson wireframe
-          (the idea) into solid, glowing material (the reality) — the headline, made literal. */}
       <img
         src="/hero_images/Single Continuous Form Jul 01 2026.jpeg"
         alt="A form transforming from a crimson wireframe outline into solid, glowing material"
@@ -18,12 +16,11 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-void via-void/25 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-void/70 via-transparent to-transparent md:from-void/50" />
 
-      {/* Content — bottom-anchored, integrated with the image, not a separate column */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-32 md:px-8 md:pb-20">
         <div className="mb-6 flex items-center gap-3 animate-fade-in-up">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent animate-pulse-dot" />
           <span className="mono text-[11px] tracking-[0.25em] text-subtle uppercase">
-            Digital Solutions Agency &mdash; Islamabad
+            Digital Solutions Agency — Islamabad
           </span>
         </div>
         <h1 className="font-display text-[clamp(3rem,9vw,8.5rem)] font-bold uppercase leading-[0.92] tracking-[-0.02em] text-fg">

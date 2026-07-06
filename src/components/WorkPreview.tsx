@@ -44,7 +44,7 @@ export function WorkPreview() {
             </p>
           </div>
           <span className="mono hidden shrink-0 text-[11px] tracking-[0.2em] text-subtle/70 uppercase md:inline">
-            Drag &rarr;
+            Drag —
           </span>
         </div>
       </div>
@@ -63,18 +63,14 @@ export function WorkPreview() {
               ${visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
             style={{ transitionDelay: visible ? `${i * 90}ms` : "0ms" }}
           >
-            {/* Full-bleed background image — real workshop photography, meant to carry
-                real visual weight, not sit dimmed to a watermark under the copy */}
             <img
               src={item.image}
               alt=""
               className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-65 transition-all duration-700 ease-out-expo group-hover:scale-105 group-hover:opacity-90"
             />
 
-            {/* Dark Scrim */}
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-void via-void/45 to-transparent transition-opacity duration-500" />
 
-            {/* Top: category tag */}
             <div className="relative z-20 flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-accent/70 transition-transform duration-500 ease-out-expo group-hover:scale-150" />
               <span className="mono text-[10px] tracking-[0.18em] text-muted uppercase">
@@ -82,7 +78,6 @@ export function WorkPreview() {
               </span>
             </div>
 
-            {/* Bottom: title + tagline */}
             <div className="relative z-20">
               <h3 className="font-display text-3xl font-semibold leading-[1.02] tracking-[-0.01em] text-fg">
                 {item.name === "AI Voice Agents" ? (
@@ -93,7 +88,6 @@ export function WorkPreview() {
               </h3>
               <p className="mt-3 max-w-[230px] text-xs leading-relaxed text-muted">{item.tagline}</p>
 
-              {/* Accent line sweeps in on hover */}
               <div className="mt-5 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out-expo group-hover:scale-x-100 group-focus-visible:scale-x-100" />
             </div>
           </a>
@@ -106,7 +100,7 @@ export function WorkPreview() {
             focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
         >
           <span className="font-display text-2xl font-semibold leading-tight text-fg">View<br />all work</span>
-          <span className="text-accent transition-transform duration-300 ease-out-expo group-hover:translate-x-1.5">&rarr;</span>
+          <span className="text-accent transition-transform duration-300 ease-out-expo group-hover:translate-x-1.5">—</span>
         </a>
       </div>
     </section>
