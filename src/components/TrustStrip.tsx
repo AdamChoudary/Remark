@@ -1,16 +1,16 @@
 "use client";
 
 const items = [
-  { title: "Web Development", subtitle: "Architecture & Code", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
+  { title: "Web Development", subtitle: "Architecture & Code", img: "/Enhance Image Quality Jul 06.jpeg" },
   { title: "Brand Identity", subtitle: "Visual Design Systems", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
   { title: "Conversational AI", subtitle: "Automated Intelligence", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
   { title: "Creative Production", subtitle: "Content & Media", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
-  { title: "Digital Marketing", subtitle: "Growth & Strategy", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
+  { title: "Digital Marketing", subtitle: "Growth & Strategy", img: "/Background Image Text Jul 06.jpeg" },
 ];
 
 function MarqueeItem({ item }: { item: typeof items[0] }) {
   return (
-    <div className="group/item relative flex h-[130px] cursor-pointer items-center justify-center px-12">
+    <div className="group/item relative flex h-[160px] cursor-pointer items-center justify-center px-12">
       
       {/* Invisible static clone to permanently lock container width so siblings NEVER move */}
       <span className="invisible whitespace-nowrap text-[12px] font-bold tracking-[0.18em] uppercase">
@@ -18,7 +18,7 @@ function MarqueeItem({ item }: { item: typeof items[0] }) {
       </span>
 
       {/* Expanding Background Box (Stretches outwards to touch sibling texts without pushing the flex layout!) */}
-      <div className="absolute top-2 bottom-2 left-2 right-2 -z-10 overflow-hidden rounded-sm transition-all duration-700 ease-[cubic-bezier(0.2,1,0.3,1)] group-hover/item:-left-12 group-hover/item:-right-12 group-hover/item:-top-4 group-hover/item:-bottom-4 group-hover/item:bg-[#0a0a0a] group-hover/item:shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+      <div className="absolute top-2 bottom-2 left-2 right-2 -z-10 overflow-hidden rounded-sm transition-all duration-700 ease-[cubic-bezier(0.2,1,0.3,1)] group-hover/item:-left-12 group-hover/item:-right-12 group-hover/item:-top-6 group-hover/item:-bottom-6 group-hover/item:bg-[#0a0a0a] group-hover/item:shadow-[0_0_30px_rgba(0,0,0,0.8)]">
         {/* Background Image Reveal */}
         <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover/item:opacity-60">
           <img src={item.img} alt="" className="h-full w-full object-cover" />
