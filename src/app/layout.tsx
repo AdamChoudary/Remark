@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, Manrope, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const florisa = localFont({
+  src: "../../public/fonts/Florisa/FlorisaPersonalUse-nRm84.otf",
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const betha = localFont({
+  src: "../../public/fonts/Betha/Betha-KVj87.otf",
+  variable: "--font-betha",
+  display: "swap",
 });
 
 const manrope = Manrope({
@@ -38,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${florisa.variable} ${betha.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-void text-fg">
         <a
