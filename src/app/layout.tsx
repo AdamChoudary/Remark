@@ -3,8 +3,8 @@ import localFont from "next/font/local";
 import { Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const florisa = localFont({
-  src: "../../public/fonts/Florisa/FlorisaPersonalUse-nRm84.otf",
+const cranio = localFont({
+  src: "./fonts/Cranio/CranioRegular-WpD9n.otf",
   variable: "--font-display",
   display: "swap",
 });
@@ -16,7 +16,7 @@ const betha = localFont({
 });
 
 const mifetro = localFont({
-  src: "../../public/fonts/MifetroRegular.ttf",
+  src: "./fonts/Mifetro/MifetroRegular-rvOly.ttf",
   variable: "--font-body",
   display: "swap",
 });
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${florisa.variable} ${betha.variable} ${mifetro.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${cranio.variable} ${betha.variable} ${mifetro.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-void text-fg">
         <a

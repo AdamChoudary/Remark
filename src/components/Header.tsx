@@ -80,26 +80,96 @@ export function Header() {
               </DirectionalLiquidButton>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button onClick={() => setMenuOpen(!menuOpen)} className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded" aria-label={menuOpen ? "Close menu" : "Open menu"}>
-              <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "translate-y-[6.5px] rotate-45" : ""}`} />
-              <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "opacity-0" : ""}`} />
-              <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
+            {/* Mobile Menu Button (Minimalist 2-line design) */}
+            <button 
+              onClick={() => setMenuOpen(!menuOpen)} 
+              className={`relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden focus-visible:outline-none rounded-full transition-all duration-300 ${scrolled || menuOpen ? "bg-white/[0.08] border border-white/[0.08]" : "bg-transparent border border-transparent"}`} 
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              <span aria-hidden="true" className={`block h-[1.5px] bg-fg transition-all duration-400 ease-[cubic-bezier(0.2,1,0.3,1)] ${menuOpen ? "w-4 translate-y-[3.25px] rotate-45" : "w-5"}`} />
+              <span aria-hidden="true" className={`block h-[1.5px] bg-fg transition-all duration-400 ease-[cubic-bezier(0.2,1,0.3,1)] ${menuOpen ? "w-4 -translate-y-[3.25px] -rotate-45" : "w-3 translate-x-1"}`} />
             </button>
           </div>
           
         </div>
       </header>
-      <div inert={!menuOpen} aria-hidden={!menuOpen} className={`fixed inset-0 z-40 flex flex-col bg-void/98 backdrop-blur-xl transition-[opacity,transform] duration-400 ease-out-expo md:hidden overscroll-contain ${menuOpen ? "pointer-events-auto opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-6"}`}>
-        <nav className="relative flex flex-1 flex-col items-center justify-center gap-12">
+
+      {/* Premium Fullscreen Mobile Menu Overlay */}
+      <div 
+        inert={!menuOpen} 
+        aria-hidden={!menuOpen} 
+        className={`fixed inset-0 z-40 flex flex-col bg-void/95 backdrop-blur-3xl transition-[opacity,visibility] duration-500 ease-[cubic-bezier(0.2,1,0.3,1)] md:hidden overscroll-contain ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      >
+        {/* Subtle Top-Right Red Glow */}
+        <div className="absolute top-0 right-0 h-[60vh] w-[80vw] -translate-y-1/4 translate-x-1/4 bg-[radial-gradient(circle_at_center,var(--color-accent-subtle),transparent_70%)] opacity-40 blur-3xl" />
+        
+        <nav className="relative flex flex-1 flex-col items-start justify-center gap-6 px-8 pt-16">
           {navLinks.map((link, i) => (
-            <a key={link.label} href={link.href} onClick={(e) => { if (link.href.startsWith("#")) { e.preventDefault(); handleLinkClick(link.href); } else { setMenuOpen(false); } }} className="font-display text-3xl font-semibold tracking-wide text-fg transition-[opacity,transform] duration-300 ease-out-expo hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent" style={{ transitionDelay: menuOpen ? `${i * 60}ms` : "0ms", opacity: menuOpen ? 1 : 0, transform: menuOpen ? "translateY(0)" : "translateY(16px)" }}>
-              {link.label}
+            <a 
+              key={link.label} 
+              href={link.href} 
+              onClick={(e) => { 
+                if (link.href.startsWith("#")) { 
+                  e.preventDefault(); 
+                  handleLinkClick(link.href); 
+                } else { 
+                  setMenuOpen(false); 
+                } 
+              }} 
+              className="group flex items-center gap-4 text-left focus-visible:outline-none"
+              style={{ 
+                transitionDelay: menuOpen ? `${100 + i * 60}ms` : "0ms", 
+                opacity: menuOpen ? 1 : 0, 
+                transform: menuOpen ? "translateX(0)" : "translateX(-30px)", 
+                transitionProperty: "opacity, transform", 
+                transitionDuration: "700ms", 
+                transitionTimingFunction: "cubic-bezier(0.2, 1, 0.3, 1)" 
+              }}
+            >
+              <span className="text-[11px] font-mono tracking-widest text-accent opacity-70">0{i + 1}</span>
+              <span 
+                className="font-normal text-[clamp(2.5rem,11vw,4rem)] tracking-tight text-fg transition-colors duration-300 group-hover:text-accent" 
+                style={{ fontFamily: 'var(--font-betha), sans-serif' }}
+              >
+                {link.label}
+              </span>
             </a>
           ))}
         </nav>
-        <div className="relative p-8">
-          <a href="/contact" onClick={() => setMenuOpen(false)} className="block w-full rounded-full bg-accent py-4 text-center text-lg font-medium text-accent-fg transition-[transform,background-color] duration-200 ease-out-expo hover:bg-accent-bright active:scale-[0.96]">Start a project</a>
+        
+        {/* Menu Footer */}
+        <div 
+          className="relative flex flex-col gap-8 px-8 pb-10"
+          style={{ 
+            transitionDelay: menuOpen ? "350ms" : "0ms", 
+            opacity: menuOpen ? 1 : 0, 
+            transform: menuOpen ? "translateY(0)" : "translateY(20px)", 
+            transitionProperty: "opacity, transform", 
+            transitionDuration: "700ms", 
+            transitionTimingFunction: "cubic-bezier(0.2, 1, 0.3, 1)" 
+          }}
+        >
+          {/* Micro-Contact Row */}
+          <div className="flex w-full items-end justify-between border-t border-white/[0.08] pt-8">
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[9px] font-bold tracking-[0.2em] text-muted uppercase">Connect</span>
+              <a href="mailto:hello@remark.studio" className="text-[13px] font-medium tracking-wide text-fg hover:text-accent transition-colors">hello@remark.studio</a>
+            </div>
+            <div className="flex gap-5 pb-0.5">
+              <a href="#" className="text-[10px] font-bold tracking-[0.2em] text-fg uppercase hover:text-accent transition-colors">IG</a>
+              <a href="#" className="text-[10px] font-bold tracking-[0.2em] text-fg uppercase hover:text-accent transition-colors">X</a>
+            </div>
+          </div>
+          
+          {/* Solid CTA Pill */}
+          <a 
+            href="/contact" 
+            onClick={() => setMenuOpen(false)} 
+            className="flex w-full items-center justify-between rounded-full bg-accent px-8 py-4.5 text-left text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-[transform,background-color] duration-300 active:scale-[0.97]"
+          >
+            <span>Start a project</span>
+            <span className="text-base font-normal leading-none transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
         </div>
       </div>
     </>
