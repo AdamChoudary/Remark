@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { DirectionalLiquidButton } from "./DirectionalLiquidButton";
+import { BubbleNavButton } from "./BubbleNavButton";
 
 const navLinks = [
   { label: "Services", href: "#capabilities" },
@@ -29,26 +31,63 @@ export function Header() {
 
   return (
     <>
-      <div className={`fixed inset-x-0 top-0 z-40 h-36 bg-gradient-to-b from-void/85 via-void/60 to-transparent transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0"}`} />
-      <header className="fixed inset-x-0 top-0 z-50 px-6 py-5 md:px-8 md:py-6">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
-          <a href="/" className="flex items-center gap-2 group">
-            <img src="/rs logo.png" alt="Remark Studio" className="h-8 w-auto md:h-9 transition-transform duration-300 ease-out-expo group-hover:scale-[1.02]" />
-          </a>
-          <nav className="hidden items-center gap-10 md:flex">
+      <header className={`fixed inset-x-0 z-50 flex justify-center px-4 transition-all duration-500 ease-[cubic-bezier(0.2,1,0.3,1)] ${scrolled ? "top-5" : "top-0 py-5 md:py-8"}`}>
+        <div 
+          className={`mx-auto flex w-full items-center justify-between transition-all duration-700 ease-[cubic-bezier(0.2,1,0.3,1)] ${
+            scrolled 
+              ? "max-w-5xl rounded-full border border-white/[0.08] bg-void/70 px-6 py-3.5 backdrop-blur-xl" 
+              : "max-w-7xl rounded-none border-transparent bg-transparent px-2 py-0"
+          }`}
+        >
+          
+          {/* Left: Logo */}
+          <div className="flex flex-1 justify-start">
+            <a href="/" className="flex items-center gap-2 group z-10">
+              <img src="/rs logo.png" alt="Remark Studio" className={`w-auto transition-all duration-500 ease-out-expo group-hover:scale-[1.02] ${scrolled ? "h-6 md:h-7" : "h-8 md:h-9"}`} />
+            </a>
+          </div>
+          
+          {/* Center: Navigation */}
+          <nav className="hidden md:flex flex-none justify-center items-center gap-1 lg:gap-3">
             {navLinks.map((link) => (
-              <a key={link.label} href={link.href} onClick={(e) => { if (link.href.startsWith("#")) { e.preventDefault(); handleLinkClick(link.href); } }} className="relative text-sm tracking-wide text-fg/85 transition-colors duration-200 hover:text-fg after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-out-expo hover:after:scale-x-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded">
-                {link.label}
-              </a>
+              <BubbleNavButton
+                key={link.label}
+                href={link.href}
+                onClick={(e: any) => { 
+                  if (link.href.startsWith("#")) { 
+                    e.preventDefault(); 
+                    handleLinkClick(link.href); 
+                  } 
+                }}
+                className={`px-5 py-2.5 text-[12px] font-normal uppercase tracking-[0.15em] text-fg/85 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent font-[family:var(--font-body)] ${scrolled ? "text-[11px] tracking-[0.12em]" : ""}`}
+                style={{ fontFamily: 'var(--font-body), sans-serif' }}
+              >
+                <span className={`relative z-10 block ${scrolled ? "mr-[-0.12em]" : "mr-[-0.15em]"}`}>{link.label}</span>
+              </BubbleNavButton>
             ))}
-            <span className="pl-6 text-[11px] tracking-[0.18em] text-fg/70 uppercase select-none">Available for projects</span>
-            <a href="/contact" className="rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg transition-[transform,background-color] duration-200 ease-out-expo hover:bg-accent-bright active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">Connect</a>
           </nav>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded" aria-label={menuOpen ? "Close menu" : "Open menu"}>
-            <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "translate-y-[6.5px] rotate-45" : ""}`} />
-            <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "opacity-0" : ""}`} />
-            <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
-          </button>
+          
+          {/* Right: Actions */}
+          <div className="flex flex-1 justify-end items-center gap-6 z-10">
+            <div className="hidden md:flex items-center gap-4">
+              <span className={`hidden lg:block font-normal tracking-[0.18em] text-fg/70 uppercase select-none whitespace-nowrap transition-all duration-500 font-[family:var(--font-body)] ${scrolled ? "text-[10px] opacity-0 absolute pointer-events-none" : "text-[11px] opacity-100 relative"}`}>Available for projects</span>
+              <DirectionalLiquidButton
+                href="/contact"
+                className={`inline-flex shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent/80 bg-white/[0.02] font-normal uppercase text-fg shadow-[0_0_15px_rgba(0,0,0,0.15)] backdrop-blur-md transition-all duration-500 hover:border-transparent hover:shadow-2xl active:scale-[0.97] font-[family:var(--font-body)] ${scrolled ? "px-6 py-2 text-[11px] tracking-[0.12em]" : "px-7 py-2.5 text-[12px] tracking-[0.15em]"}`}
+                style={{ fontFamily: 'var(--font-body), sans-serif' }}
+              >
+                <span className={`relative z-10 -translate-y-px transition-colors duration-500 group-hover:text-white ${scrolled ? "mr-[-0.12em]" : "mr-[-0.15em]"}`}>Connect</span>
+              </DirectionalLiquidButton>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button onClick={() => setMenuOpen(!menuOpen)} className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent rounded" aria-label={menuOpen ? "Close menu" : "Open menu"}>
+              <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "translate-y-[6.5px] rotate-45" : ""}`} />
+              <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "opacity-0" : ""}`} />
+              <span aria-hidden="true" className={`block h-[1.5px] w-6 bg-fg transition-[transform,opacity] duration-300 ease-out-expo ${menuOpen ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
+            </button>
+          </div>
+          
         </div>
       </header>
       <div inert={!menuOpen} aria-hidden={!menuOpen} className={`fixed inset-0 z-40 flex flex-col bg-void/98 backdrop-blur-xl transition-[opacity,transform] duration-400 ease-out-expo md:hidden overscroll-contain ${menuOpen ? "pointer-events-auto opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-6"}`}>

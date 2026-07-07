@@ -15,8 +15,14 @@ const betha = localFont({
   display: "swap",
 });
 
-const manrope = Manrope({
+const mifetro = localFont({
+  src: "../../public/fonts/MifetroRegular.ttf",
   variable: "--font-body",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
@@ -45,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${florisa.variable} ${betha.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${florisa.variable} ${betha.variable} ${mifetro.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-void text-fg">
         <a

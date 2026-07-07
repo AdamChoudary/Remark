@@ -2,9 +2,9 @@
 
 const items = [
   { title: "Web Development", subtitle: "Architecture & Code", img: "/Enhance Image Quality Jul 06.jpeg" },
-  { title: "Brand Identity", subtitle: "Visual Design Systems", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
-  { title: "Conversational AI", subtitle: "Automated Intelligence", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
-  { title: "Creative Production", subtitle: "Content & Media", img: "/Image Quality Improvement 2K Jul 06.jpeg" },
+  { title: "Brand Identity", subtitle: "Visual Design Systems", img: "/Brand Identity Image 2K.jpeg" },
+  { title: "Conversational AI", subtitle: "Automated Intelligence", img: "/Conversational AI Professionalism 2K.jpeg" },
+  { title: "Creative Production", subtitle: "Content & Media", img: "/Creative Production Theme 2K Jul 06.jpeg" },
   { title: "Digital Marketing", subtitle: "Growth & Strategy", img: "/Background Image Text Jul 06.jpeg" },
 ];
 
