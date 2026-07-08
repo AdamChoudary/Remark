@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { MarkedWord } from "./MarkedWord";
 import { ScrollReveal } from "./ScrollReveal";
-import { AccentGlow, EdgeGeometry } from "./SvgPatterns";
+import { AccentGlow } from "./SvgPatterns";
 import { LiquidIconReveal } from "./LiquidIconReveal";
+import { LiquidSeparator } from "./LiquidSeparator";
+import { HoverMarquee } from "./HoverMarquee";
 
 const problems = [
   {
@@ -22,14 +23,8 @@ const problems = [
 ];
 
 export function Narrative() {
-  const [phase, setPhase] = useState<"problem" | "solution">("problem");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [solutionProgress, setSolutionProgress] = useState(0);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const containerRef = useRef<HTMLElement>(null);
-
   return (
-    <section ref={containerRef} id="process" className="relative bg-[#E6DFD6] pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden border-t border-ink/5">
+    <section id="process" className="relative bg-[#E6DFD6] pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden border-t border-ink/5">
       
       {/* Cinematic Background Elements (Light Theme) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[800px] bg-[radial-gradient(ellipse_at_top,var(--color-accent-subtle),transparent_70%)] opacity-30 pointer-events-none" />
@@ -51,57 +46,105 @@ export function Narrative() {
               <ScrollReveal 
                 key={i} 
                 delay={i * 100} 
-                className={`group flex flex-col md:flex-row md:items-center justify-between gap-12 lg:gap-24 w-full ${isReverse ? "md:flex-row-reverse" : ""}`}
+                className="w-full"
               >
-                
-                {/* Problem Content (70% width) */}
-                <div className={`flex flex-col gap-5 w-full md:w-[65%] lg:w-[70%] relative z-10`}>
-                  {/* Massive Number Index */}
-                  <div className="shrink-0 pt-2 mb-2">
-                    <span className="font-mono text-2xl md:text-3xl text-ink/20 transition-colors duration-500 group-hover:text-accent">
-                      0{i + 1}
-                    </span>
-                  </div>
-                  <h3 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.05] tracking-tight text-ink text-balance transition-all duration-500">
-                    {p.text}
-                  </h3>
-                  <p className="max-w-2xl text-base md:text-lg leading-relaxed text-ink/70 font-light tracking-wide font-[family:var(--font-body)]">
-                    {p.detail}
-                  </p>
+                {/* 
+                  Grid layout ensures EXACTLY the same column widths for every row.
+                  No flex sizing differences between items.
+                */}
+                <div
+                  className="grid items-center gap-12 lg:gap-20"
+                  style={{
+                    gridTemplateColumns: isReverse
+                      ? "minmax(200px, 280px) 1fr"  // icon | text
+                      : "1fr minmax(200px, 280px)", // text | icon
+                  }}
+                >
+                  {/* 
+                    Render order flipped for reverse rows so icon is always 
+                    in the correct grid column 
+                  */}
+                  {isReverse ? (
+                    <>
+                      {/* Icon Column (left on reverse) */}
+                      <div className="flex items-center justify-center pointer-events-none">
+                        <LiquidIconReveal 
+                          type={types[i]} 
+                          origin="left" 
+                          delay={i * 100 + 200} 
+                        />
+                      </div>
+                      {/* Text Column */}
+                      <div className="flex flex-col gap-5 relative z-10">
+                        <div className="shrink-0 pt-2 mb-2">
+                          <span className="font-mono text-2xl md:text-3xl text-ink/20">
+                            0{i + 1}
+                          </span>
+                        </div>
+                        <h3 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.05] tracking-tight text-ink text-balance">
+                          {p.text}
+                        </h3>
+                        <p className="max-w-2xl text-base md:text-lg leading-relaxed text-ink/70 font-light tracking-wide font-[family:var(--font-body)]">
+                          {p.detail}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Text Column */}
+                      <div className="flex flex-col gap-5 relative z-10">
+                        <div className="shrink-0 pt-2 mb-2">
+                          <span className="font-mono text-2xl md:text-3xl text-ink/20">
+                            0{i + 1}
+                          </span>
+                        </div>
+                        <h3 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.05] tracking-tight text-ink text-balance">
+                          {p.text}
+                        </h3>
+                        <p className="max-w-2xl text-base md:text-lg leading-relaxed text-ink/70 font-light tracking-wide font-[family:var(--font-body)]">
+                          {p.detail}
+                        </p>
+                      </div>
+                      {/* Icon Column (right on normal) */}
+                      <div className="flex items-center justify-center pointer-events-none">
+                        <LiquidIconReveal 
+                          type={types[i]} 
+                          origin="right" 
+                          delay={i * 100 + 200} 
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
-
-                {/* Liquid Morphing SVG Animation (30% width) */}
-                <div className="w-full md:w-[35%] lg:w-[30%] flex justify-center pointer-events-none">
-                  <LiquidIconReveal 
-                    type={types[i]} 
-                    origin={isReverse ? "left" : "right"} 
-                    delay={i * 100 + 200} 
-                  />
-                </div>
-                
               </ScrollReveal>
             );
           })}
         </div>
 
         {/* The Turn / The Solution */}
-        <div id="narrative-solution" className="relative border-t border-ink/10 pt-24 mt-32 md:pt-32 md:mt-40">
-          <div className="mb-12 flex items-center gap-4">
+        <div id="narrative-solution" className="relative pt-12 mt-20 md:pt-16 md:mt-24">
+          <LiquidSeparator />
+          
+          <div className="mb-8 mt-25 flex items-center gap-4 relative w-max z-50">
             <span className="h-px w-16 bg-ink/10" />
-            <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-accent uppercase">The Solution</span>
+            <HoverMarquee>
+              <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-accent uppercase whitespace-nowrap">The Solution</span>
+            </HoverMarquee>
           </div>
           
-          <ScrollReveal>
-            <p className="mb-4 font-display text-[clamp(2.5rem,6vw,4rem)] font-normal leading-[1.05] tracking-tight text-ink/40">
-              <MarkedWord word="Good enough" gesture="strike" /> isn't enough anymore.
-            </p>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={150}>
-            <p className="relative font-display text-[clamp(3.5rem,8vw,6rem)] font-normal leading-[1.0] tracking-tight text-ink">
-              We build <MarkedWord word="intelligent" /> digital ecosystems.
-            </p>
-          </ScrollReveal>
+          <div className="mt-40">
+            <ScrollReveal>
+              <div className="mb-4 font-display text-[clamp(2.5rem,6vw,4rem)] font-normal leading-[1.05] tracking-tight text-ink/40">
+                <MarkedWord word="Good enough" gesture="strike" /> isn't enough anymore.
+              </div>
+            </ScrollReveal>
+            
+            <ScrollReveal delay={150}>
+              <div className="relative font-display text-[clamp(3.5rem,8vw,6rem)] font-normal leading-[1.0] tracking-tight text-ink">
+                We build <MarkedWord word="intelligent" /> digital ecosystems.
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
         
       </div>

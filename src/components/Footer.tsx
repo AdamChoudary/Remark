@@ -1,7 +1,7 @@
 "use client";
 
 import { GridPattern } from "./SvgPatterns";
-import { SOCIALS, EMAIL, PHONE_PRIMARY } from "@/data/social";
+import { SOCIALS, EMAIL, PHONE_PRIMARY, PHONE_SECONDARY } from "@/data/social";
 
 export function Footer() {
   return (
@@ -72,7 +72,6 @@ export function Footer() {
           <div>
             <p className="mono mb-5 text-[10px] tracking-[0.2em] text-subtle uppercase">Contact</p>
             <div className="space-y-3.5 text-sm text-muted">
-              <p>Islamabad</p>
               <a
                 href={PHONE_PRIMARY.href}
                 className="block transition-colors duration-200 hover:text-fg
@@ -80,6 +79,19 @@ export function Footer() {
               >
                 {PHONE_PRIMARY.display}
               </a>
+              <a
+                href={PHONE_SECONDARY.href}
+                className="block transition-colors duration-200 hover:text-fg
+                  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+              >
+                {PHONE_SECONDARY.display}
+              </a>
+              
+              <div className="pt-2">
+                <p className="leading-relaxed">Office#104, Mezzanine Floor,</p>
+                <p className="leading-relaxed">Embassy Gardens, Sector C1,</p>
+                <p className="leading-relaxed">Bahria Enclave, Islamabad</p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const ICONS: Record<string, string[]> = {
   chat: [
@@ -29,9 +29,20 @@ function measurePath(d: string): number {
   return len;
 }
 
-function easeInOutQuad(t: number) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+function easeInOutCubic(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
 function easeOutQuart(t: number) { return 1 - Math.pow(1 - t, 4); }
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
+function clamp(x: number, lo: number, hi: number) { return Math.max(lo, Math.min(hi, x)); }
+
+// ── Wave simulation constants ──
+const SIM_N = 120;
+const WAVE_C = 0.4;        // Propagation speed (higher = faster ripple spread)
+const DAMP = 0.965;         // Energy decay (lower = ripples die faster)
+const MAX_DISP = 10;        // Max displacement px — keeps it subtle
+const INJ_RADIUS = 6;       // Injection width in cells — tight, focused
+const INJ_STRENGTH = 0.12;  // Very gentle injection per frame
 
 export function LiquidIconReveal({ type, origin, delay = 0 }: {
   type: "chat" | "process" | "web"; origin: "left" | "right"; delay?: number;
@@ -41,6 +52,26 @@ export function LiquidIconReveal({ type, origin, delay = 0 }: {
   const [triggered, setTriggered] = useState(false);
   const rafRef = useRef<number>(0);
   const t0Ref = useRef<number>(-1);
+
+  // Wave simulation buffers
+  const disp = useRef(new Float32Array(SIM_N));
+  const vel = useRef(new Float32Array(SIM_N));
+
+  // Raw cursor — NO smoothing for injection (instant response)
+  const cursor = useRef({ x: -9999, y: -9999, active: false });
+
+  const onMove = useCallback((e: MouseEvent) => {
+    const c = canvasRef.current;
+    if (!c) return;
+    const r = c.getBoundingClientRect();
+    cursor.current.x = e.clientX - r.left;
+    cursor.current.y = e.clientY - r.top;
+    cursor.current.active = true;
+  }, []);
+
+  const onLeave = useCallback(() => {
+    cursor.current.active = false;
+  }, []);
 
   useEffect(() => {
     const el = wrapRef.current;
@@ -54,12 +85,23 @@ export function LiquidIconReveal({ type, origin, delay = 0 }: {
   }, []);
 
   useEffect(() => {
+    const w = wrapRef.current;
+    if (!w) return;
+    const area = w.closest("section") || w.parentElement || w;
+    area.addEventListener("mousemove", onMove as EventListener);
+    area.addEventListener("mouseleave", onLeave as EventListener);
+    return () => {
+      area.removeEventListener("mousemove", onMove as EventListener);
+      area.removeEventListener("mouseleave", onLeave as EventListener);
+    };
+  }, [onMove, onLeave]);
+
+  useEffect(() => {
     if (!triggered) return;
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
 
-    // Measure overhang to start exactly at the screen edge
     const rect = wrap.getBoundingClientRect();
     const overhang = origin === "left"
       ? Math.round(rect.left)
@@ -81,211 +123,234 @@ export function LiquidIconReveal({ type, origin, delay = 0 }: {
       canvas.style.right = `-${overhang}px`;
       canvas.style.left = "auto";
     }
-    
+
     canvas.width = W * DPR;
     canvas.height = H * DPR;
     const ctx = canvas.getContext("2d")!;
     ctx.scale(DPR, DPR);
 
     const midY = H / 2;
-    // Tip position inside the visual container
-    const tipX = origin === "left" ? overhang + visW * 0.75 : visW * 0.25;
-    // Edge position (start of the wave)
-    const edgeX = origin === "left" ? -20 : W + 20;
 
-    // Icon setup
+    // Icon
     const iconStrings = ICONS[type];
     const lengths = iconStrings.map(measurePath);
     const p2ds = iconStrings.map(d => new Path2D(d));
-    const iconSize = Math.min(visW * 0.65, H * 0.65);
+    const iconSize = Math.min(visW * 0.50, H * 0.50, 150);
     const sc = iconSize / 100;
-    const ox = tipX - (100 * sc) / 2;
+    const iconCX = origin === "left" ? overhang + visW * 0.5 : visW * 0.5;
+    const ox = iconCX - (100 * sc) / 2;
     const oy = midY - (100 * sc) / 2;
 
-    // Animation settings
-    const TOTAL = 4500; // Total animation time
-    const FLOW_END = 0.35; // Wave reaches the icon
-    const HOLD_END = 0.70; // Wave holds while icon draws
-    const FADE_END = 0.95; // Wave gracefully fades out
+    const tipX = iconCX;
+    const edgeX = origin === "left" ? -20 : W + 20;
+    const dist = Math.abs(tipX - edgeX);
+    const tipHH = iconSize * 0.55;
+
+    // Sim coordinate mapping
+    const sMin = Math.min(edgeX, tipX);
+    const sMax = Math.max(edgeX, tipX);
+    const sSpan = sMax - sMin;
+    const xToI = (x: number) => clamp(((x - sMin) / sSpan) * (SIM_N - 1), 0, SIM_N - 1);
+    const iDisp = (x: number) => {
+      const fi = clamp(((x - sMin) / sSpan) * (SIM_N - 1), 0, SIM_N - 2);
+      const i0 = Math.floor(fi);
+      const f = fi - i0;
+      return disp.current[i0] * (1 - f) + disp.current[i0 + 1] * f;
+    };
+
+    // Get halfH at a given x (base shape without ripples)
+    const baseHH = (x: number) => {
+      const p = clamp(Math.abs(x - edgeX) / dist, 0, 1);
+      const t = p * p * (3 - 2 * p);
+      return lerp(H * 0.48, tipHH, t);
+    };
+
+    const TOTAL = 4000;
+    const FLOW_END = 0.40;
+    const ICON_START = 0.35;
+    const SEGS = 90;
 
     const draw = (ts: number) => {
       if (t0Ref.current < 0) t0Ref.current = ts;
-      const raw = Math.min((ts - t0Ref.current) / TOTAL, 1);
-      const osc = ts * 0.003; // Animation time for waves
+      const elapsed = ts - t0Ref.current;
+      const raw = Math.min(elapsed / TOTAL, 1);
+      const osc = ts * 0.0008;
 
-      ctx.clearRect(0, 0, W, H);
+      const d = disp.current;
+      const v = vel.current;
+      const c = cursor.current;
 
-      // Calculate leading edge
-      let flowProgress = 0;
-      let opacity = 1;
+      // ── INJECT CURSOR RIPPLE ──
+      // Use raw cursor position — zero lag
+      if (c.active && raw >= FLOW_END) {
+        const hh = baseHH(c.x);
+        const topY = midY - hh;
+        const botY = midY + hh;
 
-      if (raw < FLOW_END) {
-        flowProgress = easeInOutQuad(raw / FLOW_END);
-      } else if (raw < HOLD_END) {
-        flowProgress = 1;
-      } else if (raw < FADE_END) {
-        flowProgress = 1;
-        opacity = 1 - easeInOutQuad((raw - HOLD_END) / (FADE_END - HOLD_END));
-      } else {
-        flowProgress = 1;
-        opacity = 0;
+        // Is cursor within or near the water body?
+        if (c.y > topY - 50 && c.y < botY + 50) {
+          const ci = xToI(c.x);
+          // Direction: cursor above center → push surface up (negative disp)
+          //            cursor below center → push surface down (positive disp)
+          const dir = c.y < midY ? 1 : -1;
+          // Proximity to surface amplifies effect
+          const distToEdge = c.y < midY
+            ? Math.max(0, c.y - topY + 30) / 30
+            : Math.max(0, botY - c.y + 30) / 30;
+          const prox = clamp(distToEdge, 0.2, 1);
+
+          for (let k = -INJ_RADIUS; k <= INJ_RADIUS; k++) {
+            const idx = Math.round(ci) + k;
+            if (idx < 1 || idx >= SIM_N - 1) continue;
+            const t = 1 - Math.abs(k) / (INJ_RADIUS + 1);
+            const falloff = t * t; // quadratic falloff
+            v[idx] += dir * INJ_STRENGTH * falloff * prox;
+          }
+        }
       }
 
-      const currentLeadingX = lerp(edgeX, tipX, flowProgress);
-      const distToTip = Math.abs(tipX - edgeX);
-      const currentDist = Math.abs(currentLeadingX - edgeX);
-      
-      if (currentDist > 2 && opacity > 0.01) {
+      // ── STEP WAVE EQUATION ──
+      for (let i = 1; i < SIM_N - 1; i++) {
+        v[i] += WAVE_C * WAVE_C * (d[i - 1] + d[i + 1] - 2 * d[i]);
+      }
+      for (let i = 0; i < SIM_N; i++) {
+        v[i] *= DAMP;
+        d[i] += v[i];
+        d[i] = clamp(d[i], -MAX_DISP, MAX_DISP);
+      }
+      // Absorbing boundaries
+      d[0] = 0; d[SIM_N - 1] = 0;
+      v[0] = 0; v[SIM_N - 1] = 0;
+
+      // ── DRAW ──
+      ctx.clearRect(0, 0, W, H);
+
+      const fp = raw < FLOW_END ? easeInOutCubic(raw / FLOW_END) : 1;
+      const leadX = lerp(edgeX, tipX, fp);
+      const leadD = Math.abs(leadX - edgeX);
+
+      if (leadD > 2) {
         ctx.save();
-        ctx.globalAlpha = opacity;
-        
-        // Define the path of the flowing water
+        const segDx = (leadX - edgeX) / SEGS;
+        const top: { x: number; y: number }[] = [];
+        const bot: { x: number; y: number }[] = [];
+
+        for (let i = 0; i <= SEGS; i++) {
+          const x = edgeX + i * segDx;
+          let hh = baseHH(x);
+
+          // Apply wave displacement (only after flow completes)
+          if (raw >= FLOW_END) {
+            hh += iDisp(x);
+            hh = Math.max(hh, 2);
+          }
+
+          // Subtle ambient wave
+          const p = clamp(Math.abs(x - edgeX) / dist, 0, 1);
+          const a = hh * 0.035;
+          const wt = Math.sin(p * 7 - osc * 2) * a;
+          const wb = Math.sin(p * 7 - osc * 2 + 0.6) * a;
+
+          top.push({ x, y: midY - hh + wt });
+          bot.push({ x, y: midY + hh + wb });
+        }
+
+        // ── Smooth Bézier outline ──
         ctx.beginPath();
-        
-        const segments = 100;
-        const dx = (currentLeadingX - edgeX) / segments;
-        
-        // Top edge
-        for (let i = 0; i <= segments; i++) {
-          const x = edgeX + i * dx;
-          // Progress relative to the total distance to the tip
-          const p = Math.abs(x - edgeX) / distToTip; 
-          
-          // Use power of 4 to keep the wave MASSIVE for most of the screen
-          // and only taper sharply right before the icon.
-          const taper = Math.pow(p, 5); 
-          const baseHalfH = lerp(H * 0.48, 2, taper);
-          
-          // Organic wave undulations
-          // The closer to the tip, the smaller the waves
-          const waveAmp = baseHalfH * 0.15;
-          const wave = Math.sin(p * 15 - osc * 3) * waveAmp + 
-                       Math.sin(p * 25 - osc * 5.2) * (waveAmp * 0.5);
-                       
-          const y = midY - baseHalfH + wave;
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+        ctx.moveTo(top[0].x, top[0].y);
+        for (let i = 0; i < top.length - 1; i++) {
+          ctx.quadraticCurveTo(
+            top[i].x, top[i].y,
+            (top[i].x + top[i + 1].x) / 2,
+            (top[i].y + top[i + 1].y) / 2
+          );
         }
-        
-        // Front cap (rounded leading edge)
-        const frontP = currentDist / distToTip;
-        const frontTaper = Math.pow(frontP, 5);
-        const frontHalfH = lerp(H * 0.48, 2, frontTaper);
-        ctx.arc(currentLeadingX, midY, frontHalfH, -Math.PI/2, Math.PI/2, origin === "right");
-        
-        // Bottom edge
-        for (let i = segments; i >= 0; i--) {
-          const x = edgeX + i * dx;
-          const p = Math.abs(x - edgeX) / distToTip;
-          const taper = Math.pow(p, 5);
-          const baseHalfH = lerp(H * 0.48, 2, taper);
-          
-          const waveAmp = baseHalfH * 0.15;
-          const wave = Math.sin(p * 17 - osc * 2.8) * waveAmp + 
-                       Math.sin(p * 22 - osc * 4.9) * (waveAmp * 0.5);
-                       
-          const y = midY + baseHalfH + wave;
-          ctx.lineTo(x, y);
+        ctx.lineTo(top[top.length - 1].x, top[top.length - 1].y);
+
+        // Cap
+        const lt = top[top.length - 1], lb = bot[bot.length - 1];
+        const cr = Math.max((lb.y - lt.y) / 2, 1);
+        ctx.arc(lt.x, (lt.y + lb.y) / 2, cr, -Math.PI / 2, Math.PI / 2, origin === "right");
+
+        // Bottom reversed
+        for (let i = bot.length - 1; i > 0; i--) {
+          ctx.quadraticCurveTo(
+            bot[i].x, bot[i].y,
+            (bot[i].x + bot[i - 1].x) / 2,
+            (bot[i].y + bot[i - 1].y) / 2
+          );
         }
+        ctx.lineTo(bot[0].x, bot[0].y);
         ctx.closePath();
-        
-        // Fill gradient
+
+        // Fill
         const grad = ctx.createLinearGradient(edgeX, 0, tipX, 0);
-        grad.addColorStop(0, "rgba(180, 30, 30, 0.95)");
-        grad.addColorStop(0.5, "rgba(160, 25, 25, 0.9)");
-        grad.addColorStop(1, "rgba(130, 15, 15, 0.8)");
+        grad.addColorStop(0, "rgba(155, 24, 24, 0.96)");
+        grad.addColorStop(0.4, "rgba(148, 22, 22, 0.94)");
+        grad.addColorStop(0.8, "rgba(138, 20, 20, 0.92)");
+        grad.addColorStop(1, "rgba(128, 18, 18, 0.90)");
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // Inner highlight for volume/glass effect
+        // Specular
         ctx.save();
         ctx.clip();
-        const highlightGrad = ctx.createLinearGradient(0, midY - H * 0.3, 0, midY + H * 0.3);
-        highlightGrad.addColorStop(0, "rgba(255, 150, 150, 0.2)");
-        highlightGrad.addColorStop(0.5, "rgba(255, 150, 150, 0.05)");
-        highlightGrad.addColorStop(1, "rgba(255, 150, 150, 0)");
-        ctx.fillStyle = highlightGrad;
+        const hl = ctx.createLinearGradient(0, midY - H * 0.4, 0, midY);
+        hl.addColorStop(0, "rgba(255, 155, 155, 0.08)");
+        hl.addColorStop(1, "rgba(255, 155, 155, 0)");
+        ctx.fillStyle = hl;
         ctx.fillRect(0, 0, W, H);
-        
-        // Flowing internal lines for fluid dynamics
-        ctx.strokeStyle = "rgba(255, 120, 120, 0.15)";
-        ctx.lineWidth = 1.5;
+
+        // Flow lines
+        ctx.globalAlpha = 0.05;
+        ctx.strokeStyle = "rgba(255, 140, 140, 1)";
+        ctx.lineWidth = 0.7;
         for (let j = -2; j <= 2; j++) {
           if (j === 0) continue;
           ctx.beginPath();
-          for (let i = 0; i <= segments; i++) {
-            const x = edgeX + i * dx;
-            const p = Math.abs(x - edgeX) / distToTip;
-            const taper = Math.pow(p, 5);
-            const baseHalfH = lerp(H * 0.48, 2, taper);
-            
-            const wave = Math.sin(p * 20 - osc * 4 + j) * baseHalfH * 0.1;
-            const yOffset = j * baseHalfH * 0.3;
-            
-            const y = midY + yOffset + wave;
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
+          for (let i = 0; i <= SEGS; i++) {
+            const x = edgeX + i * segDx;
+            let fh = baseHH(x);
+            if (raw >= FLOW_END) { fh += iDisp(x); fh = Math.max(fh, 2); }
+            const p = clamp(Math.abs(x - edgeX) / dist, 0, 1);
+            const w = Math.sin(p * 9 - osc * 1.6 + j * 0.8) * fh * 0.025;
+            const y = midY + j * fh * 0.2 + w;
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
           }
           ctx.stroke();
         }
+        ctx.globalAlpha = 1;
         ctx.restore();
-        
-        // Spray particles at the leading edge while flowing
-        if (raw < FLOW_END) {
-          const particleCount = 6;
-          for(let i=0; i<particleCount; i++) {
-             const py = midY + (Math.random() - 0.5) * frontHalfH * 3;
-             const px = currentLeadingX + (origin === "left" ? 1 : -1) * (Math.random() * 20);
-             const pr = Math.random() * 2 + 1;
-             ctx.beginPath();
-             ctx.arc(px, py, pr, 0, Math.PI*2);
-             ctx.fillStyle = `rgba(220, 50, 50, ${Math.random() * 0.6})`;
-             ctx.fill();
-          }
-        }
-        
         ctx.restore();
       }
 
-      // ── Icon drawing ──
-      // Icon starts drawing slightly before the flow reaches the tip
-      const ICON_START = 0.30; 
+      // ── ICON ──
       if (raw >= ICON_START) {
-        const iconRaw = Math.min((raw - ICON_START) / (1 - ICON_START), 1);
+        const ir = clamp((raw - ICON_START) / (1 - ICON_START), 0, 1);
         ctx.save();
         ctx.translate(ox, oy);
         ctx.scale(sc, sc);
-        
-        // Draw glow behind icon for impact
-        if (iconRaw > 0) {
-          ctx.shadowColor = "rgba(180, 30, 30, 0.6)";
-          ctx.shadowBlur = 15;
-        }
-        
-        ctx.strokeStyle = "rgb(148, 22, 22)";
+        if (ir > 0) { ctx.shadowColor = "rgba(230,221,212,0.35)"; ctx.shadowBlur = 10; }
+        ctx.strokeStyle = "#E6DDD4";
         ctx.lineWidth = 4.5 / sc;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
-        
         const n = p2ds.length;
-        p2ds.forEach((p, i) => {
-          const s = i / n;
-          const e = (i + 1) / n;
-          // Smooth ease out for drawing the strokes
-          const lt = easeOutQuart(Math.max(0, Math.min(1, (iconRaw - s) / (e - s + 0.1))));
-          
+        p2ds.forEach((p2, i) => {
+          const s = i / n, e = (i + 1) / n;
+          const lt = easeOutQuart(clamp((ir - s) / (e - s + 0.1), 0, 1));
           if (lt > 0) {
             ctx.setLineDash([lengths[i] * lt, lengths[i]]);
             ctx.lineDashOffset = 0;
             ctx.beginPath();
-            ctx.stroke(p);
+            ctx.stroke(p2);
           }
         });
         ctx.setLineDash([]);
         ctx.restore();
       }
 
-      if (raw < 1) rafRef.current = requestAnimationFrame(draw);
+      rafRef.current = requestAnimationFrame(draw);
     };
 
     const tid = window.setTimeout(() => {
@@ -299,8 +364,8 @@ export function LiquidIconReveal({ type, origin, delay = 0 }: {
   return (
     <div
       ref={wrapRef}
-      className="relative w-full shrink-0 self-stretch pointer-events-none"
-      style={{ overflow: "visible", minHeight: "240px" }}
+      className="relative w-full shrink-0 self-stretch"
+      style={{ overflow: "visible", minHeight: "240px", aspectRatio: "1 / 1", maxHeight: "320px" }}
     >
       <canvas ref={canvasRef} style={{ display: "block" }} />
     </div>
