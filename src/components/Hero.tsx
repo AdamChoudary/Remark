@@ -138,7 +138,7 @@ export function Hero() {
         
       </div>
 
-      <div className="absolute inset-x-0 top-20 z-20 mx-auto flex w-full max-w-7xl justify-end px-6 md:top-24 lg:top-28 md:px-8">
+      <div className="hidden sm:flex absolute inset-x-0 top-20 z-20 mx-auto w-full max-w-7xl justify-end px-6 md:top-24 lg:top-28 md:px-8">
         <div className="max-w-xs text-right animate-fade-in-up md:max-w-sm" style={{ animationDelay: "0.45s" }}>
           <p className="text-base leading-relaxed text-muted text-pretty md:text-lg">
             Merging high-end design with advanced AI and digital engineering.

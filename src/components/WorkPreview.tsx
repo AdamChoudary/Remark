@@ -65,16 +65,16 @@ const workItems = [
 export function WorkPreview() {
   const [rotationOffset, setRotationOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [screenSize, setScreenSize] = useState<"mobile" | "tablet" | "desktop">("desktop");
 
   const dragStartX = useRef(0);
   const startRotation = useRef(0);
   const velocityRef = useRef(0);
   const lastXRef = useRef(0);
+  const lastTimeRef = useRef<number>(0);
   const animationFrameIdRef = useRef<number | null>(null);
 
-  // Responsive Screen Dimensions Check
+  // Screen resize listener for responsive arc radius
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
@@ -104,7 +104,7 @@ export function WorkPreview() {
     (clientX: number) => {
       if (!isDragging) return;
       const deltaX = clientX - dragStartX.current;
-      velocityRef.current = (clientX - lastXRef.current) * 0.1;
+      velocityRef.current = (clientX - lastXRef.current) * 0.12;
       lastXRef.current = clientX;
       setRotationOffset(startRotation.current + deltaX * (screenSize === "mobile" ? 0.22 : 0.15));
     },
@@ -115,7 +115,7 @@ export function WorkPreview() {
     setIsDragging(false);
   }, []);
 
-  // Global Window Event Listeners for uninterrupted drag across entire screen
+  // Global Window Listeners to make dragging 100% continuous and never drop
   useEffect(() => {
     if (!isDragging) return;
 
@@ -137,27 +137,43 @@ export function WorkPreview() {
     };
   }, [isDragging, handleDragMove, handleDragEnd]);
 
-  // Inertial Smooth Physics Animation Loop
+  // SILKY SMOOTH NON-STOPPING CONTINUOUS ROTATION (60fps/120fps high-precision loop)
   useEffect(() => {
-    const animate = () => {
-      if (!isDragging) {
-        if (Math.abs(velocityRef.current) > 0.005) {
-          setRotationOffset((prev) => prev + velocityRef.current);
-          velocityRef.current *= 0.93;
-        } else if (!isHovered) {
-          setRotationOffset((prev) => prev + 0.035);
+    const animate = (timestamp: number) => {
+      if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+      const deltaTime = Math.min(32, timestamp - lastTimeRef.current);
+      lastTimeRef.current = timestamp;
+
+      // Base speed constant (degrees per ms)
+      const baseSpeed = 0.035 * (deltaTime / 16.666);
+
+      setRotationOffset((prev) => {
+        if (isDragging) {
+          return prev; // Controlled by drag move
         }
-      }
+        
+        // Inertia friction decay smoothly returning to base continuous motion
+        if (Math.abs(velocityRef.current) > 0.005) {
+          const nextVelocity = velocityRef.current * 0.94;
+          velocityRef.current = nextVelocity;
+          return prev + nextVelocity + baseSpeed;
+        }
+
+        // NON-STOPPING continuous rotation ALWAYS active
+        return prev + baseSpeed;
+      });
+
       animationFrameIdRef.current = requestAnimationFrame(animate);
     };
+
     animationFrameIdRef.current = requestAnimationFrame(animate);
 
     return () => {
       if (animationFrameIdRef.current) cancelAnimationFrame(animationFrameIdRef.current);
     };
-  }, [isDragging, isHovered]);
+  }, [isDragging]);
 
-  // Dynamically calculate responsive radius & center Y for mobile, tablet, and desktop
+  // Pre-calculate 80% Arc Rotation Card Positions
   const cards = useMemo(() => {
     const total = workItems.length;
     const step = 360 / total;
@@ -220,18 +236,16 @@ export function WorkPreview() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
-        {/* 80% Arc Stage Container - Mobile & Desktop Responsive Scaling */}
+        {/* 80% Arc Stage Container - Non-stopping smooth continuous rotation */}
         <div
           onMouseDown={(e) => handleDragStart(e.clientX)}
           onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
           className="relative w-full h-[280px] sm:h-[420px] md:h-[540px] flex items-center justify-center cursor-grab active:cursor-grabbing z-30"
         >
           {cards.map((card) => (
             <div
               key={card.id}
-              className={`absolute w-[115px] h-[150px] sm:w-[180px] sm:h-[230px] md:w-[220px] md:h-[275px] rounded-[20px] sm:rounded-[28px] overflow-hidden border border-black/15 bg-[#12161f] shadow-2xl transition-transform duration-300 ease-out group hover:border-accent/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${
+              className={`absolute w-[115px] h-[150px] sm:w-[180px] sm:h-[230px] md:w-[220px] md:h-[275px] rounded-[20px] sm:rounded-[28px] overflow-hidden border border-black/15 bg-[#12161f] shadow-2xl transition-transform duration-75 ease-out group hover:border-accent/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${
                 !card.isVisible ? "pointer-events-none opacity-0" : ""
               }`}
               style={{
@@ -273,7 +287,7 @@ export function WorkPreview() {
           ))}
         </div>
 
-        {/* Central Editorial Content Block - Mobile Responsive Position */}
+        {/* Central Editorial Content Block - Elevated in upper arch dome */}
         <div className="text-center max-w-3xl mx-auto -mt-10 sm:-mt-24 md:-mt-48 relative z-10 space-y-4 sm:space-y-6 pointer-events-none">
           
           {/* Studio Luxury Eyebrow Badge */}
@@ -308,7 +322,7 @@ export function WorkPreview() {
 
         </div>
 
-        {/* Clean Bottom 3-Column Feature Grid - Responsive Mobile Layout */}
+        {/* Clean Bottom 3-Column Feature Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-16 sm:mt-24 pt-10 sm:pt-12 border-t border-[#0b0d10]/15 text-center">
           
           <div className="space-y-2 sm:space-y-3 px-4">
