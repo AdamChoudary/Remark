@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { TrustStrip } from "@/components/TrustStrip";
 import { Narrative } from "@/components/Narrative";
-import { Capabilities } from "@/components/Capabilities";
+import { ArchitecturalDesign } from "@/components/ArchitecturalDesign/index";
 import { WorkPreview } from "@/components/WorkPreview";
 import { Testimonial } from "@/components/Testimonial";
 import { Contact } from "@/components/Contact";
@@ -16,7 +16,7 @@ export default function Home() {
         <Hero />
         <TrustStrip />
         <Narrative />
-        <Capabilities />
+        <ArchitecturalDesign />
         <WorkPreview />
         <Testimonial />
         <Contact />
@@ -25,3 +25,5 @@ export default function Home() {
     </>
   );
 }
+
+
