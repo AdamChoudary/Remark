@@ -34,11 +34,10 @@ export function LiquidDistortionImage({
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: false, // Performance optimization
+        antialias: false,
         powerPreference: "high-performance",
-        precision: "mediump", // Medium precision shader for GPU speed
+        precision: "mediump",
       });
-      // Cap at 1.5x device pixel ratio for smooth 60fps rendering without GPU overload
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     } catch {
       return;
@@ -64,7 +63,6 @@ export function LiquidDistortionImage({
       }
     `;
 
-    // Shery.js Style High-Performance WebGL Shader
     const fragmentShader = `
       precision mediump float;
       uniform sampler2D uTexture;
@@ -113,7 +111,6 @@ export function LiquidDistortionImage({
         }
         vec2 uv = (st - 0.5) * uvRatio + 0.5;
 
-        // Liquid wave on mouse movement
         vec2 distVec = st - uMouse;
         float dist = length(distVec);
 
@@ -123,16 +120,14 @@ export function LiquidDistortionImage({
 
         vec2 offset = normalize(distVec + vec2(0.001)) * (wave * 0.04 + noiseVal);
 
-        // Chromatic RGB dispersion
         float r = texture2D(uTexture, uv + offset * 1.15).r;
         float g = texture2D(uTexture, uv + offset).g;
         float b = texture2D(uTexture, uv + offset * 0.85).b;
 
         vec4 texColor = vec4(r, g, b, 1.0);
 
-        // 100% Full Opacity on Left, Top, and Bottom. Smooth Right-Side Fade into #0b0d10
         float rightBlend = smoothstep(1.0, 0.45, st.x);
-        vec4 bgVoid = vec4(0.043, 0.051, 0.063, 1.0); // #0b0d10
+        vec4 bgVoid = vec4(0.043, 0.051, 0.063, 1.0);
 
         gl_FragColor = mix(bgVoid, texColor, rightBlend);
       }
@@ -188,7 +183,6 @@ export function LiquidDistortionImage({
 
     window.addEventListener("resize", resize, { passive: true });
 
-    // IntersectionObserver to pause rendering when canvas is offscreen (Saves CPU/GPU)
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -204,7 +198,7 @@ export function LiquidDistortionImage({
 
     const render = () => {
       animationFrameId = requestAnimationFrame(render);
-      if (!isVisible) return; // Skip rendering when out of viewport!
+      if (!isVisible) return;
 
       const elapsedTime = clock.getElapsedTime();
 
@@ -267,20 +261,22 @@ export function LiquidDistortionImage({
       className={`relative w-full h-full min-h-[500px] lg:min-h-[660px] overflow-hidden ${className}`}
       style={{ transform: "translateZ(0)", willChange: "transform" }}
     >
-      {/* WebGL Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full object-cover z-0 cursor-pointer"
+      {/* Permanent Static Base Image - Guarantees Instant Zero-Flicker Page Load */}
+      <img
+        src={imageSrc}
+        alt={alt}
+        loading="eager"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover z-0"
       />
 
-      {!loaded && (
-        <img
-          src={imageSrc}
-          alt={alt}
-          loading="eager"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        />
-      )}
+      {/* WebGL Shader Canvas - Smoothly Fades In Once Compiled */}
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 w-full h-full object-cover z-10 cursor-pointer transition-opacity duration-700 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
     </div>
   );
 }

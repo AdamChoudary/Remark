@@ -193,6 +193,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${cranio.variable} ${betha.variable} ${mifetro.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <head>
@@ -204,7 +205,7 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body className="min-h-full flex flex-col bg-void text-fg">
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-void text-fg">
         <a
           href="#main-content"
           className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-[60] focus-visible:rounded focus-visible:bg-accent focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:text-white focus-visible:outline-none"

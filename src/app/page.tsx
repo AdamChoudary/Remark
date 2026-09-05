@@ -4,8 +4,6 @@ import { TrustStrip } from "@/components/TrustStrip";
 import { Narrative } from "@/components/Narrative";
 import { ArchitecturalDesign } from "@/components/ArchitecturalDesign/index";
 import { WorkPreview } from "@/components/WorkPreview";
-import { Testimonial } from "@/components/Testimonial";
-import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -18,8 +16,6 @@ export default function Home() {
         <Narrative />
         <ArchitecturalDesign />
         <WorkPreview />
-        <Testimonial />
-        <Contact />
       </main>
       <Footer />
     </>

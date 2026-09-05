@@ -13,19 +13,34 @@ export function Hero() {
   const animationRef = useRef<number>(0);
 
   useEffect(() => {
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+
     const animate = () => {
-      // Smooth liquid following physics
-      current.current.x += (target.current.x - current.current.x) * 0.18;
-      current.current.y += (target.current.y - current.current.y) * 0.18;
-      
-      if (overlayRef.current) {
-        overlayRef.current.style.setProperty('--x', `${current.current.x}px`);
-        overlayRef.current.style.setProperty('--y', `${current.current.y}px`);
+      if (isVisible) {
+        current.current.x += (target.current.x - current.current.x) * 0.18;
+        current.current.y += (target.current.y - current.current.y) * 0.18;
+        
+        if (overlayRef.current) {
+          overlayRef.current.style.setProperty('--x', `${current.current.x}px`);
+          overlayRef.current.style.setProperty('--y', `${current.current.y}px`);
+        }
       }
       animationRef.current = requestAnimationFrame(animate);
     };
     animationRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationRef.current!);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animationRef.current!);
+    };
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {

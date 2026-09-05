@@ -91,7 +91,7 @@ export function WorkPreview() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Global Mouse & Touch Drag Handlers
+  // Drag Handlers
   const handleDragStart = (clientX: number) => {
     setIsDragging(true);
     dragStartX.current = clientX;
@@ -115,7 +115,7 @@ export function WorkPreview() {
     setIsDragging(false);
   }, []);
 
-  // Global Window Listeners to make dragging 100% continuous and never drop
+  // Global Window Event Listeners for seamless dragging everywhere
   useEffect(() => {
     if (!isDragging) return;
 
@@ -137,29 +137,28 @@ export function WorkPreview() {
     };
   }, [isDragging, handleDragMove, handleDragEnd]);
 
-  // SILKY SMOOTH NON-STOPPING CONTINUOUS ROTATION (60fps/120fps high-precision loop)
+  // SILKY SMOOTH CONTINUOUS ROTATION - ALWAYS ACTIVE & NEVER STOPS ON HOVER
   useEffect(() => {
     const animate = (timestamp: number) => {
       if (!lastTimeRef.current) lastTimeRef.current = timestamp;
       const deltaTime = Math.min(32, timestamp - lastTimeRef.current);
       lastTimeRef.current = timestamp;
 
-      // Base speed constant (degrees per ms)
+      // Constant rotational speed (degrees per frame)
       const baseSpeed = 0.035 * (deltaTime / 16.666);
 
       setRotationOffset((prev) => {
         if (isDragging) {
-          return prev; // Controlled by drag move
+          return prev;
         }
-        
-        // Inertia friction decay smoothly returning to base continuous motion
+
         if (Math.abs(velocityRef.current) > 0.005) {
           const nextVelocity = velocityRef.current * 0.94;
           velocityRef.current = nextVelocity;
           return prev + nextVelocity + baseSpeed;
         }
 
-        // NON-STOPPING continuous rotation ALWAYS active
+        // Always spins continuously without stopping
         return prev + baseSpeed;
       });
 
@@ -173,7 +172,7 @@ export function WorkPreview() {
     };
   }, [isDragging]);
 
-  // Pre-calculate 80% Arc Rotation Card Positions
+  // Calculate 80% Arc Rotation Card Positions
   const cards = useMemo(() => {
     const total = workItems.length;
     const step = 360 / total;
@@ -199,7 +198,7 @@ export function WorkPreview() {
 
       const cosVal = Math.cos(angleRad);
       
-      // 80% Upper Arc Rotation Visibility Cutoff (cosVal >= -0.28)
+      // 80% Upper Arc Visibility Cutoff (cosVal >= -0.28)
       let opacity = 0;
       if (cosVal >= -0.28) {
         opacity = Math.min(1, (cosVal + 0.28) / 0.35);
@@ -236,7 +235,7 @@ export function WorkPreview() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
-        {/* 80% Arc Stage Container - Non-stopping smooth continuous rotation */}
+        {/* 80% Arc Stage Container */}
         <div
           onMouseDown={(e) => handleDragStart(e.clientX)}
           onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
@@ -245,44 +244,48 @@ export function WorkPreview() {
           {cards.map((card) => (
             <div
               key={card.id}
-              className={`absolute w-[115px] h-[150px] sm:w-[180px] sm:h-[230px] md:w-[220px] md:h-[275px] rounded-[20px] sm:rounded-[28px] overflow-hidden border border-black/15 bg-[#12161f] shadow-2xl transition-transform duration-75 ease-out group hover:border-accent/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${
+              className={`absolute w-[115px] h-[150px] sm:w-[180px] sm:h-[230px] md:w-[220px] md:h-[275px] rounded-[20px] sm:rounded-[28px] overflow-hidden border border-black/15 bg-[#12161f] shadow-2xl group ${
                 !card.isVisible ? "pointer-events-none opacity-0" : ""
               }`}
               style={{
+                // Pure JS 60fps transform without CSS transition conflict so motion NEVER freezes on hover
                 transform: `translate3d(${card.x}px, ${card.y}px, 0px) rotate(${card.rotation}deg) scale(${card.scale})`,
                 opacity: card.opacity,
                 zIndex: card.zIndex,
               }}
             >
-              {/* Card Image with Hover Zoom */}
-              <img
-                src={card.image}
-                alt={card.name}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 pointer-events-none"
-              />
+              {/* Inner Wrapper handling Hover Micro-Animations smoothly */}
+              <div className="relative w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+                {/* Card Image with Hover Zoom */}
+                <img
+                  src={card.image}
+                  alt={card.name}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 pointer-events-none"
+                />
 
-              {/* Top Glass Badge Indicator */}
-              <div className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 right-2.5 sm:right-4 flex items-center justify-between pointer-events-none">
-                <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[8px] sm:text-[9px] font-mono tracking-widest text-white/80 uppercase">
-                  {card.id}
-                </span>
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
-                  <span className="text-white text-[10px] sm:text-xs">→</span>
+                {/* Top Glass Badge Indicator */}
+                <div className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 right-2.5 sm:right-4 flex items-center justify-between pointer-events-none">
+                  <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[8px] sm:text-[9px] font-mono tracking-widest text-white/80 uppercase">
+                    {card.id}
+                  </span>
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                    <span className="text-white text-[10px] sm:text-xs">→</span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Card Gradient & Typography Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent p-3 sm:p-5 flex flex-col justify-end transition-opacity duration-300 pointer-events-none">
-                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-accent font-semibold mb-0.5 sm:mb-1 transition-transform duration-300 group-hover:-translate-y-0.5">
-                  {card.category}
-                </span>
-                <h4 className="text-xs sm:text-base font-serif font-medium text-white leading-snug transition-transform duration-300 group-hover:-translate-y-0.5">
-                  {card.name}
-                </h4>
-              </div>
+                {/* Card Gradient & Typography Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent p-3 sm:p-5 flex flex-col justify-end transition-opacity duration-300 pointer-events-none">
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-accent font-semibold mb-0.5 sm:mb-1 transition-transform duration-300 group-hover:-translate-y-0.5">
+                    {card.category}
+                  </span>
+                  <h4 className="text-xs sm:text-base font-serif font-medium text-white leading-snug transition-transform duration-300 group-hover:-translate-y-0.5">
+                    {card.name}
+                  </h4>
+                </div>
 
-              {/* Glossy Sheen Micro Highlight */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                {/* Glossy Sheen Micro Highlight */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </div>
             </div>
           ))}
         </div>
