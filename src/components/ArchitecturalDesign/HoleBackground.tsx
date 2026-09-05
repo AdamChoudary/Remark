@@ -14,16 +14,19 @@ export type HoleBackgroundProps = React.ComponentProps<"div"> & {
 };
 
 export function HoleBackground({
-  strokeColor = "#333333",
-  numberOfLines = 40,
-  numberOfDiscs = 40,
+  strokeColor = "#525866",
+  numberOfLines = 44,
+  numberOfDiscs = 44,
   particleRGBColor = [220, 220, 220],
   className,
   children,
   ...props
 }: HoleBackgroundProps) {
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const animationFrameIdRef = React.useRef<number>(0);
+  const isVisibleRef = React.useRef<boolean>(true);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const stateRef = React.useRef<any>({
     discs: [],
@@ -70,7 +73,7 @@ export function HoleBackground({
     stateRef.current.render = {
       width: rect.width,
       height: rect.height,
-      dpi: window.devicePixelRatio || 1,
+      dpi: Math.min(window.devicePixelRatio || 1, 1.5),
     };
     canvas.width = stateRef.current.render.width * stateRef.current.render.dpi;
     canvas.height =
@@ -159,7 +162,7 @@ export function HoleBackground({
         ctx.moveTo(p0.x, p0.y);
         ctx.lineTo(p1.x, p1.y);
         ctx.strokeStyle = strokeColor;
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1.2;
         ctx.stroke();
         ctx.closePath();
       });
@@ -175,8 +178,8 @@ export function HoleBackground({
       const ex = area.ex + area.ew * Math.random();
       const dx = ex - sx;
       const y = start ? area.h * Math.random() : area.h;
-      const r = 0.5 + Math.random() * 2.5;
-      const vy = 0.3 + Math.random() * 0.7;
+      const r = 0.5 + Math.random() * 2;
+      const vy = 0.2 + Math.random() * 0.5;
       return {
         x: sx,
         sx,
@@ -185,7 +188,7 @@ export function HoleBackground({
         vy,
         p: 0,
         r,
-        c: `rgba(${particleRGBColor[0]}, ${particleRGBColor[1]}, ${particleRGBColor[2]}, ${Math.random() * 0.4 + 0.1})`,
+        c: `rgba(${particleRGBColor[0]}, ${particleRGBColor[1]}, ${particleRGBColor[2]}, ${Math.random() * 0.25 + 0.05})`,
       };
     },
     [particleRGBColor],
@@ -203,7 +206,7 @@ export function HoleBackground({
       sx: (width - disc.w * 0.5) / 2,
       ex: (width - disc.w * 2) / 2,
     };
-    const totalParticles = 60;
+    const totalParticles = 40;
     for (let i = 0; i < totalParticles; i++) {
       stateRef.current.particles.push(initParticle(true));
     }
@@ -212,7 +215,7 @@ export function HoleBackground({
   const drawDiscs = React.useCallback(
     (ctx: CanvasRenderingContext2D) => {
       ctx.strokeStyle = strokeColor;
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 1.2;
       const outerDisc = stateRef.current.startDisc;
       if (!outerDisc.w) return;
       ctx.beginPath();
@@ -229,7 +232,7 @@ export function HoleBackground({
       ctx.closePath();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       stateRef.current.discs.forEach((disc: any, i: number) => {
-        if (i % 5 !== 0) return;
+        if (i % 6 !== 0) return;
         if (disc.w < stateRef.current.clip.disc.w - 5) {
           ctx.save();
           ctx.clip(stateRef.current.clip.path);
@@ -270,7 +273,7 @@ export function HoleBackground({
   const moveDiscs = React.useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     stateRef.current.discs.forEach((disc: any) => {
-      disc.p = (disc.p + 0.0008) % 1;
+      disc.p = (disc.p + 0.0006) % 1;
       tweenDisc(disc);
     });
   }, [tweenDisc]);
@@ -292,15 +295,18 @@ export function HoleBackground({
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.save();
-    ctx.scale(stateRef.current.render.dpi, stateRef.current.render.dpi);
-    moveDiscs();
-    moveParticles();
-    drawDiscs(ctx);
-    drawLines(ctx);
-    drawParticles(ctx);
-    ctx.restore();
+
+    if (isVisibleRef.current) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.scale(stateRef.current.render.dpi, stateRef.current.render.dpi);
+      moveDiscs();
+      moveParticles();
+      drawDiscs(ctx);
+      drawLines(ctx);
+      drawParticles(ctx);
+      ctx.restore();
+    }
     animationFrameIdRef.current = requestAnimationFrame(tick);
   }, [moveDiscs, moveParticles, drawDiscs, drawLines, drawParticles]);
 
@@ -313,17 +319,31 @@ export function HoleBackground({
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
     init();
     tick();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(container);
+
     const handleResize = () => {
       setSize();
       setDiscs();
       setLines();
       setParticles();
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => {
+      observer.disconnect();
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameIdRef.current);
     };
@@ -331,27 +351,34 @@ export function HoleBackground({
 
   return (
     <div
+      ref={containerRef}
       data-slot="hole-background"
       className={cn(
-        "relative w-full h-full overflow-hidden",
-        "before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:block before:size-[140%] before:[background:radial-gradient(ellipse_at_50%_55%,transparent_10%,#0b0d10_60%)] before:[transform:translate3d(-50%,-50%,0)]",
-        "after:content-[''] after:absolute after:z-[5] after:top-1/2 after:left-1/2 after:block after:size-full after:[background:radial-gradient(ellipse_at_50%_75%,rgba(255,255,255,0.03)_10%,transparent_75%)] after:[transform:translate3d(-50%,-50%,0)] after:mix-blend-overlay",
+        "relative w-full h-full overflow-hidden bg-[#0b0d10]",
         className,
       )}
+      style={{ transform: "translateZ(0)", willChange: "transform" }}
       {...props}
     >
+      {/* 2D Canvas with Soft Organic Masking to Blend Seamlessly into #0b0d10 */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 block size-full opacity-30 pointer-events-none"
+        className="absolute inset-0 block size-full opacity-65 pointer-events-none"
+        style={{
+          maskImage:
+            "radial-gradient(ellipse at 50% 50%, black 30%, transparent 90%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at 50% 50%, black 30%, transparent 90%)",
+        }}
       />
-      {/* Subtle Warm Dark Monochrome Light Beam (Clean CSS Keyframe, No External Libs) */}
+      {/* Subtle Warm Monochromatic Glow */}
       <div
-        className={cn(
-          "absolute top-[-71.5%] left-1/2 z-[3] w-[30%] h-[140%] rounded-b-full blur-3xl opacity-25 mix-blend-screen [transform:translate3d(-50%,0,0)] [background-position:0%_100%] [background-size:100%_200%]",
-          "[background:linear-gradient(20deg,rgba(255,255,255,0.08),rgba(200,200,200,0.02)_16.5%,rgba(255,255,255,0.05)_33%,rgba(255,255,255,0.02)_49.5%,rgba(255,255,255,0.06)_66%,rgba(200,200,200,0.02)_85.5%,rgba(255,255,255,0.08)_100%)_0_100%_/_100%_200%] animate-pulse",
-        )}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] rounded-full blur-3xl opacity-35 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)",
+        }}
       />
-      <div className="absolute top-0 left-0 z-[7] size-full [background:repeating-linear-gradient(transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)] mix-blend-overlay opacity-30 pointer-events-none" />
       <div className="relative z-[10] size-full">{children}</div>
     </div>
   );

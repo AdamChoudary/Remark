@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function DirectionalLiquidButton({ href, className, style, children, onClick }: any) {
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const liquidRef = useRef<HTMLSpanElement>(null);
@@ -44,8 +45,8 @@ export function DirectionalLiquidButton({ href, className, style, children, onCl
     // Force reflow
     void el.offsetWidth;
     
-    // Animate the wave sliding slowly into the center
-    el.style.transition = "all 1600ms cubic-bezier(0.2, 1, 0.3, 1)";
+    // Animate the wave sliding smoothly into the center
+    el.style.transition = "all 600ms cubic-bezier(0.2, 1, 0.3, 1)";
     el.style.top = "50%";
     el.style.left = "50%";
     el.style.transform = "translate(-50%, -50%) rotate(180deg)";
@@ -56,9 +57,9 @@ export function DirectionalLiquidButton({ href, className, style, children, onCl
     const edge = getEdge(e);
     const exitPos = getStartPositions(edge);
     
-    // Animate out slowly towards the exact edge the mouse left from
+    // Animate out towards the exact edge the mouse left from
     const el = liquidRef.current;
-    el.style.transition = "all 1400ms cubic-bezier(0.2, 1, 0.3, 1)";
+    el.style.transition = "all 500ms cubic-bezier(0.2, 1, 0.3, 1)";
     el.style.top = exitPos.top;
     el.style.left = exitPos.left;
     el.style.transform = "translate(-50%, -50%) rotate(0deg)";
@@ -69,22 +70,24 @@ export function DirectionalLiquidButton({ href, className, style, children, onCl
       ref={buttonRef}
       href={href}
       onClick={onClick}
-      className={`group relative overflow-hidden transition-all duration-[1000ms] hover:border-transparent ${className}`}
+      className={`group relative overflow-hidden transition-all duration-300 hover:border-transparent ${className}`}
       style={style}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Heavy Foreground Wave */}
+      {/* Heavy Foreground Red Liquid Wave */}
       <span
         ref={liquidRef}
-        className="pointer-events-none absolute -z-10 block h-64 w-64 rounded-[42%] bg-accent"
+        className="pointer-events-none absolute z-0 block h-64 w-64 rounded-[42%] bg-accent"
         style={{
           top: "calc(100% + 150px)",
           left: "50%",
           transform: "translate(-50%, -50%) rotate(0deg)",
         }}
       />
-      {children}
+      <div className="relative z-10 inline-flex items-center gap-4 md:gap-5">
+        {children}
+      </div>
     </a>
   );
 }

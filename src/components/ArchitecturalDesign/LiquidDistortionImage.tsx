@@ -23,6 +23,7 @@ export function LiquidDistortionImage({
 
     const container = containerRef.current;
     const canvas = canvasRef.current;
+    let isVisible = true;
 
     // WebGL Scene Setup
     const scene = new THREE.Scene();
@@ -33,10 +34,12 @@ export function LiquidDistortionImage({
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: true,
+        antialias: false, // Performance optimization
         powerPreference: "high-performance",
+        precision: "mediump", // Medium precision shader for GPU speed
       });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      // Cap at 1.5x device pixel ratio for smooth 60fps rendering without GPU overload
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     } catch {
       return;
     }
@@ -61,8 +64,9 @@ export function LiquidDistortionImage({
       }
     `;
 
-    // Shery.js Style Ultra-Smooth WebGL Shader with Full Left & Top Coverage
+    // Shery.js Style High-Performance WebGL Shader
     const fragmentShader = `
+      precision mediump float;
       uniform sampler2D uTexture;
       uniform vec2 uMouse;
       uniform vec2 uVelocity;
@@ -182,13 +186,26 @@ export function LiquidDistortionImage({
       }
     };
 
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
+
+    // IntersectionObserver to pause rendering when canvas is offscreen (Saves CPU/GPU)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(container);
 
     let animationFrameId: number;
     let clock = new THREE.Clock();
 
     const render = () => {
       animationFrameId = requestAnimationFrame(render);
+      if (!isVisible) return; // Skip rendering when out of viewport!
+
       const elapsedTime = clock.getElapsedTime();
 
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
@@ -229,11 +246,12 @@ export function LiquidDistortionImage({
       mouse.targetY = 0.5;
     };
 
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("mousemove", handleMouseMove, { passive: true });
+    container.addEventListener("mouseenter", handleMouseEnter, { passive: true });
+    container.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseenter", handleMouseEnter);
@@ -247,6 +265,7 @@ export function LiquidDistortionImage({
     <div
       ref={containerRef}
       className={`relative w-full h-full min-h-[500px] lg:min-h-[660px] overflow-hidden ${className}`}
+      style={{ transform: "translateZ(0)", willChange: "transform" }}
     >
       {/* WebGL Canvas */}
       <canvas
@@ -258,6 +277,7 @@ export function LiquidDistortionImage({
         <img
           src={imageSrc}
           alt={alt}
+          loading="eager"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
       )}
